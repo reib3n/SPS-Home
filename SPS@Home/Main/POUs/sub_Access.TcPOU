@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="sub_Access" Id="{cf2eef73-b407-45a6-8d6e-b5c80300240a}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM sub_Access
+VAR
+	fbTuerGong		:	FB_Impulse;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//###################################################################################
+//##-----------------------------------ACCESS--------------------------------------##
+//###################################################################################
+
+//--------------------TürGong----------------------------------
+fbTuerGong.bInputs[0]	:= gvl_EA.bID24_01_1;
+
+fbTuerGong(
+	bR_Trig			:= TRUE,
+	bInputSecLoop	:= gvl_HA.bSecAl_NoisIn,
+	tHigh			:= T#500MS,
+	bOut			=> gvl_EA.bOD02_3
+);
+//-------------------------------------------------------------]]></ST>
+    </Implementation>
+    <LineIds Name="sub_Access">
+      <LineId Id="83" Count="3" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="81" Count="1" />
+      <LineId Id="87" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

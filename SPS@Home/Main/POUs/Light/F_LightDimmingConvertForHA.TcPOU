@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="F_LightDimmingConvertForHA" Id="{e2e2e0ec-a56f-498c-bfab-e256a41fe330}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_LightDimmingConvertForHA : INT
+VAR_INPUT
+	iHA_DimmingValue	: INT;
+END_VAR
+VAR
+	iConvertedValue		: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*---------------------------------------------------------
+Converts a Dimming Value of Home Assistant (0-255) into a compatible 
+Value for the Analog Output for Dimming (1-10V)
+0V are not allowed as an Output. Ther must be a minimum of 1V (Dec:)
+0V  =    0
+1V  =  3276
+10V = 32767
+---------------------------------------------------------*)
+IF iHA_DimmingValue = 255 THEN
+	iConvertedValue := 32767;
+ELSE
+	iConvertedValue := 3276 + (iHA_DimmingValue * 115);
+END_IF
+
+F_LightDimmingConvertForHA := iConvertedValue;]]></ST>
+    </Implementation>
+    <LineIds Name="F_LightDimmingConvertForHA">
+      <LineId Id="7" Count="0" />
+      <LineId Id="10" Count="5" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="29" Count="1" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="17" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

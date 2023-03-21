@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <GVL Name="gvl_EA" Id="{df708986-1f90-40c2-afd5-75f2f80d616e}">
+    <Declaration><![CDATA[VAR_GLOBAL
+	(* -------------------------------------------------------------------
+	Beispielvariablendeklaration (%Q* = Ausgang; %I* = Eingang:
+	bAusgang1			AT %Q*:BOOL;
+	abAusgaenge			AT %Q*:ARRAY[0..7] OF BOOL;
+	bEingang			AT %I*:BOOL;
+	iSollwertAnalog  	AT %Q*:INT;
+	
+	Nach deklaration muss das Projekt neu Erstellt werden und die Konfiguration aktiviert werden.
+	Dann kann bei den E/A Geräten die Zuordnung der Variable zum Eingang / Ausgang gemacht werden.
+	
+	INFO:
+	im HASS muss die Variable mit .bAusgang angesprochen werden.
+	---------------------------------------------------------------------- *)
+	
+	//----------OD01----------------------
+	bOD01_1		AT	%Q*:BOOL;
+	bOD01_2		AT	%Q*:BOOL;			// Lampe L2 Indirekt (Esszimmer) ACHTUNG NC
+	bOD01_3		AT	%Q*:BOOL;			// Lampe L3 Indirekt (Wohnzimmer)
+	bOD01_4		AT	%Q*:BOOL;			// Lampe L4 (Küche)
+	bOD01_5		AT	%Q*:BOOL;			// Lampe L5 (Diele EG)
+	bOD01_6		AT	%Q*:BOOL;			// Aussenlampe L6 (OST Rechts von Haustür)
+	bOD01_7		AT	%Q*:BOOL;			// Aussenlampe L7 (OST Links von Haustür)
+	bOD01_8		AT	%Q*:BOOL;			// Aussenlampe L8 (Süd - Ost)
+	
+	//----------OD02----------------------
+	bOD02_1		AT	%Q*:BOOL;			// Aussenlampe L9 (Balkon Rechts)
+	bOD02_2		AT	%Q*:BOOL;			// Aussenlampe L10 (Balkon Links)
+	bOD02_3		AT	%Q*:BOOL;			// Tür-Gong
+	bOD02_4		AT	%Q*:BOOL := TRUE;	// Steckdose S1 (Ecke Esszimmer SW)
+	bOD02_5		AT	%Q*:BOOL;			// Steckdose S2 (Balkontür Rechts Esszimmer)
+	bOD02_6		AT	%Q*:BOOL;			// Steckdose S3 (Ecke Whonzimmer NW - Fernseher) ACHTUNG NC
+	bOD02_7		AT	%Q*:BOOL;			// Aussensteckdose S4 (Haustür Rechts) 
+	bOD02_8		AT	%Q*:BOOL;			// Aussensteckdose S5 (Balkon)
+
+	//----------OD03----------------------
+	bOD03_1		AT	%Q*:BOOL;			// Licht Hobbyraum Groß
+	bOD03_2		AT	%Q*:BOOL;			// Licht Hobbyraum Klein
+	bOD03_3		AT	%Q*:BOOL;			// Aussenlampe Süd-West
+	bOD03_4		AT	%Q*:BOOL;			// Aussensteckdose Süd-West
+	bOD03_5		AT	%Q*:BOOL;			// Licht Technikraum ACHTUNG NC
+	bOD03_6		AT	%Q*:BOOL := TRUE;	// Zuleitung Strom Zisterne
+	bOD03_7		AT	%Q*:BOOL;			// Aussenlampe West
+	bOD03_8		AT	%Q*:BOOL;			// Aussensteckdose West
+
+	//----------OD04----------------------
+	bOD04_1		AT	%Q*:BOOL;			// Spot Küche
+	bOD04_2		AT	%Q*:BOOL := TRUE;	// Zuleitung Niesche Diele EG
+	bOD04_3		AT	%Q*:BOOL;			// Zuleitung Steckdose Lichtband
+	bOD04_4		AT	%Q*:BOOL;			// Vitramo Bad OG
+	bOD04_5		AT	%Q*:BOOL;			// Türöffner Haustür
+	bOD04_6		AT	%Q*:BOOL;			//
+	bOD04_7		AT	%Q*:BOOL;			//
+	bOD04_8		AT	%Q*:BOOL;			//
+
+	//----------OA01----------------------
+	iOA01_1		AT	%Q*:INT;			//Wohnzimmer	0-10V Dimmer
+	iOA01_2		AT	%Q*:INT;			//Esszimmer		0-10V Dimmer
+	iOA01_3		AT	%Q*:INT;
+	iOA01_4		AT	%Q*:INT;
+
+	//----------ID01----------------------
+	bID01_1		AT	%I*:BOOL; 			// 105 T1 (Esszimmer Indirekt)
+	bID01_2		AT	%I*:BOOL; 			// 105 T2 (Wohnzimmer Indirekt)
+	bID01_3		AT	%I*:BOOL; 			// 105 T3 (Deckenlampe Esstisch)
+	bID01_4		AT	%I*:BOOL; 			// 104 T1 (Deckenlampe Küche)
+
+	//----------ID02----------------------
+	bID02_1		AT	%I*:BOOL;			// 105 T5 (Balkontür oben)
+	bID02_2		AT	%I*:BOOL;			// 105 T6 (Balkontür unten)
+	bID02_3		AT	%I*:BOOL;			// 115 T9 (Treppenabgang EG Oben)
+	bID02_4		AT	%I*:BOOL;			// 115 T10 (Diele - Eingang Büro)
+
+	//----------ID03----------------------
+	bID03_1		AT	%I*:BOOL;			// 115 T11 (Diele - Eingang Esszimmer unten)
+	bID03_2		AT	%I*:BOOL;			// 115 T12 (Diele - Haustür / Bad EG)
+	bID03_3		AT	%I*:BOOL;			// Schalter Technikraum
+	bID03_4		AT	%I*:BOOL;			// Bewegungsmelder Aussen L6 (OST)
+
+	//----------ID04----------------------
+	bID04_1		AT	%I*:BOOL;			// Schalter Hobbyraum
+	bID04_2		AT	%I*:BOOL;
+	bID04_3		AT	%I*:BOOL;
+	bID04_4		AT	%I*:BOOL;			// Heizungssteuerung K9 -> Vitramo Bad OG
+
+	//----------ID05----------------------
+	bID05_1		AT	%I*:BOOL;			// Taster Hausgang Garagentor
+	bID05_2		AT	%I*:BOOL;			// Taster Hausgang Garagentür
+	bID05_3		AT	%I*:BOOL;
+	bID05_4		AT	%I*:BOOL;
+
+	//----------ID06----------------------
+	bID06_1		AT	%I*:BOOL;
+	bID06_2		AT	%I*:BOOL;
+	bID06_3		AT	%I*:BOOL;
+	bID06_4		AT	%I*:BOOL;
+	
+	//----------ID24-01--------------------
+	bID24_01_1		AT	%I*:BOOL;	// Türklingel Doorbird Aussen (R1)
+	bID24_01_2		AT	%I*:BOOL;	// Türklingel Doorbird Innen (R1)
+	bID24_01_3		AT	%I*:BOOL;	// Fensterkontakt Bad EG
+	bID24_01_4		AT	%I*:BOOL;	// Fensterkontakt Büro
+	
+	//----------ID24-02--------------------
+	bID24_02_1		AT	%I*:BOOL;	// Fensterkontakt Keller
+	bID24_02_2		AT	%I*:BOOL;	// Fensterkontakt Technik
+	bID24_02_3		AT	%I*:BOOL;	// Fensterkontakt Hobbyraum Süd
+	bID24_02_4		AT	%I*:BOOL;	// Kontakt Terassentür UG
+	
+	//----------ID24-03--------------------
+	bID24_03_1		AT	%I*:BOOL;	// Fensterkontakt Hobbyraum West
+	bID24_03_2		AT	%I*:BOOL;	// Türkontakt Balkontür EG
+	bID24_03_3		AT	%I*:BOOL;	// Wasseruhr Impuls = 10 Liter
+	bID24_03_4		AT	%I*:BOOL;
+	
+	//----------OADim01---------------------
+	iOADim01		AT	%Q*:INT;	// Dimmer Esszimmerlampe
+	
+	//----------OADim02---------------------
+	iOADim02 		AT 	%Q*:INT;	// Dimmer Balkon
+	
+	//----------IAV01-----------------------
+	iIAV01_1		AT	%I*:INT;	// Temperatur Wohnzimmer (°C)
+	iIAV01_2		AT	%I*:INT;	// Feuchtigkeit Wohnzimmer (%)
+	iIAV01_3		AT	%I*:INT;	// CO2 Wohnzimmer (ppm)
+	iIAV01_4		AT	%I*:INT;	// Temperatur Technikraum (°C)
+	
+	//----------IAV02-----------------------
+	iIAV02_1		AT	%I*:INT;	// Feuchtigkeit Technikraum (%)
+	iIAV02_2		AT	%I*:INT;
+	iIAV02_3		AT	%I*:INT;
+	iIAV02_4		AT	%I*:INT;
+	
+	//----------IAA01-----------------------
+	iIAA01_1		AT	%I*:INT;	//Füllstand Zisterne 4-20mA
+	
+	//----------IAPT_01---------------------
+	iIAPT_01_1		AT	%I*:INT;	//PT Temp Bühne
+	
+	
+	//-------------WERKSTATT-----------------------------
+	
+	//----------bWOD01-----------------------------------
+	bWOD01_1		AT	%Q*:BOOL;				// Licht Werkstatt ACHTUNG NC
+	bWOD01_2		AT	%Q*:BOOL;				// Strom Werkstatt
+	bWOD01_3		AT	%Q*:BOOL;				// Heizung Wärmeschrank
+	bWOD01_4		AT	%Q*:BOOL;				// Lüfter UG
+	bWOD01_5		AT	%Q*:BOOL;				// Heizer Werkstatt
+	bWOD01_6		AT	%Q*:BOOL;				// Garagentor
+	bWOD01_7		AT	%Q*:BOOL;
+	bWOD01_8		AT	%Q*:BOOL;
+	bWOD01_9		AT	%Q*:BOOL;
+	bWOD01_10		AT	%Q*:BOOL;
+	bWOD01_11		AT	%Q*:BOOL;
+	bWOD01_12		AT	%Q*:BOOL;
+	bWOD01_13		AT	%Q*:BOOL;
+	bWOD01_14		AT	%Q*:BOOL;
+	bWOD01_15		AT	%Q*:BOOL;
+	bWOD01_16		AT	%Q*:BOOL;
+	
+	//---------bWID01-------------------------------------
+	bWID01_1		AT	%I*:BOOL;				// LichtTaster Werksatt 
+	bWID01_2		AT	%I*:BOOL;				// Stromschalter Werkstatt
+	bWID01_3		AT	%I*:BOOL;				// Reedkontakt Werkstatttür
+	bWID01_4		AT	%I*:BOOL;				// Reedkontakt Werkstattfenster
+	bWID01_5		AT	%I*:BOOL;
+	bWID01_6		AT	%I*:BOOL;
+	bWID01_7		AT	%I*:BOOL;
+	bWID01_8		AT	%I*:BOOL;
+	bWID01_9		AT	%I*:BOOL;
+	bWID01_10		AT	%I*:BOOL;
+	bWID01_11		AT	%I*:BOOL;
+	bWID01_12		AT	%I*:BOOL;
+	bWID01_13		AT	%I*:BOOL;
+	bWID01_14		AT	%I*:BOOL;
+	bWID01_15		AT	%I*:BOOL;
+	bWID01_16		AT	%I*:BOOL;
+	
+	//----------IWAV01-----------------------
+	iWIAV01_1		AT	%I*:INT;	// Temperatur Werkstatt (-30 - +70 °C)
+	iWIAV01_2		AT	%I*:INT;	// Feuchtigkeit Werkstatt (%)
+	iWIAV01_3		AT	%I*:INT;
+	iWIAV01_4		AT	%I*:INT;
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="sub_Security" Id="{cc922faa-17ab-4d35-9cbc-7ff8e2c57d1e}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM sub_Security
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//###################################################################################
+//##-----------------------------------SECURITY------------------------------------##
+//###################################################################################
+
+//--------------------Variablen Setzen----------------------------------
+IF gvl_HA.bSecAl_All THEN
+	gvl_HA.bSecAl_LightAll 	:= TRUE;
+	gvl_HA.bSecAL_NoisAll	:= TRUE;
+END_IF
+
+IF gvl_HA.bSecAl_LightAll THEN
+	gvl_HA.bSecAl_LightIn	:= TRUE;
+	gvl_HA.bSecAl_LightOut	:= TRUE;
+END_IF
+
+IF gvl_HA.bSecAl_NoisAll THEN
+	gvl_HA.bSecAl_NoisIn	:= TRUE;
+	gvl_HA.bSecAl_NoisOut	:= TRUE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="sub_Security">
+      <LineId Id="71" Count="3" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="75" Count="1" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="85" Count="3" />
+      <LineId Id="84" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

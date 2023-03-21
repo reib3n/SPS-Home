@@ -1,0 +1,481 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="MAIN" Id="{d8fc0d68-0f10-47d6-941d-703010fae0a9}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	t_DelayOn		:TIME := T#2000MS;
+	t_LongPress 	:TIME := T#1000MS;
+	
+	//INDIREKTE BELEUCHTUNG ESSZIMMER
+	trig105_01 	: R_TRIG;
+	trig105_05	: R_TRIG;
+	bLightEsszimmer : BOOL := FALSE;   //Benötigt weil Esszimmer NC
+	TOF_EZ 		: TOF;
+	TON_EZ105_01: TON;
+	TON_EZ105_05: TON;
+	bLockEZ		: BOOL := FALSE;
+	bEZOff		: BOOL := FALSE;
+	
+	//TISCHBELEUCHTUNG ESSZIMMR
+	trig105_03 	: R_TRIG;
+	TON_EZ105_03: TON;
+	bEZTOff		: BOOL := FALSE;
+	
+	//BELEUCHTUNG BALKON
+	trig105_06 	: R_TRIG;
+	TON_BK105_06: TON;
+	bBALKTOff	: BOOL := FALSE;
+	
+	//WERKSTATT
+	trigWerkstattLicht : R_TRIG;
+	trigWerkstattStrom : R_TRIG;
+	trigWerkstattTuer  : F_TRIG;
+	
+	//INDIREKTE BELEUCHTUNG WOHNZIMMER
+	trig105_02 	: R_TRIG;
+	TOF_WZ		: TOF;
+	TON_WZ105_02: TON;
+	bLockWZ		: BOOL := FALSE;
+	bWZOff		: BOOL := FALSE;
+	
+	//TÜRÖFFNER HAUSTÜRE
+	trigRelais1 : R_TRIG;
+	TON_HTUER	: TON;
+	
+	//TÜRÖFFNER HAUSTÜRE
+	trigGaragentorTaster : R_TRIG;
+	trigGaragentorHass	 : R_TRIG;
+	TON_Garagentor	: TON;
+
+	//ENVIRONMENT
+	TON_ENV		: TON;
+	bBlockENV	: BOOL := FALSE;
+	
+	//ZISTERNE
+	valueZ 		: ARRAY [0..9] OF INT;
+	xZ			: REAL := 0;
+	counterZ1	: INT := 0;
+	counterZ2	: INT;
+	counterZ3	: INT := 0;
+	
+	//Wasserverbrauch
+	trigWater	:	R_TRIG;
+	
+	bTestBit	AT %I* : BOOL;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//######################################################################################
+//##------------------------------------ MAIN------- ---------------------------------##
+//######################################################################################
+
+sub_Light();
+sub_Security();
+sub_Access();
+
+//-----------------------------INDIREKTE BELEUCHTUNG - ESSZIMMER------------------------
+
+TOF_EZ(IN := bLightEsszimmer, PT := t_DelayOn);				//Timer für Einschaltverzögerung
+
+TON_EZ105_01(IN := gvl_EA.bID01_1, PT := t_LongPress);	//Timer für langen Tastendruck
+TON_EZ105_05(IN := gvl_EA.bID02_1, PT := t_LongPress);	//Timer für langen Tastendruck
+
+trig105_01(CLK := gvl_EA.bID01_1); 							//T01 105
+trig105_05(CLK := gvl_EA.bID02_1);							//T05 105
+
+IF NOT TOF_EZ.Q THEN										//Wenn der Timer abgelaufen ist
+	bLockEZ := FALSE;
+END_IF
+
+//------------------- HA Steuerung ---------------------------------------
+IF bLightEsszimmer = TRUE AND gvl_HA.bOD01_2 = FALSE THEN
+	bLightEsszimmer := FALSE;
+	bLockEZ := TRUE;
+END_IF
+
+IF bLightEsszimmer = FALSE AND gvl_HA.bOD01_2 = TRUE AND bLockEZ = FALSE THEN
+	bLightEsszimmer := TRUE;	
+END_IF
+//-------------------------------------------------------------------------
+
+IF trig105_01.Q OR trig105_05.Q THEN 										//Wenn Taster gedrückt
+	IF bLightEsszimmer = TRUE THEN							//Wenn Licht bereits eingeschaltet
+		
+		gvl_HA.iOA01_2 := F_DimmAlgoForSwitch(i_DimmingValue := gvl_HA.iOA01_2, bTurnOffTheLight => bEZOff);
+		
+		IF bEZOff THEN										//Wenn letzte Dimmstufe überschritten
+			gvl_HA.bOD01_2 := NOT gvl_HA.bOD01_2;			//Licht aus
+			bEZOff:= FALSE;
+		END_IF
+	ELSE													//Wenn Beleuchtung initial eingeschlaten wird	
+		gvl_HA.bOD01_2 := NOT gvl_HA.bOD01_2;				//Licht ein
+		gvl_HA.iOA01_2 := 255;								//Dimmer auf Maximum
+	END_IF
+END_IF
+
+IF bLockEZ = FALSE THEN
+	IF bLightEsszimmer = TRUE AND gvl_HA.bOD01_2 = FALSE THEN//Wenn Licht ausgeschalten wird
+		bLockEZ := TRUE;
+	END_IF
+	bLightEsszimmer := gvl_HA.bOD01_2;						//Schalte Ausgang wenn Sperre (TImer) frei
+END_IF
+
+// Ausschalten bei langem Tastendruck
+IF TON_EZ105_01.Q OR TON_EZ105_05.Q THEN
+	bLightEsszimmer := FALSE;
+	bLockEZ := TRUE; 
+END_IF
+
+// Wertübertrag weil Licht NC
+gvl_EA.bOD01_2 := NOT bLightEsszimmer;
+gvl_HA.bOD01_2 := bLightEsszimmer;
+
+//Konvertieren des DimmValue in verwertbaren Wert für den 0-10V Ausgang
+gvl_EA.iOA01_2 := F_LightDimmingConvertForHA(gvl_HA.iOA01_2);
+
+//----------------------------------------------------------------------------------------
+
+//-----------------------------INDIREKTE BELEUCHTUNG - WOHNZIMMER------------------------
+
+TOF_WZ(IN := gvl_EA.bOD01_3, PT := t_DelayOn);				//Timer für Einschaltverzögerung
+
+TON_WZ105_02(IN := gvl_EA.bID01_2, PT := t_LongPress);	//Timer für langen Tastendruck
+
+trig105_02(CLK := gvl_EA.bID01_2); 							//T02 105
+
+IF NOT TOF_WZ.Q THEN										//Wenn der Timer abgelaufen ist
+	bLockWZ := FALSE;
+END_IF
+
+//------------------- HA Steuerung ---------------------------------------
+IF gvl_EA.bOD01_3 = TRUE AND gvl_HA.bOD01_3 = FALSE THEN
+	gvl_EA.bOD01_3 := FALSE;
+	bLockWZ := TRUE;
+END_IF
+
+IF gvl_EA.bOD01_3 = FALSE AND gvl_HA.bOD01_3 = TRUE AND bLockWZ = FALSE THEN
+	gvl_EA.bOD01_3 := TRUE;	
+END_IF
+//-------------------------------------------------------------------------
+
+IF trig105_02.Q THEN 										//Wenn Taster gedrückt
+	IF gvl_EA.bOD01_3 = TRUE THEN							//Wenn Licht bereits eingeschaltet
+		
+		gvl_HA.iOA01_1 := F_DimmAlgoForSwitch(i_DimmingValue := gvl_HA.iOA01_1, bTurnOffTheLight => bWZOff);
+		
+		IF bWZOff THEN										//Wenn letzte Dimmstufe überschritten
+			gvl_HA.bOD01_3 := NOT gvl_HA.bOD01_3;			//Licht aus
+			bWZOff:= FALSE;
+		END_IF
+	ELSE													//Wenn Beleuchtung initial eingeschlaten wird	
+		gvl_HA.bOD01_3 := NOT gvl_HA.bOD01_3;				//Licht ein
+		gvl_HA.iOA01_1 := 255;								//Dimmer auf Maximum
+	END_IF
+END_IF
+
+IF bLockWZ = FALSE THEN
+	IF gvl_EA.bOD01_3 = TRUE AND gvl_HA.bOD01_3 = FALSE THEN//Wenn Licht ausgeschalten wird
+		bLockWZ := TRUE;
+	END_IF
+	gvl_EA.bOD01_3 := gvl_HA.bOD01_3;						//Schalte Ausgang wenn Sperre (TImer) frei
+END_IF
+
+//Konvertieren des DimmValue in verwertbaren Wert für den 0-10V Ausgang
+gvl_EA.iOA01_1 := F_LightDimmingConvertForHA(gvl_HA.iOA01_1);
+
+// Ausschalten bei langem Tastendruck
+IF TON_WZ105_02.Q THEN
+	gvl_HA.bOD01_3 := FALSE;
+	gvl_EA.bOD01_3 := FALSE;
+	bLockWZ := TRUE; 
+END_IF
+
+//----------------------------------------------------------------------------------------
+
+//------------------------------------BELEUCHTUNG ESSTISCH--------------------------------
+trig105_03(CLK := gvl_EA.bID01_3); //T03 105
+
+TON_EZ105_03(IN := gvl_EA.bID01_3, PT := t_LongPress);	//Timer für langen Tastendruck
+
+IF trig105_03.Q THEN
+	IF gvl_EA.iOADim01 = 0 THEN				//Wenn Licht aus
+		gvl_HA.iOADim01 := 255;				//Komplett gedimmt starten ALT 255
+		gvl_HA.bODDim01 := TRUE;
+	ELSE									//Wenn Licht bereits an
+		gvl_HA.iOADim01 := F_DimmAlgoForSwitch(i_DimmingValue := gvl_HA.iOADim01, bTurnOffTheLight => bEZTOff);
+	END_IF
+	
+	IF bEZTOff THEN							//Wenn letzte Dimmstufe erreicht
+		gvl_EA.iOADim01 := 0;
+		gvl_HA.iOADim01 := 0;
+		gvl_HA.bODDim01 := FALSE;
+		bEZTOff := FALSE;
+	END_IF
+END_IF
+
+IF gvl_HA.bODDim01 = TRUE AND gvl_HA.iOADim01 = 0 THEN		//Wenn über HASS Licht an
+	gvl_HA.iOADim01 := 255;
+END_IF
+
+IF gvl_HA.bODDim01 = FALSE AND gvl_HA.iOADim01 > 0 THEN
+	gvl_EA.iOADim01 := 0;
+	gvl_HA.iOADim01 := 0;
+END_IF
+
+IF gvl_EA.iOADim01 > 0 OR gvl_HA.iOADim01 > 0 THEN
+	gvl_EA.iOADim01 := F_LightDimmingConvertForHA(gvl_HA.iOADim01);
+END_IF
+
+IF TON_EZ105_03.Q THEN		//Aus wenn langer Tastendruck
+	gvl_EA.iOADim01 := 0;
+	gvl_HA.iOADim01 := 0;
+	gvl_HA.bODDim01 := FALSE;
+END_IF
+
+//----------------------------------------------------------------------------------------
+
+//------------------------------------BELEUCHTUNG BALKON--------------------------------
+trig105_06(CLK := gvl_EA.bID02_2); //T06 105
+
+TON_BK105_06(IN := gvl_EA.bID02_2, PT := t_LongPress);	//Timer für langen Tastendruck
+
+IF trig105_06.Q AND gvl_HA.bENV_NoDaylight THEN
+	IF gvl_EA.iOADim02 = 0 THEN				//Wenn Licht aus
+		gvl_HA.iOADim02 := 255;				//Komplett gedimmt starten ALT 255
+		gvl_HA.bODDim02 := TRUE;
+	ELSE									//Wenn Licht bereits an
+		gvl_HA.iOADim02 := F_DimmAlgoForSwitch(i_DimmingValue := gvl_HA.iOADim02, bTurnOffTheLight => bBALKTOff);
+	END_IF
+	
+	IF bBALKTOff THEN							//Wenn letzte Dimmstufe erreicht
+		gvl_EA.iOADim02 := 0;
+		gvl_HA.iOADim02 := 0;
+		gvl_HA.bODDim02 := FALSE;
+		bBALKTOff := FALSE;
+	END_IF
+END_IF
+
+IF gvl_HA.bODDim02 = TRUE AND gvl_HA.iOADim02 = 0 THEN		//Wenn über HASS Licht an
+	gvl_HA.iOADim02 := 255;
+END_IF
+
+IF gvl_HA.bODDim02 = FALSE AND gvl_HA.iOADim02 > 0 THEN
+	gvl_EA.iOADim02 := 0;
+	gvl_HA.iOADim02 := 0;
+END_IF
+
+IF gvl_EA.iOADim02 > 0 OR gvl_HA.iOADim02 > 0 THEN
+	gvl_EA.iOADim02 := F_LightDimmingConvertForHA(gvl_HA.iOADim02);
+END_IF
+
+IF TON_BK105_06.Q THEN			//Aus bei langem Tastendruck
+	gvl_EA.iOADim02 := 0;
+	gvl_HA.iOADim02 := 0;
+	gvl_HA.bODDim02 := FALSE;
+END_IF
+
+//----------------------------------------------------------------------------------------
+
+//------------------------------------ÖFFNER HAUSTÜRE--------------------------------
+//gvl_EA.bOD02_3 := gvl_EA.bID24_01_1;  // GONG -> Türklingel R1
+
+//ÖFFNER LOGIK
+trigRelais1(CLK := gvl_EA.bID24_01_2);
+TON_HTUER(IN := gvl_HA.bHaustuerOeffnerImpuls, PT := T#5000MS);				//Timer für Impulsöffnung
+
+IF gvl_HA.bHaustuerOeffnerDauer THEN
+
+	gvl_EA.bOD04_5 := TRUE; //Haustür IMMER Offen
+	gvl_HA.bHaustuerOeffnerImpuls := FALSE;
+
+ELSE
+	IF trigRelais1.Q THEN // Wenn Türöffner (Innenstation Relais 1 - Klingel)
+
+		gvl_HA.bHaustuerOeffnerImpuls := TRUE;
+
+	END_IF
+	
+	// Wird benötigt um Daueröffnung wieder aufzuheben.
+	IF NOT gvl_HA.bHaustuerOeffnerDauer AND NOT gvl_HA.bHaustuerOeffnerImpuls THEN
+		gvl_EA.bOD04_5 := FALSE; 	//Haustür zu
+	END_IF
+	
+	IF gvl_HA.bHaustuerOeffnerImpuls THEN  // Wenn Impuls gewünscht
+	
+		gvl_EA.bOD04_5 := TRUE; // Öffne Tür
+		//Starte Timer
+		
+		IF gvl_HA.bENV_NoDaylight THEN
+			gvl_HA.bOD01_5 := TRUE;		// Beleuchtung Hausgang ein, wenn Dunkel	
+		END_IF
+
+	END_IF
+
+	IF TON_HTUER.Q THEN
+		gvl_HA.bHaustuerOeffnerImpuls := FALSE;
+		gvl_EA.bOD04_5 := FALSE; // Schließe Tür
+	END_IF
+	
+END_IF
+//----------------------------------------------------------------------------------------
+
+//------------------------------------GARAGENTOR------------------------------------------
+TON_Garagentor(IN := gvl_EA.bWOD01_6, PT := T#500MS);				//Timer für Impulsöffnung
+
+trigGaragentorTaster(CLK := gvl_EA.bID05_1);
+trigGaragentorHass(CLK := gvl_HA.bWOD01_6);
+
+IF trigGaragentorTaster.Q OR trigGaragentorHass.Q THEN
+	gvl_EA.bWOD01_6 := TRUE;
+END_IF
+	
+IF TON_Garagentor.Q THEN
+	gvl_EA.bWOD01_6 := FALSE; // Schließe Tor
+	gvl_HA.bWOD01_6 := FALSE;
+END_IF
+//-------------------------------------------------------------------------------------
+
+//-------------------------------------HEIZUNG--------------------------------------------
+
+//Vitramo BAD OG
+IF gvl_HA.bOD04_4 THEN
+	gvl_EA.bOD04_4 := TRUE;
+ELSE
+	gvl_EA.bOD04_4 := gvl_EA.bID04_4;		//Steuerung über Heizung
+END_IF
+
+
+//----------------------------------------------------------------------------------------
+
+//-------------------------------------WERKSTATT-------------------------------------------
+
+// LICHT
+trigWerkstattLicht(CLK := gvl_EA.bWID01_1);
+
+IF trigWerkstattLicht.Q THEN
+	gvl_HA.bWOD01_1 := NOT gvl_HA.bWOD01_1;
+END_IF
+
+gvl_EA.bWOD01_1 := NOT gvl_HA.bWOD01_1;
+
+// Automatisch Licht an Wenn Tür auf (Nachts)
+trigWerkstattTuer(CLK := gvl_EA.bWID01_3);
+
+IF gvl_HA.bENV_NoDaylight AND gvl_EA.bWOD01_1 AND trigWerkstattTuer.Q THEN
+	gvl_EA.bWOD01_1 := FALSE;
+	gvl_HA.bWOD01_1 := TRUE;
+END_IF
+
+//Hauptstromversorgung
+//trigWerkstattStrom(CLK := gvl_EA.bWID01_2);
+
+//IF trigWerkstattStrom.Q THEN
+	// Wenn Heizer an, dann Heizer mit Ausschalten
+//	IF gvl_EA.bWOD01_5 AND gvl_EA.bWOD01_2 THEN
+//		gvl_EA.bWOD01_5 := FALSE;
+//	END_IF
+	
+//	gvl_EA.bWOD01_2 := NOT gvl_EA.bWOD01_2;
+	
+//END_IF
+
+gvl_EA.bWOD01_2 := FALSE;
+
+//------------------------------------SONSTIGES--------------------------------
+
+//--------------------------------- STECKDOSEN --------------------------------
+gvl_EA.bOD02_6 := NOT gvl_HA.bOD02_6;
+
+//--------------------------------- INVERT Input Windows / Doors ------------------------
+gvl_HA.bID24_01_3 := NOT gvl_EA.bID24_01_3;		// Fensterkontakt Bad EG
+gvl_HA.bID24_01_4 := NOT gvl_EA.bID24_01_4;		// Fensterkontakt Büro
+gvl_HA.bID24_02_1 := NOT gvl_EA.bID24_02_1;		// Fensterkontakt Keller
+gvl_HA.bID24_02_2 := NOT gvl_EA.bID24_02_2;		// Fensterkontakt Technik
+gvl_HA.bID24_02_3 := NOT gvl_EA.bID24_02_3;		// Fensterkontakt Hobbyraum Süd
+gvl_HA.bID24_02_4 := NOT gvl_EA.bID24_02_4;		// Kontakt Terassentür UG
+gvl_HA.bID24_03_1 := NOT gvl_EA.bID24_03_1;		// Fensterkontakt Hobbyraum West
+gvl_HA.bID24_03_2 := NOT gvl_EA.bID24_03_2;		// Kontakt Balkontür
+gvl_HA.bWID01_3	  := NOT gvl_EA.bWID01_3;		// Reedkontakt Werkstatttür
+gvl_HA.bWID01_4	  := NOT gvl_EA.bWID01_4;		// Reedkontakt Werkstattfenster
+
+//---------------------------------- ENVIRONMENT ----------------------------
+TON_ENV(IN := bBlockENV, PT := T#60000MS);
+
+IF NOT bBlockENV THEN
+	//----------------------------------------------
+	gvl_HA.iIAV01_1 := F_Convert10V2Temp(gvl_EA.iIAV01_1);		// Konvertiere Wohnzimmer Temperatur (0 - 50 °C)
+	gvl_HA.iIAV01_2 := F_Convert10V2Hum(gvl_EA.iIAV01_2);		// Konvertiere Wohnzimmer Feuchtigkeit
+	gvl_HA.iIAV01_3 := F_Convert10V2CO2(gvl_EA.iIAV01_3);		// Konvertiere Wohnzimmer CO2
+	
+	gvl_HA.iIAPT_01_1 := gvl_EA.iIAPT_01_1;						// Temperatur Bühne
+	
+	gvl_HA.iIAV01_4 := F_Convert10V2Temp2(gvl_EA.iIAV01_4);		// Konvertiere Technikraum Temperatur (-30 - +70 °C)
+	gvl_HA.iIAV02_1 := F_Convert10V2Hum(gvl_EA.iIAV02_1);		// Konvertiere Technikraum Feuchtigkeit
+	
+	gvl_HA.iWIAV01_1 := F_Convert10V2Temp2(gvl_EA.iWIAV01_1);	// Konvertiere Wohnzimmer Temperatur (-30 - +70 °C)
+	gvl_HA.iWIAV01_2 := F_Convert10V2Hum(gvl_EA.iWIAV01_2);		// Konvertiere Werkstatt Feuchtigkeit
+	
+	//---------------------------Zisterne Arithmetisches Mittel------------------------------
+	IF counterZ1 < 10 THEN //Initiale Befüllung
+		valueZ[counterZ1]  := gvl_EA.iIAA01_1;
+		counterZ1 := counterZ1 + 1;
+	ELSE
+		xZ := 0;
+		// Berechnung
+		FOR counterZ2 := 0 TO 9 BY 1 DO
+    		xZ := xZ + valueZ[counterZ2];
+		END_FOR;
+		
+		xZ := xZ / 10;	//Mitteln
+		counterZ3 := (counterZ3 + 1) MOD 10;
+ 		valueZ[counterZ3] := gvl_EA.iIAA01_1;
+	END_IF
+	
+	gvl_HA.iIAA01_1 		:= REAL_TO_INT(xZ / 100); // Zisterne 4-20mA durch 100 geglättet
+	gvl_HA.iIAA01_1_Proz 	:= F_ConvertZisterne_mA2Perc(gvl_HA.iIAA01_1);			// Zisterne %
+	gvl_HA.iIAA01_1_Liter	:= F_ConvertZisterne_Perc2Liter(gvl_HA.iIAA01_1_Proz);	// Zisterne Liter
+	
+	//----------------------------------------------
+	bBlockENV := TRUE;
+END_IF
+
+IF TON_ENV.Q THEN
+	bBlockENV := FALSE;
+END_IF
+
+//---------------------------------------WASSERVERBRAUCH ZÄHLEN (1 = 10 Liter)--------------
+trigWater(CLK := gvl_EA.bID24_03_3);
+
+IF trigWater.Q THEN
+	gvl_RETAIN.waterConsumption := gvl_RETAIN.waterConsumption + 1;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="80" Count="3" />
+      <LineId Id="860" Count="2" />
+      <LineId Id="84" Count="50" />
+      <LineId Id="136" Count="1" />
+      <LineId Id="506" Count="0" />
+      <LineId Id="504" Count="0" />
+      <LineId Id="503" Count="0" />
+      <LineId Id="505" Count="0" />
+      <LineId Id="138" Count="145" />
+      <LineId Id="335" Count="42" />
+      <LineId Id="626" Count="0" />
+      <LineId Id="378" Count="0" />
+      <LineId Id="589" Count="0" />
+      <LineId Id="631" Count="3" />
+      <LineId Id="596" Count="0" />
+      <LineId Id="635" Count="1" />
+      <LineId Id="607" Count="0" />
+      <LineId Id="619" Count="0" />
+      <LineId Id="621" Count="0" />
+      <LineId Id="628" Count="0" />
+      <LineId Id="622" Count="0" />
+      <LineId Id="624" Count="0" />
+      <LineId Id="385" Count="113" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="sub_Light" Id="{58c72172-b513-4044-8107-df9cb8dc3624}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM sub_Light
+VAR
+		fbLichtHausgang 	: FB_Light;
+		fbLichtTechnikraum 	: FB_Light;
+		fbLichtHobbyraum 	: FB_Light;
+		fbLichtKueche		: FB_Light;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//###################################################################################
+//##-----------------------------------BELEUCHTUNG---------------------------------##
+//###################################################################################
+
+//--------------------HAUSGANG EG----------------------------------
+fbLichtHausgang.bInputs[0] 	:= gvl_EA.bID02_4;
+fbLichtHausgang.bInputs[1] 	:= gvl_EA.bID03_1;
+fbLichtHausgang.bInputs[2] 	:= gvl_EA.bID03_2;
+fbLichtHausgang.bInputs[3] 	:= gvl_EA.bID02_3;
+
+fbLichtHausgang
+(
+	bInputSec		:= gvl_HA.bSecAl_LightIn,
+	bInputHA		:= gvl_HA.bOD01_5,
+	bOut 			=> gvl_EA.bOD01_5,
+);
+//-----------------------------------------------------------------
+
+//--------------------KÜCHE----------------------------------------
+fbLichtKueche.bInputs[0]	:= gvl_EA.bID01_4;
+
+fbLichtKueche
+(
+	bInputSec		:= gvl_HA.bSecAl_LightIn,
+	bInputHA	:=	gvl_HA.bOD01_4,
+	bOut		=>	gvl_EA.bOD01_4, //Licht Küche
+	bOut		=>	gvl_EA.bOD04_1,	//Spot Küche
+);
+//-----------------------------------------------------------------
+
+//--------------------TECHNIKRAUM----------------------------------
+fbLichtTechnikraum.bInputs[0] := gvl_EA.bID03_3;
+
+fbLichtTechnikraum
+(	
+	bInputSec		:= gvl_HA.bSecAl_LightIn,
+	bLightInv_NC	:= TRUE,
+	bInputHA		:= gvl_HA.bOD03_5,
+	bAllFlanks 		:= TRUE,
+	bOut 			=> gvl_EA.bOD03_5,
+);
+//-----------------------------------------------------------------
+
+//--------------------HOBBYRAUM------------------------------------
+fbLichtHobbyraum.bInputs[0] := gvl_EA.bID04_1;
+
+fbLichtHobbyraum
+(	
+	bInputSec		:= gvl_HA.bSecAl_LightIn,
+	bInputHA		:= gvl_HA.bOD03_1,
+	bAllFlanks 		:= TRUE,
+	bOut 			=> gvl_EA.bOD03_1,
+	bOut			=> gvl_EA.bOD03_2,
+);
+//-----------------------------------------------------------------]]></ST>
+    </Implementation>
+    <LineIds Name="sub_Light">
+      <LineId Id="17" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="7" Count="6" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="14" Count="1" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="27" Count="4" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="32" Count="2" />
+      <LineId Id="36" Count="1" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="41" Count="3" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="45" Count="3" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="51" Count="1" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="54" Count="3" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="58" Count="3" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="63" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

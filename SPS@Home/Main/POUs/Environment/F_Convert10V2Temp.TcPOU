@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="F_Convert10V2Temp" Id="{cf8c24de-51eb-467f-b321-46e2aa96626e}" SpecialFunc="None">
+    <Declaration><![CDATA[	FUNCTION F_Convert10V2Temp : INT
+VAR_INPUT
+	i_Value			:	INT;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	r_converted2V 	: 	REAL;
+	i_finalValue	:	INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// For Convertion of 0-10V Signal from 0-50°C
+
+r_converted2V := i_Value * 0.00030518509476;
+i_finalValue := REAL_TO_INT((r_converted2V / 2) * 100);
+
+F_Convert10V2Temp := i_finalValue;]]></ST>
+    </Implementation>
+    <LineIds Name="F_Convert10V2Temp">
+      <LineId Id="15" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
