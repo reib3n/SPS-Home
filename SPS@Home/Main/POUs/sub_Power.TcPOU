@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="sub_Power" Id="{b9be3092-8a4e-4bbc-8f3f-2431869a4bad}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM sub_Power
+VAR
+		fbPowerWerkstatt	:	FB_PowerSocket;
+		fbPowerFernseher	:	FB_PowerSocket;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//###################################################################################
+//##-----------------------------------POWER---------------------------------------##
+//###################################################################################
+
+//--------------------WERKSTATT STECKDOSE----------------------------------
+fbPowerWerkstatt.bInputs[0] 	:= gvl_EA.bWID01_2;
+
+fbPowerWerkstatt
+(
+	bPowerInv_NC	:=	TRUE,
+	bInputHA		:=	gvl_HA.bWOD01_2	,
+	bOut			=>	gvl_EA.bWOD01_2,
+);
+//-------------------------------------------------------------------------
+
+//--------------------FERNSEHER STECKDOSE----------------------------------
+fbPowerFernseher
+(
+	bPowerInv_NC	:=	TRUE,
+	bInputHA		:=	gvl_HA.bOD02_6,
+	bOut			=>	gvl_EA.bOD02_6,
+);
+//-------------------------------------------------------------------------]]></ST>
+    </Implementation>
+    <LineIds Name="sub_Power">
+      <LineId Id="71" Count="3" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="110" Count="0" />
+      <LineId Id="113" Count="0" />
+      <LineId Id="112" Count="0" />
+      <LineId Id="114" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="121" Count="2" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="128" Count="1" />
+      <LineId Id="132" Count="2" />
+      <LineId Id="136" Count="2" />
+      <LineId Id="124" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="FB_LightDimm" Id="{1a308321-e806-4d65-8a25-af35e58ac3e1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_LightDimm
+VAR_INPUT
+	bInputs				:	ARRAY[0..nSize] OF BOOL;	//Input Schalter oder Taster
+	bInputSec			:	BOOL := FALSE;				//Input für Security Schaltung
+	bAllFlanks			:	BOOL := FALSE;				//Alle Flanken verwenden?
+	bOnlyAtNight		:	BOOL := FALSE;				//Schalter funktioniert nur Nachts
+	tLongPress			:	TIME := T#2000MS;			//Long Press Zeit für AUS!
+	iNumPress4Dimm		:	UINT := 4;					//Reduktion der Helligkeit je Tastendruck
+END_VAR
+VAR_IN_OUT
+	bInputHA		:	BOOL;						//Input (HA)
+	iDimmValue		:	INT;						//DimmValue Input
+END_VAR
+VAR_OUTPUT
+	iOut			:	INT;
+END_VAR
+VAR CONSTANT
+	nSize 			:	UINT := 5; 					//Maximale Anzahl Eingänge
+END_VAR
+VAR
+	fbRtrig			:	ARRAY[0..nSize] OF R_TRIG;
+	fbFtrig			:	ARRAY[0..nSize] OF F_TRIG;
+	tonLongPress	:	ARRAY[0..nSize] OF TON;
+	
+	Idx				:	UINT;
+	
+	bSecRising		:	BOOL := TRUE;
+
+END_VAR
+VAR_TEMP
+	iCountDimm		:	UINT;
+	iCalcReduction	:	INT;
+	
+	bTrigger		:	BOOL := FALSE;
+	bAllOFF			:	BOOL := FALSE;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+IF bInputSec THEN	//Party bei Security Falls
+	
+	bInputHA	:= TRUE;
+	
+	IF bSecRising THEN
+		
+		iDimmValue := iDimmValue + 5;
+
+		IF iDimmValue = 255 THEN
+			bSecRising := FALSE;
+		END_IF	
+	
+	ELSE
+	
+		iDimmValue := iDimmValue - 5;
+
+		IF iDimmValue <= 0 THEN
+			bSecRising := TRUE;
+		END_IF	
+	
+	END_IF
+
+	
+ELSE	//Normale Funktion
+
+	//Init alle Flankentrigger und Frage diese ab
+	FOR Idx := 0 TO nSize DO
+	
+		//Alle R_Trig
+		fbRtrig[Idx](CLK:= bInputs[Idx], Q=> );
+		tonLongPress[Idx](IN := bInputs[Idx], PT := tLongPress);
+		
+		bTrigger := bTrigger OR fbRtrig[Idx].Q;
+		bAllOFF	:= bAllOFF OR tonLongPress[Idx].Q;
+	
+		IF bAllFlanks THEN //Wenn alle Flanken
+			fbFtrig[Idx](CLK:= bInputs[Idx], Q=> );
+			bTrigger := bTrigger OR fbFtrig[Idx].Q;
+		END_IF
+	
+	END_FOR
+
+	IF (iDimmValue > 0 OR bInputHA) AND iOut = 0 THEN		//Wenn über HA Eingeschaltet
+		bInputHA	:= TRUE;
+		
+		IF iDimmValue = 0 THEN
+			iDimmValue	:= 255;
+		END_IF
+	END_IF
+	
+	IF bOnlyAtNight THEN
+		IF NOT gvl_HA.bENV_NoDaylight THEN
+			bTrigger	:= FALSE;
+		END_IF
+	END_IF
+	
+	IF bTrigger THEN
+		
+		IF iOut = 0 THEN					//Erstes Einschalten über Schalter
+			bInputHA	:= TRUE;
+			iDimmValue	:= 255;
+		
+		ELSE
+			
+			FOR iCountDimm := 0 TO iNumPress4Dimm DO
+			
+			iCalcReduction := (256 - (iCountDimm * (256 / iNumPress4Dimm)));
+		
+			IF iDimmValue > iCalcReduction THEN
+				iDimmValue := iCalcReduction;
+				EXIT;
+			END_IF
+		
+			END_FOR
+		
+		END_IF
+		
+	END_IF
+
+END_IF
+
+IF bAllOFF OR bInputHA = FALSE OR iDimmValue <= 0 THEN		//Alles Ausschalten
+	bInputHA	:= FALSE;
+	iDimmValue	:= 0;
+END_IF
+
+iOut := F_LightDimmingConvertForHA(iDimmValue);
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_LightDimm">
+      <LineId Id="198" Count="0" />
+      <LineId Id="196" Count="0" />
+      <LineId Id="244" Count="0" />
+      <LineId Id="489" Count="0" />
+      <LineId Id="488" Count="0" />
+      <LineId Id="492" Count="0" />
+      <LineId Id="495" Count="0" />
+      <LineId Id="497" Count="0" />
+      <LineId Id="501" Count="0" />
+      <LineId Id="499" Count="0" />
+      <LineId Id="502" Count="1" />
+      <LineId Id="498" Count="0" />
+      <LineId Id="496" Count="0" />
+      <LineId Id="493" Count="0" />
+      <LineId Id="505" Count="0" />
+      <LineId Id="507" Count="0" />
+      <LineId Id="506" Count="0" />
+      <LineId Id="508" Count="1" />
+      <LineId Id="504" Count="0" />
+      <LineId Id="494" Count="0" />
+      <LineId Id="247" Count="0" />
+      <LineId Id="199" Count="0" />
+      <LineId Id="201" Count="0" />
+      <LineId Id="204" Count="5" />
+      <LineId Id="363" Count="1" />
+      <LineId Id="210" Count="0" />
+      <LineId Id="370" Count="0" />
+      <LineId Id="211" Count="6" />
+      <LineId Id="388" Count="0" />
+      <LineId Id="378" Count="0" />
+      <LineId Id="392" Count="0" />
+      <LineId Id="396" Count="3" />
+      <LineId Id="391" Count="0" />
+      <LineId Id="389" Count="0" />
+      <LineId Id="483" Count="1" />
+      <LineId Id="486" Count="1" />
+      <LineId Id="485" Count="0" />
+      <LineId Id="301" Count="0" />
+      <LineId Id="394" Count="0" />
+      <LineId Id="379" Count="0" />
+      <LineId Id="387" Count="0" />
+      <LineId Id="385" Count="1" />
+      <LineId Id="467" Count="1" />
+      <LineId Id="470" Count="0" />
+      <LineId Id="479" Count="0" />
+      <LineId Id="471" Count="7" />
+      <LineId Id="469" Count="0" />
+      <LineId Id="383" Count="0" />
+      <LineId Id="480" Count="0" />
+      <LineId Id="402" Count="0" />
+      <LineId Id="380" Count="0" />
+      <LineId Id="202" Count="0" />
+      <LineId Id="200" Count="0" />
+      <LineId Id="372" Count="0" />
+      <LineId Id="371" Count="0" />
+      <LineId Id="375" Count="0" />
+      <LineId Id="377" Count="0" />
+      <LineId Id="374" Count="0" />
+      <LineId Id="429" Count="0" />
+      <LineId Id="428" Count="0" />
+      <LineId Id="197" Count="0" />
+      <LineId Id="94" Count="0" />
+      <LineId Id="13" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

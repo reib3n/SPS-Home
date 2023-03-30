@@ -776,11 +776,6 @@
 							<Comment><![CDATA[Beleuchtung Werkstatt]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
-						<Var>
-							<Name>gvl_HA.bWOD01_6</Name>
-							<Comment><![CDATA[GARAGENTOR]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
 					</Vars>
 					<Vars VarGrpType="8">
 						<Name>PLC1_Main Retains</Name>

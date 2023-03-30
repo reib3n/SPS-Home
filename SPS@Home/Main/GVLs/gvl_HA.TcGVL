@@ -92,13 +92,17 @@ bSecAl_NoisOut		:BOOL := FALSE;		//Aktiviert dauerhaft alle Alarmsingale Aussen
 	
 	//BELEUCHTUNG WERKSTATT
 	bWOD01_1			AT	%Q*:BOOL;			//Beleuchtung Werkstatt
+	bWOD01_2					:BOOL;			//Steckdosen Werkstatt
 	
 	//TEMPERATUR USW WERKSTATT
 	iWIAV01_1		AT	%I*:INT;				// Temperatur Wohnzimmer (-30 - +70 °C)
 	iWIAV01_2		AT	%I*:INT;				// Feuchtigkeit Wohnzimmer (%)
 	
 	//GARAGENTOR
-	bWOD01_6 		AT	%Q*:BOOL := FALSE;
+	bWOD01_6 		:BOOL;
+	
+	//TÜRGONG
+	bOD02_3			:BOOL;
 
 END_VAR]]></Declaration>
   </GVL>

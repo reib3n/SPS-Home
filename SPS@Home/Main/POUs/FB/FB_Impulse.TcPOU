@@ -12,6 +12,9 @@ END_VAR
 VAR_OUTPUT
 	bOut			:	BOOL;
 END_VAR
+VAR_IN_OUT
+	bInputHA		:	BOOL;
+END_VAR
 VAR CONSTANT
 	nSize 			:	UINT := 5; 					//Maximale Anzahl Eingänge
 END_VAR
@@ -26,8 +29,10 @@ VAR
 	
 	tpPulse			:	TP;
 	tofDelay		:	TOF;
+	
 END_VAR
 VAR_TEMP
+
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[
@@ -70,15 +75,19 @@ ELSE //----------------------------------Normaler Impuls
 		END_IF
 	
 	END_FOR
-
+	
+	bTrigger := bTrigger OR bInputHA;
+	
 	IF NOT tofDelay.Q THEN
 		tpPulse(IN := bTrigger, PT := tHigh);
 	END_IF
 
 	IF tpPulse.Q THEN
-		bOut := TRUE;
+		bOut 		:= TRUE;
+		bInputHA 	:= TRUE;
 	ELSE
-		bOut := FALSE;
+		bOut 		:= FALSE;
+		bInputHA	:= FALSE;
 		tofDelay(IN := bOut, PT := tDelay);
 	END_IF
 	
@@ -115,6 +124,7 @@ END_IF]]></ST>
       <LineId Id="273" Count="0" />
       <LineId Id="70" Count="0" />
       <LineId Id="41" Count="0" />
+      <LineId Id="451" Count="1" />
       <LineId Id="290" Count="0" />
       <LineId Id="282" Count="0" />
       <LineId Id="281" Count="0" />
@@ -122,8 +132,10 @@ END_IF]]></ST>
       <LineId Id="274" Count="0" />
       <LineId Id="269" Count="0" />
       <LineId Id="275" Count="0" />
+      <LineId Id="453" Count="0" />
       <LineId Id="285" Count="0" />
       <LineId Id="333" Count="0" />
+      <LineId Id="454" Count="0" />
       <LineId Id="304" Count="0" />
       <LineId Id="302" Count="0" />
       <LineId Id="276" Count="0" />

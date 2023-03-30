@@ -25,7 +25,20 @@ END_IF
 IF gvl_HA.bSecAl_NoisAll THEN
 	gvl_HA.bSecAl_NoisIn	:= TRUE;
 	gvl_HA.bSecAl_NoisOut	:= TRUE;
-END_IF]]></ST>
+END_IF
+
+
+//--------------------------------- INVERT Input Windows / Doors ------------------------
+gvl_HA.bID24_01_3 := NOT gvl_EA.bID24_01_3;		// Fensterkontakt Bad EG
+gvl_HA.bID24_01_4 := NOT gvl_EA.bID24_01_4;		// Fensterkontakt Büro
+gvl_HA.bID24_02_1 := NOT gvl_EA.bID24_02_1;		// Fensterkontakt Keller
+gvl_HA.bID24_02_2 := NOT gvl_EA.bID24_02_2;		// Fensterkontakt Technik
+gvl_HA.bID24_02_3 := NOT gvl_EA.bID24_02_3;		// Fensterkontakt Hobbyraum Süd
+gvl_HA.bID24_02_4 := NOT gvl_EA.bID24_02_4;		// Kontakt Terassentür UG
+gvl_HA.bID24_03_1 := NOT gvl_EA.bID24_03_1;		// Fensterkontakt Hobbyraum West
+gvl_HA.bID24_03_2 := NOT gvl_EA.bID24_03_2;		// Kontakt Balkontür
+gvl_HA.bWID01_3	  := NOT gvl_EA.bWID01_3;		// Reedkontakt Werkstatttür
+gvl_HA.bWID01_4	  := NOT gvl_EA.bWID01_4;		// Reedkontakt Werkstattfenster]]></ST>
     </Implementation>
     <LineIds Name="sub_Security">
       <LineId Id="71" Count="3" />
@@ -40,6 +53,8 @@ END_IF]]></ST>
       <LineId Id="82" Count="0" />
       <LineId Id="85" Count="3" />
       <LineId Id="84" Count="0" />
+      <LineId Id="94" Count="11" />
+      <LineId Id="93" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

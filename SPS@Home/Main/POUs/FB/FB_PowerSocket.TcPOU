@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="FB_PowerSocket" Id="{aea54d4a-512c-4d3d-931e-e22a15f628d2}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_PowerSocket
+VAR_INPUT
+	bInputs			:	ARRAY[0..nSize] OF BOOL;	//Input Schalter oder Taster
+	bPowerInv_NC	:	BOOL := FALSE;				//Ist die Schaltung invertiert? (NC)
+	bAllFlanks		:	BOOL := FALSE;				//Alle Flanken verwenden?
+END_VAR
+VAR_IN_OUT
+	bInputHA		:	BOOL;						//Input (HA)
+END_VAR
+VAR_OUTPUT
+	bOut			:	BOOL;
+END_VAR
+VAR CONSTANT
+	nSize 			:	UINT := 5; 					//Maximale Anzahl Eingänge
+END_VAR
+VAR
+	fbRtrig			:	ARRAY[0..nSize] OF R_TRIG;
+	fbFtrig			:	ARRAY[0..nSize] OF F_TRIG;
+	Idx				:	UINT;
+	bTrigger		:	BOOL;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+bTrigger := FALSE;
+
+//Init alle Flankentrigger und Frage diese ab
+FOR Idx := 0 TO nSize DO
+	
+	//Alle R_Trig
+	fbRtrig[Idx](CLK:= bInputs[Idx], Q=> );
+	bTrigger := bTrigger OR fbRtrig[Idx].Q;
+	
+	IF bAllFlanks THEN //Wenn alle Flanken
+		fbFtrig[Idx](CLK:= bInputs[Idx], Q=> );
+		bTrigger := bTrigger OR fbFtrig[Idx].Q;
+	END_IF
+	
+END_FOR
+
+IF bPowerInv_NC THEN	//Wenn Schaltung Invertiert
+	
+	IF bInputHA THEN
+		bOut	:= FALSE;
+	ELSE
+		bOut	:= TRUE;
+	END_IF
+
+ELSE					//Wenn Licht nicht Invertiert 
+	IF bInputHA THEN
+		bOut	:= TRUE;
+	ELSE
+		bOut	:= FALSE;
+	END_IF
+
+END_IF
+
+IF bTrigger THEN //Wenn Flanke erkannt
+	
+	bOut 			:= NOT bOut;
+	
+	IF bPowerInv_NC THEN
+		bInputHA	:= NOT bOut;
+	ELSE
+		bInputHa	:= bOut;
+	END_IF
+
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_PowerSocket">
+      <LineId Id="201" Count="0" />
+      <LineId Id="203" Count="11" />
+      <LineId Id="298" Count="0" />
+      <LineId Id="216" Count="21" />
+      <LineId Id="299" Count="0" />
+      <LineId Id="238" Count="5" />
+      <LineId Id="300" Count="0" />
+      <LineId Id="202" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

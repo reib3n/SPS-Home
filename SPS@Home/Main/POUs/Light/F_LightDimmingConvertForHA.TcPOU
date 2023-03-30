@@ -20,6 +20,8 @@ Value for the Analog Output for Dimming (1-10V)
 ---------------------------------------------------------*)
 IF iHA_DimmingValue = 255 THEN
 	iConvertedValue := 32767;
+ELSIF iHA_DimmingValue = 0 THEN
+	iConvertedValue	:= 0;
 ELSE
 	iConvertedValue := 3276 + (iHA_DimmingValue * 115);
 END_IF
@@ -32,6 +34,8 @@ F_LightDimmingConvertForHA := iConvertedValue;]]></ST>
       <LineId Id="9" Count="0" />
       <LineId Id="29" Count="1" />
       <LineId Id="49" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="58" Count="0" />
       <LineId Id="36" Count="0" />
       <LineId Id="31" Count="0" />
       <LineId Id="18" Count="0" />

@@ -56,6 +56,12 @@
     <Compile Include="POUs\FB\FB_Impulse.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB\FB_LightDimm.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB\FB_PowerSocket.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Light\F_DimmAlgoForSwitch.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -72,6 +78,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\sub_Security.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\sub_Power.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

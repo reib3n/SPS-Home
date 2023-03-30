@@ -22,10 +22,6 @@
 					<Vars VarGrpType="1">
 						<Name>PLC1_Main Inputs</Name>
 						<Var>
-							<Name>MAIN.bTestBit</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>gvl_EA.bID01_1</Name>
 							<Comment><![CDATA[ 105 T1 (Esszimmer Indirekt)]]></Comment>
 							<Type>BOOL</Type>
@@ -774,11 +770,6 @@
 						<Var>
 							<Name>gvl_HA.bWOD01_1</Name>
 							<Comment><![CDATA[Beleuchtung Werkstatt]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bWOD01_6</Name>
-							<Comment><![CDATA[GARAGENTOR]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>

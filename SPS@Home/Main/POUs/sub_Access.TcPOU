@@ -4,6 +4,7 @@
     <Declaration><![CDATA[PROGRAM sub_Access
 VAR
 	fbTuerGong		:	FB_Impulse;
+	fbGaragentor	:	FB_Impulse;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -17,8 +18,20 @@ fbTuerGong.bInputs[0]	:= gvl_EA.bID24_01_1;
 fbTuerGong(
 	bR_Trig			:= TRUE,
 	bInputSecLoop	:= gvl_HA.bSecAl_NoisIn,
+	bInputHA		:= gvl_HA.bOD02_3,
 	tHigh			:= T#500MS,
 	bOut			=> gvl_EA.bOD02_3
+);
+//-------------------------------------------------------------
+
+//--------------------Garagentor----------------------------------
+fbGaragentor.bInputs[0]	:= gvl_EA.bID05_1;
+
+fbGaragentor(
+	bR_Trig			:= TRUE,
+	bInputHA		:= gvl_HA.bWOD01_6,
+	tHigh			:= T#500MS,
+	bOut			=> gvl_EA.bWOD01_6
 );
 //-------------------------------------------------------------]]></ST>
     </Implementation>
@@ -30,9 +43,13 @@ fbTuerGong(
       <LineId Id="74" Count="0" />
       <LineId Id="77" Count="0" />
       <LineId Id="88" Count="0" />
+      <LineId Id="93" Count="0" />
       <LineId Id="79" Count="0" />
       <LineId Id="81" Count="1" />
       <LineId Id="87" Count="0" />
+      <LineId Id="95" Count="5" />
+      <LineId Id="102" Count="3" />
+      <LineId Id="94" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
