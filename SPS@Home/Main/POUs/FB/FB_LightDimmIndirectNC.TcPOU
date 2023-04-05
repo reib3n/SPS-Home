@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
-  <POU Name="FB_LightDimm" Id="{1a308321-e806-4d65-8a25-af35e58ac3e1}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_LightDimm
+  <POU Name="FB_LightDimmIndirectNC" Id="{27ce8e36-3e5a-49e5-985e-127cbdb4bf8b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_LightDimmIndirectNC
 VAR_INPUT
 	bInputs				:	ARRAY[0..nSize] OF BOOL;	//Input Schalter oder Taster
 	bInputSec			:	BOOL := FALSE;				//Input für Security Schaltung
 	bInputSecTest		:	BOOL := FALSE;				//Testeingang für den Sec Modus
 	bAllFlanks			:	BOOL := FALSE;				//Alle Flanken verwenden?
-	bOnlyAtNight		:	BOOL := FALSE;				//Schalter funktioniert nur Nachts
 	tLongPress			:	TIME := T#1000MS;			//Long Press Zeit für AUS!
+	tBlockTime			:	TIME := T#2000MS;			//Zeit nach Ausschalten bis wiedereinschalten
 	iNumPress4Dimm		:	UINT := 4;					//Reduktion der Helligkeit je Tastendruck
 END_VAR
 VAR_IN_OUT
@@ -17,6 +17,7 @@ VAR_IN_OUT
 END_VAR
 VAR_OUTPUT
 	iOut			:	INT;
+	bOut			:	BOOL;
 END_VAR
 VAR CONSTANT
 	nSize 			:	UINT := 5; 					//Maximale Anzahl Eingänge
@@ -25,10 +26,12 @@ VAR
 	fbRtrig			:	ARRAY[0..nSize] OF R_TRIG;
 	fbFtrig			:	ARRAY[0..nSize] OF F_TRIG;
 	tonLongPress	:	ARRAY[0..nSize] OF TON;
+	tonBlock		:	TON;
 	
 	Idx				:	UINT;
 	
 	bSecRising		:	BOOL := TRUE;
+	bBlock			:	BOOL := FALSE;
 
 END_VAR
 VAR_TEMP
@@ -42,9 +45,16 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-IF bInputSec OR bInputSecTest THEN	//Party bei Security Falls
+tonBlock(IN := bBlock, PT := tBlockTime);
+
+IF tonBlock.Q THEN
+	bBlock	:= FALSE;
+END_IF
+
+IF (bInputSec OR bInputSecTest) AND NOT bBlock THEN	//Party bei Security Falls
 	
 	bInputHA	:= TRUE;
+	bOut		:= FALSE;		// !!! NC
 	
 	IF bSecRising THEN
 		
@@ -84,24 +94,20 @@ ELSE	//Normale Funktion
 	
 	END_FOR
 
-	IF (iDimmValue > 0 OR bInputHA) AND iOut = 0 THEN		//Wenn über HA Eingeschaltet
+	IF (iDimmValue > 0 OR bInputHA) AND iOut = 0 AND NOT bBlock THEN		//Wenn über HA Eingeschaltet
 		bInputHA	:= TRUE;
+		bOut		:= FALSE;		// !!! NC
 		
 		IF iDimmValue = 0 THEN
 			iDimmValue	:= 255;
 		END_IF
 	END_IF
 	
-	IF bOnlyAtNight THEN
-		IF NOT gvl_HA.bENV_NoDaylight THEN
-			bTrigger	:= FALSE;
-		END_IF
-	END_IF
-	
-	IF bTrigger THEN
+	IF bTrigger AND NOT bBlock THEN
 		
 		IF iOut = 0 THEN					//Erstes Einschalten über Schalter
 			bInputHA	:= TRUE;
+			bOut		:= FALSE;			// !!! NC
 			iDimmValue	:= 255;
 		
 		ELSE
@@ -125,7 +131,9 @@ END_IF
 
 IF bAllOFF OR bInputHA = FALSE OR iDimmValue <= 0 THEN		//Alles Ausschalten
 	bInputHA	:= FALSE;
+	bOut		:= TRUE;			// !!! NC
 	iDimmValue	:= 0;
+	bBlock		:= TRUE;
 END_IF
 
 iOut := F_LightDimmingConvertForHA(iDimmValue);
@@ -133,11 +141,16 @@ iOut := F_LightDimmingConvertForHA(iDimmValue);
 
 ]]></ST>
     </Implementation>
-    <LineIds Name="FB_LightDimm">
+    <LineIds Name="FB_LightDimmIndirectNC">
+      <LineId Id="593" Count="1" />
+      <LineId Id="598" Count="0" />
+      <LineId Id="597" Count="0" />
+      <LineId Id="599" Count="1" />
       <LineId Id="198" Count="0" />
       <LineId Id="196" Count="0" />
       <LineId Id="244" Count="0" />
       <LineId Id="489" Count="0" />
+      <LineId Id="587" Count="0" />
       <LineId Id="488" Count="0" />
       <LineId Id="492" Count="0" />
       <LineId Id="495" Count="0" />
@@ -165,17 +178,16 @@ iOut := F_LightDimmingConvertForHA(iDimmValue);
       <LineId Id="388" Count="0" />
       <LineId Id="378" Count="0" />
       <LineId Id="392" Count="0" />
+      <LineId Id="590" Count="0" />
       <LineId Id="396" Count="3" />
       <LineId Id="391" Count="0" />
-      <LineId Id="389" Count="0" />
-      <LineId Id="483" Count="1" />
-      <LineId Id="486" Count="1" />
-      <LineId Id="485" Count="0" />
       <LineId Id="301" Count="0" />
       <LineId Id="394" Count="0" />
       <LineId Id="379" Count="0" />
       <LineId Id="387" Count="0" />
-      <LineId Id="385" Count="1" />
+      <LineId Id="385" Count="0" />
+      <LineId Id="589" Count="0" />
+      <LineId Id="386" Count="0" />
       <LineId Id="467" Count="1" />
       <LineId Id="470" Count="0" />
       <LineId Id="479" Count="0" />
@@ -190,7 +202,9 @@ iOut := F_LightDimmingConvertForHA(iDimmValue);
       <LineId Id="372" Count="0" />
       <LineId Id="371" Count="0" />
       <LineId Id="375" Count="0" />
+      <LineId Id="588" Count="0" />
       <LineId Id="377" Count="0" />
+      <LineId Id="596" Count="0" />
       <LineId Id="374" Count="0" />
       <LineId Id="429" Count="0" />
       <LineId Id="428" Count="0" />

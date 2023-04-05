@@ -17,6 +17,10 @@
     <LibraryReferences>{fd5a9bf8-d51f-4f91-a374-2fd98de80b06}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GVLs\gvl_mb.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="GVLs\gvl_EA.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
@@ -59,6 +63,9 @@
     <Compile Include="POUs\FB\FB_LightDimm.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB\FB_LightDimmIndirectNC.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB\FB_PowerSocket.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -94,6 +101,10 @@
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="Tc2_ModbusSrv">
+      <DefaultResolution>Tc2_ModbusSrv, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_ModbusSrv</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Standard</Namespace>

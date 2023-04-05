@@ -6,7 +6,10 @@
 	<Project ProjectGUID="{0EDD3A4C-6AB2-46B1-AE8A-AD9CF647D44A}" TargetNetId="5.87.70.110.1.1" ShowHideConfigurations="#x106">
 		<System>
 			<Licenses>
-				<Target BkhfOrder="00234985" CustomOrder="66066051"/>
+				<Target BkhfOrder="01058263" CustomOrder="66066051">
+					<ManualSelect>{0ABFD2B0-EAE1-4DC7-AABE-03093B0786B7}</ManualSelect>
+					<ManualSelect>{6952449D-F68C-49A2-ADE4-8639D85B33A4}</ManualSelect>
+				</Target>
 			</Licenses>
 			<Tasks>
 				<Task Id="3" Priority="1" CycleTime="100000" AmsPort="350" AdtTasks="true">
@@ -708,26 +711,6 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>gvl_HA.bOD01_2</Name>
-							<Comment><![CDATA[Esszimmer Schalter in HA]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iOA01_2</Name>
-							<Comment><![CDATA[Esszimmer 0-10V Dimmer]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bOD01_3</Name>
-							<Comment><![CDATA[Wohnzimmer Schalter in HA]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iOA01_1</Name>
-							<Comment><![CDATA[Wohnzimmer 0-10V Dimmer]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
 							<Name>gvl_HA.bOD02_6</Name>
 							<Comment><![CDATA[STECKDOSE FERNSEHER]]></Comment>
 							<Type>BOOL</Type>
@@ -741,16 +724,6 @@
 							<Name>gvl_HA.iOADim01</Name>
 							<Comment><![CDATA[ Dimmer Esszimmerlampe]]></Comment>
 							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iOADim02</Name>
-							<Comment><![CDATA[ Dimmer Balkonlampe]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bODDim02</Name>
-							<Comment><![CDATA[ Balkonlampe]]></Comment>
-							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>gvl_HA.bHaustuerOeffnerImpuls</Name>

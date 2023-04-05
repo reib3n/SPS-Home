@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <GVL Name="gvl_mb" Id="{3db55538-7040-430d-8b30-7a8f8b1e24d7}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	
+	Input_Coils        	: ARRAY [0..255] OF BOOL;  	//R/W BOOLS
+	Input_Registers     : ARRAY [0..255] OF WORD;	//R/W 16-Bit Register
+	
+	Output_Coils	    : ARRAY [0..255] OF BOOL;	//Read Only BOOLS
+	Output_Registers    : ARRAY [0..255] OF WORD;	//Read Only 16-Bit Register
+	
+END_VAR
+
+(*-----------------------------------------------------------------------------
+Output_Coils[0]		- 1000 <- Licht Küche
+Output_Coils[1] 	- 1001 <- Licht Hausgang EG
+Output_Coils[2] 	- 1002 <- Aussenbeleuchtung OST 		
+Output_Coils[3] 	- 1003 <- Aussenbeleuchtung Haustür 	
+Output_Coils[4] 	- 1004 <- Licht Technikraum
+Output_Coils[5] 	- 1005 <- Licht Hobbyraum
+Output_Coils[6] 	- 1006 <- Licht Werkstatt
+Output_Coils[7] 	- 1007 <- Licht Esszimmertisch
+Output_Coils[8] 	- 1008 <- Licht Esszimmer
+Output_Coils[9] 	- 1009 <- Licht Wohnzimmer
+Output_Coils[10] 	- 1010 <- Aussenbeleuchtung Balkon
+Output_Coils[11] 	- 1011 <- 
+------------------------------------------------------------------------------*)
+
+(*-----------------------------------------------------------------------------
+Output_Registers[7] 	- 2007 <- Helligkeit Esszimmertisch
+Output_Registers[8] 	- 2008 <- Helligkeit Esszimmer
+Output_Registers[7] 	- 2009 <- Helligkeit Wohnzimmer
+Output_Registers[7] 	- 2010 <- Helligkeit Aussenbeleuchtung Balkon
+
+
+------------------------------------------------------------------------------*)]]></Declaration>
+  </GVL>
+</TcPlcObject>

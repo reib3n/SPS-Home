@@ -6,7 +6,10 @@
 	<Project ProjectGUID="{0EDD3A4C-6AB2-46B1-AE8A-AD9CF647D44A}" TargetNetId="5.87.70.110.1.1" ShowHideConfigurations="#x106">
 		<System>
 			<Licenses>
-				<Target BkhfOrder="00234985" CustomOrder="66066051"/>
+				<Target BkhfOrder="01058263" CustomOrder="66066051">
+					<ManualSelect>{0ABFD2B0-EAE1-4DC7-AABE-03093B0786B7}</ManualSelect>
+					<ManualSelect>{6952449D-F68C-49A2-ADE4-8639D85B33A4}</ManualSelect>
+				</Target>
 			</Licenses>
 			<Tasks>
 				<Task Id="3" Priority="1" CycleTime="100000" AmsPort="350" AdtTasks="true">
@@ -22,8 +25,109 @@
 					<Vars VarGrpType="1">
 						<Name>PLC1_Main Inputs</Name>
 						<Var>
-							<Name>MAIN.bTestBit</Name>
+							<Name>gvl_HA.bID24_01_3</Name>
+							<Comment><![CDATA[ Fensterkontakt Bad EG]]></Comment>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bID24_01_4</Name>
+							<Comment><![CDATA[ Fensterkontakt Büro]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bID24_02_1</Name>
+							<Comment><![CDATA[ Fensterkontakt Keller]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bID24_02_2</Name>
+							<Comment><![CDATA[ Fensterkontakt Technik]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bID24_02_3</Name>
+							<Comment><![CDATA[ Fensterkontakt Hobbyraum Süd]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bID24_02_4</Name>
+							<Comment><![CDATA[ Kontakt Terassentür UG]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bID24_03_1</Name>
+							<Comment><![CDATA[ Fensterkontakt Hobbyraum West]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bID24_03_2</Name>
+							<Comment><![CDATA[ Türkontakt Balkontür EG]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bWID01_3</Name>
+							<Comment><![CDATA[ Türkontakt Werkstatt]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bWID01_4</Name>
+							<Comment><![CDATA[ Fensterkontakt Werkstatt]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.iIAV01_1</Name>
+							<Comment><![CDATA[ Temperatur Wohnzimmer (°C)]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.iIAV01_2</Name>
+							<Comment><![CDATA[ Feuchtigkeit Wohnzimmer (%)]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.iIAV01_3</Name>
+							<Comment><![CDATA[ CO2 Wohnzimmer (ppm)]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.iIAV01_4</Name>
+							<Comment><![CDATA[ Temperatur Technkikraum (°C)]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.iIAV02_1</Name>
+							<Comment><![CDATA[ Feuchtigkeit Technikraum (%)]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.iIAPT_01_1</Name>
+							<Comment><![CDATA[Temperatur BÜHNE]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.iIAA01_1</Name>
+							<Comment><![CDATA[Füllstand Zisterne (4-20mA)]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.iIAA01_1_Proz</Name>
+							<Comment><![CDATA[Füllstand Zisterne (Prozent)]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.iIAA01_1_Liter</Name>
+							<Comment><![CDATA[Füllstand Zisterne (Liter)]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.iWIAV01_1</Name>
+							<Comment><![CDATA[ Temperatur Wohnzimmer (-30 - +70 °C)]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.iWIAV01_2</Name>
+							<Comment><![CDATA[ Feuchtigkeit Wohnzimmer (%)]]></Comment>
+							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>gvl_EA.bID01_1</Name>
@@ -330,114 +434,79 @@
 							<Name>gvl_EA.iWIAV01_4</Name>
 							<Type>INT</Type>
 						</Var>
-						<Var>
-							<Name>gvl_HA.bID24_01_3</Name>
-							<Comment><![CDATA[ Fensterkontakt Bad EG]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bID24_01_4</Name>
-							<Comment><![CDATA[ Fensterkontakt Büro]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bID24_02_1</Name>
-							<Comment><![CDATA[ Fensterkontakt Keller]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bID24_02_2</Name>
-							<Comment><![CDATA[ Fensterkontakt Technik]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bID24_02_3</Name>
-							<Comment><![CDATA[ Fensterkontakt Hobbyraum Süd]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bID24_02_4</Name>
-							<Comment><![CDATA[ Kontakt Terassentür UG]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bID24_03_1</Name>
-							<Comment><![CDATA[ Fensterkontakt Hobbyraum West]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bID24_03_2</Name>
-							<Comment><![CDATA[ Türkontakt Balkontür EG]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bWID01_3</Name>
-							<Comment><![CDATA[ Türkontakt Werkstatt]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bWID01_4</Name>
-							<Comment><![CDATA[ Fensterkontakt Werkstatt]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iIAV01_1</Name>
-							<Comment><![CDATA[ Temperatur Wohnzimmer (°C)]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iIAV01_2</Name>
-							<Comment><![CDATA[ Feuchtigkeit Wohnzimmer (%)]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iIAV01_3</Name>
-							<Comment><![CDATA[ CO2 Wohnzimmer (ppm)]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iIAV01_4</Name>
-							<Comment><![CDATA[ Temperatur Technkikraum (°C)]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iIAV02_1</Name>
-							<Comment><![CDATA[ Feuchtigkeit Technikraum (%)]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iIAPT_01_1</Name>
-							<Comment><![CDATA[Temperatur BÜHNE]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iIAA01_1</Name>
-							<Comment><![CDATA[Füllstand Zisterne (4-20mA)]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iIAA01_1_Proz</Name>
-							<Comment><![CDATA[Füllstand Zisterne (Prozent)]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iIAA01_1_Liter</Name>
-							<Comment><![CDATA[Füllstand Zisterne (Liter)]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iWIAV01_1</Name>
-							<Comment><![CDATA[ Temperatur Wohnzimmer (-30 - +70 °C)]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iWIAV01_2</Name>
-							<Comment><![CDATA[ Feuchtigkeit Wohnzimmer (%)]]></Comment>
-							<Type>INT</Type>
-						</Var>
 					</Vars>
 					<Vars VarGrpType="2">
 						<Name>PLC1_Main Outputs</Name>
+						<Var>
+							<Name>gvl_HA.bENV_NoDaylight</Name>
+							<Comment><![CDATA[Wird von HA auf tru gesetzt bei Sonnenuntergang]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bOD01_2</Name>
+							<Comment><![CDATA[Esszimmer Schalter in HA]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.iOA01_2</Name>
+							<Comment><![CDATA[Esszimmer 0-10V Dimmer]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bOD01_3</Name>
+							<Comment><![CDATA[Wohnzimmer Schalter in HA]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.iOA01_1</Name>
+							<Comment><![CDATA[Wohnzimmer 0-10V Dimmer]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bOD02_6</Name>
+							<Comment><![CDATA[STECKDOSE FERNSEHER]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bODDim01</Name>
+							<Comment><![CDATA[ Esszimmerlampe]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.iOADim01</Name>
+							<Comment><![CDATA[ Dimmer Esszimmerlampe]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bODDim02</Name>
+							<Comment><![CDATA[ Balkonlampe]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.iOADim02</Name>
+							<Comment><![CDATA[ Dimmer Balkonlampe]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bHaustuerOeffnerImpuls</Name>
+							<Comment><![CDATA[ Impulsausgang Hautür Öffner]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bHaustuerOeffnerDauer</Name>
+							<Comment><![CDATA[ Dauerausgang Haustür Öffner]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bOD04_4</Name>
+							<Comment><![CDATA[Vitramo Bad OG]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_HA.bWOD01_1</Name>
+							<Comment><![CDATA[Beleuchtung Werkstatt]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
 						<Var>
 							<Name>gvl_EA.bOD01_1</Name>
 							<Comment><![CDATA[ -------------------------------------------------------------------
@@ -627,11 +696,6 @@
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>gvl_EA.bWOD01_1</Name>
-							<Comment><![CDATA[ Licht Werkstatt ACHTUNG NC]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>gvl_EA.iOADim01</Name>
 							<Comment><![CDATA[ Dimmer Esszimmerlampe]]></Comment>
 							<Type>INT</Type>
@@ -640,6 +704,11 @@
 							<Name>gvl_EA.iOADim02</Name>
 							<Comment><![CDATA[ Dimmer Balkon]]></Comment>
 							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_EA.bWOD01_1</Name>
+							<Comment><![CDATA[ Licht Werkstatt ACHTUNG NC]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>gvl_EA.bWOD01_2</Name>
@@ -704,76 +773,6 @@
 						</Var>
 						<Var>
 							<Name>gvl_EA.bWOD01_16</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bENV_NoDaylight</Name>
-							<Comment><![CDATA[Wird von HA auf tru gesetzt bei Sonnenuntergang]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bOD01_2</Name>
-							<Comment><![CDATA[Esszimmer Schalter in HA]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iOA01_2</Name>
-							<Comment><![CDATA[Esszimmer 0-10V Dimmer]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bOD01_3</Name>
-							<Comment><![CDATA[Wohnzimmer Schalter in HA]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iOA01_1</Name>
-							<Comment><![CDATA[Wohnzimmer 0-10V Dimmer]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bOD02_6</Name>
-							<Comment><![CDATA[STECKDOSE FERNSEHER]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bODDim01</Name>
-							<Comment><![CDATA[ Esszimmerlampe]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iOADim01</Name>
-							<Comment><![CDATA[ Dimmer Esszimmerlampe]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.iOADim02</Name>
-							<Comment><![CDATA[ Dimmer Balkonlampe]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bODDim02</Name>
-							<Comment><![CDATA[ Balkonlampe]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bHaustuerOeffnerImpuls</Name>
-							<Comment><![CDATA[ Impulsausgang Hautür Öffner]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bHaustuerOeffnerDauer</Name>
-							<Comment><![CDATA[ Dauerausgang Haustür Öffner]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bOD04_4</Name>
-							<Comment><![CDATA[Vitramo Bad OG]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>gvl_HA.bWOD01_1</Name>
-							<Comment><![CDATA[Beleuchtung Werkstatt]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
