@@ -12,45 +12,51 @@ END_VAR
 //###################################################################################
 
 //--------------------Variablen Setzen----------------------------------
-IF gvl_HA.bSecAl_All THEN
-	gvl_HA.bSecAl_LightAll 	:= TRUE;
-	gvl_HA.bSecAL_NoisAll	:= TRUE;
+//ALARM GESAMT
+IF gvl_mb.Output_Coils[240] THEN
+	gvl_mb.Output_Coils[241] 	:= TRUE;
+	gvl_mb.Output_Coils[244]	:= TRUE;
 END_IF
 
-IF gvl_HA.bSecAl_LightAll THEN
-	gvl_HA.bSecAl_LightIn	:= TRUE;
-	gvl_HA.bSecAl_LightOut	:= TRUE;
+//ALARM LICHT
+IF gvl_mb.Output_Coils[241] THEN
+	gvl_mb.Output_Coils[242]	:= TRUE;
+	gvl_mb.Output_Coils[243]	:= TRUE;
 END_IF
 
-IF gvl_HA.bSecAl_NoisAll THEN
-	gvl_HA.bSecAl_NoisIn	:= TRUE;
-	gvl_HA.bSecAl_NoisOut	:= TRUE;
+//ALARM NOIS
+IF gvl_mb.Output_Coils[244] THEN
+	gvl_mb.Output_Coils[245]	:= TRUE;
+	gvl_mb.Output_Coils[246]	:= TRUE;
 END_IF
 
 
 //--------------------------------- INVERT Input Windows / Doors ------------------------
-gvl_HA.bID24_01_3 := NOT gvl_EA.bID24_01_3;		// Fensterkontakt Bad EG
-gvl_HA.bID24_01_4 := NOT gvl_EA.bID24_01_4;		// Fensterkontakt Büro
-gvl_HA.bID24_02_1 := NOT gvl_EA.bID24_02_1;		// Fensterkontakt Keller
-gvl_HA.bID24_02_2 := NOT gvl_EA.bID24_02_2;		// Fensterkontakt Technik
-gvl_HA.bID24_02_3 := NOT gvl_EA.bID24_02_3;		// Fensterkontakt Hobbyraum Süd
-gvl_HA.bID24_02_4 := NOT gvl_EA.bID24_02_4;		// Kontakt Terassentür UG
-gvl_HA.bID24_03_1 := NOT gvl_EA.bID24_03_1;		// Fensterkontakt Hobbyraum West
-gvl_HA.bID24_03_2 := NOT gvl_EA.bID24_03_2;		// Kontakt Balkontür
-gvl_HA.bWID01_3	  := NOT gvl_EA.bWID01_3;		// Reedkontakt Werkstatttür
-gvl_HA.bWID01_4	  := NOT gvl_EA.bWID01_4;		// Reedkontakt Werkstattfenster]]></ST>
+gvl_mb.Output_Coils[200] := NOT gvl_EA.bID24_01_3;		// Fensterkontakt Bad EG
+gvl_mb.Output_Coils[201] := NOT gvl_EA.bID24_01_4;		// Fensterkontakt Büro
+gvl_mb.Output_Coils[203] := NOT gvl_EA.bID24_02_1;		// Fensterkontakt Keller
+gvl_mb.Output_Coils[204] := NOT gvl_EA.bID24_02_2;		// Fensterkontakt Technik
+gvl_mb.Output_Coils[205] := NOT gvl_EA.bID24_02_3;		// Fensterkontakt Hobbyraum Süd
+gvl_mb.Output_Coils[207] := NOT gvl_EA.bID24_02_4;		// Kontakt Terassentür UG
+gvl_mb.Output_Coils[206] := NOT gvl_EA.bID24_03_1;		// Fensterkontakt Hobbyraum West
+gvl_mb.Output_Coils[202] := NOT gvl_EA.bID24_03_2;		// Kontakt Balkontür
+gvl_mb.Output_Coils[209] := NOT gvl_EA.bWID01_3;		// Reedkontakt Werkstatttür
+gvl_mb.Output_Coils[208] := NOT gvl_EA.bWID01_4;		// Reedkontakt Werkstattfenster]]></ST>
     </Implementation>
     <LineIds Name="sub_Security">
       <LineId Id="71" Count="3" />
       <LineId Id="63" Count="0" />
+      <LineId Id="112" Count="0" />
       <LineId Id="75" Count="1" />
       <LineId Id="78" Count="0" />
       <LineId Id="77" Count="0" />
+      <LineId Id="111" Count="0" />
       <LineId Id="80" Count="0" />
       <LineId Id="79" Count="0" />
       <LineId Id="81" Count="0" />
       <LineId Id="83" Count="0" />
       <LineId Id="82" Count="0" />
+      <LineId Id="110" Count="0" />
       <LineId Id="85" Count="3" />
       <LineId Id="84" Count="0" />
       <LineId Id="94" Count="11" />

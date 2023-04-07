@@ -17,8 +17,8 @@ fbTuerGong.bInputs[0]	:= gvl_EA.bID24_01_1;
 
 fbTuerGong(
 	bR_Trig			:= TRUE,
-	bInputSecLoop	:= gvl_HA.bSecAl_NoisIn,
-	bInputHA		:= gvl_HA.bOD02_3,
+	bInputSecLoop	:= gvl_mb.Output_Coils[245],
+	bInputHA		:= gvl_mb.Output_Coils[14],
 	tHigh			:= T#500MS,
 	bOut			=> gvl_EA.bOD02_3
 );
@@ -29,7 +29,7 @@ fbGaragentor.bInputs[0]	:= gvl_EA.bID05_1;
 
 fbGaragentor(
 	bR_Trig			:= TRUE,
-	bInputHA		:= gvl_HA.bWOD01_6,
+	bInputHA		:= gvl_mb.Output_Coils[13],
 	tHigh			:= T#500MS,
 	bOut			=> gvl_EA.bWOD01_6
 );

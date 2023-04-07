@@ -18,7 +18,7 @@ fbPowerWerkstatt.bInputs[0] 	:= gvl_EA.bWID01_2;
 fbPowerWerkstatt
 (
 	bPowerInv_NC	:=	TRUE,
-	bInputHA		:=	gvl_HA.bWOD01_2	,
+	bInputHA		:=	gvl_mb.Output_Coils[12]	,
 	bOut			=>	gvl_EA.bWOD01_2,
 );
 //-------------------------------------------------------------------------
@@ -27,7 +27,7 @@ fbPowerWerkstatt
 fbPowerFernseher
 (
 	bPowerInv_NC	:=	TRUE,
-	bInputHA		:=	gvl_HA.bOD02_6,
+	bInputHA		:=	gvl_mb.Output_Coils[18],
 	bOut			=>	gvl_EA.bOD02_6,
 );
 //-------------------------------------------------------------------------]]></ST>

@@ -93,7 +93,7 @@ ELSE	//Normale Funktion
 	END_IF
 	
 	IF bOnlyAtNight THEN
-		IF NOT gvl_HA.bENV_NoDaylight THEN
+		IF NOT gvl_mb.Output_Coils[19] THEN
 			bTrigger	:= FALSE;
 		END_IF
 	END_IF

@@ -25,13 +25,78 @@ Output_Coils[8] 	- 1008 <- Licht Esszimmer
 Output_Coils[9] 	- 1009 <- Licht Wohnzimmer
 Output_Coils[10] 	- 1010 <- Aussenbeleuchtung Balkon
 Output_Coils[11] 	- 1011 <- 
+Output_Coils[12] 	- 1012 <- Werkstatt Steckdose
+Output_Coils[13] 	- 1013 <- Garagentor Impuls
+Output_Coils[14] 	- 1014 <- Türgong Impuls
+Output_Coils[15] 	- 1015 <- Vitramo Bad
+Output_Coils[16] 	- 1016 <- Haustüröffner Impuls
+Output_Coils[17] 	- 1017 <- Haustüröffner Dauer
+Output_Coils[18] 	- 1018 <- Wohnzimmer Steckdose Fernseher
+Output_Coils[19] 	- 1019 <- ENV_NoDailight
+Output_Coils[20] 	- 1020 <- 
+Output_Coils[21] 	- 1021 <- 
+Output_Coils[22] 	- 1022 <- 
+
+########################----FENSTER / TÜRKONTAKTE----################
+Output_coils[200]	- 1200 <- Fenster 	EG 	BAD
+Output_coils[201]	- 1201 <- Fenster 	EG 	Büro
+Output_coils[202]	- 1202 <- Tür		EG	Balkontür
+Output_coils[203]	- 1203 <- Fenster	UG	Keller
+Output_coils[204]	- 1204 <- Fenster	UG	Technik
+Output_coils[205]	- 1205 <- Fenster	UG	Hobbyraum Süd
+Output_coils[206]	- 1206 <- Fenster	UG	Hobbyraum West
+Output_coils[207]	- 1207 <- Tür		UG	Terassentür
+Output_coils[208]	- 1208 <- Fenster	UG	Werkstatt
+Output_coils[209]	- 1209 <- Tür		UG	Werkstatt
+Output_coils[210]	- 1210 <- 
+
+
+
+
+########################----ALARM----################################
+Output_coils[240]	- 1240 <- Aktiviert alle Alarmfunktionen
+
+Output_coils[241]	- 1241 <- Aktiviert dauerhaft alle Lichter
+Output_coils[242]	- 1242 <- Aktiviert dauerhaft alle Lichter INNEN
+Output_coils[243]	- 1243 <- Aktiviert dauerhaft alle Lichter AUSSEN
+
+Output_coils[244]	- 1244 <- Aktiviert dauerhaft alle Alarmsignale
+Output_coils[245]	- 1245 <- Aktiviert dauerhaft alle Alarmsignale INNEN
+Output_coils[246]	- 1246 <- Aktiviert dauerhaft alle Alarmsignale AUSSEN
+
+Output_coils[247]	- 1247 <- 
+Output_coils[248]	- 1248 <- 
+Output_coils[249]	- 1249 <- 
+Output_coils[250]	- 1250 <- 
+
+Output_coils[251]	- 1251 <- Aktiviert Testalarm Esszimmertisch
+Output_coils[252]	- 1252 <- Aktiviert Testalarm Esszimmer
+Output_coils[253]	- 1253 <- Aktiviert Testalarm Wohnzimmer
+Output_coils[254]	- 1254 <- Aktiviert Testalarm Balkon
+Output_coils[255]	- 1255 <- 
+
+
+
 ------------------------------------------------------------------------------*)
 
 (*-----------------------------------------------------------------------------
 Output_Registers[7] 	- 2007 <- Helligkeit Esszimmertisch
 Output_Registers[8] 	- 2008 <- Helligkeit Esszimmer
-Output_Registers[7] 	- 2009 <- Helligkeit Wohnzimmer
-Output_Registers[7] 	- 2010 <- Helligkeit Aussenbeleuchtung Balkon
+Output_Registers[9] 	- 2009 <- Helligkeit Wohnzimmer
+Output_Registers[10] 	- 2010 <- Helligkeit Aussenbeleuchtung Balkon
+Output_Registers[11] 	- 2011 <- Zisterne Füllstand mA
+Output_Registers[12] 	- 2012 <- Zisterne Füllstand Prozent
+Output_Registers[13] 	- 2013 <- Zisterne Füllstand Liter
+Output_Registers[14] 	- 2014 <- Wohnzimmer Temperatur
+Output_Registers[15] 	- 2015 <- Wohnzimmer Feuchtigkeit
+Output_Registers[16] 	- 2016 <- Wohnzimmer CO2
+Output_Registers[17] 	- 2017 <- Technikraum Temperatur
+Output_Registers[18] 	- 2018 <- Technikraum Feuchtigkeit
+Output_Registers[19] 	- 2019 <- Dachboden Temperatur
+Output_Registers[20] 	- 2020 <- Werkstatt Temperatur
+Output_Registers[21] 	- 2021 <- Werkstatt Feuchtigkeit
+Output_Registers[22] 	- 2022 <- 
+
 
 
 ------------------------------------------------------------------------------*)]]></Declaration>

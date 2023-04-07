@@ -29,7 +29,7 @@ fbLichtHausgang.bInputs[3] 	:= gvl_EA.bID02_3;
 
 fbLichtHausgang
 (
-	bInputSec		:= gvl_HA.bSecAl_LightIn,
+	bInputSec		:= gvl_mb.Output_Coils[242],
 	bInputHA		:= gvl_mb.Output_Coils[1],
 	bOut 			=> gvl_EA.bOD01_5,
 );
@@ -40,7 +40,7 @@ fbLichtKueche.bInputs[0]	:= gvl_EA.bID01_4;
 
 fbLichtKueche
 (
-	bInputSec		:= gvl_HA.bSecAl_LightIn,
+	bInputSec	:= 	gvl_mb.Output_Coils[242],
 	bInputHA	:=	gvl_mb.Output_Coils[0],
 	bOut		=>	gvl_EA.bOD01_4, //Licht Küche
 	bOut		=>	gvl_EA.bOD04_1,	//Spot Küche
@@ -52,7 +52,7 @@ fbLichtTechnikraum.bInputs[0] := gvl_EA.bID03_3;
 
 fbLichtTechnikraum
 (	
-	bInputSec		:= gvl_HA.bSecAl_LightIn,
+	bInputSec		:= gvl_mb.Output_Coils[242],
 	bLightInv_NC	:= TRUE,
 	bInputHA		:= gvl_mb.Output_Coils[4],
 	bAllFlanks 		:= TRUE,
@@ -65,7 +65,7 @@ fbLichtHobbyraum.bInputs[0] := gvl_EA.bID04_1;
 
 fbLichtHobbyraum
 (	
-	bInputSec		:= gvl_HA.bSecAl_LightIn,
+	bInputSec		:= gvl_mb.Output_Coils[242],
 	bInputHA		:= gvl_mb.Output_Coils[5],
 	bAllFlanks 		:= TRUE,
 	bOut 			=> gvl_EA.bOD03_1,
@@ -78,7 +78,7 @@ fbLichtWerkstatt.bInputs[0] := gvl_EA.bWID01_1;
 
 fbLichtWerkstatt
 (	
-	bInputSec		:= gvl_HA.bSecAl_LightIn,
+	bInputSec		:= gvl_mb.Output_Coils[242],
 	bLightInv_NC	:= TRUE,
 	bInputHA		:= gvl_mb.Output_Coils[6],
 	bOut 			=> gvl_EA.bWOD01_1,
@@ -88,7 +88,7 @@ fbLichtWerkstatt
 //--------------------AUSSEN OST----------------------------------
 fbLichtAussenOST
 (	
-	bInputSec		:= gvl_HA.bSecAl_LightOUT,
+	bInputSec		:= gvl_mb.Output_Coils[243],
 	bInputHA		:= gvl_mb.Output_Coils[2],
 	bOut 			=> gvl_EA.bOD01_6,
 );
@@ -97,7 +97,7 @@ fbLichtAussenOST
 //--------------------AUSSEN HAUSTÜR----------------------------------
 fbLichtAussenHaustur
 (	
-	bInputSec		:= gvl_HA.bSecAl_LightOUT,
+	bInputSec		:= gvl_mb.Output_Coils[243],
 	bInputHA		:= gvl_mb.Output_Coils[3],
 	bOut 			=> gvl_EA.bOD01_7,
 );
@@ -108,8 +108,8 @@ fbLichtEsstisch.bInputs[0] := gvl_EA.bID01_3;
 
 fbLichtEsstisch
 (	
-	bInputSec		:= gvl_HA.bSecAl_LightIn,
-	bInputSecTest	:= gvl_HA.bODDim01_Test,
+	bInputSec		:= gvl_mb.Output_Coils[242],
+	bInputSecTest	:= gvl_mb.Output_Coils[251],
 	bInputHA		:= gvl_mb.Output_Coils[7],
 	iDimmValue		:= gvl_mb.Output_Registers[7],
 	iNumPress4Dimm	:= 4,
@@ -122,8 +122,8 @@ fbLichtBalkon.bInputs[0] := gvl_EA.bID02_2;
 
 fbLichtBalkon
 (	
-	bInputSec		:= gvl_HA.bSecAl_LightOut,
-	bInputSecTest	:= gvl_HA.bODDim02_Test,
+	bInputSec		:= gvl_mb.Output_Coils[243],
+	bInputSecTest	:= gvl_mb.Output_Coils[254],
 	bInputHA		:= gvl_mb.Output_Coils[10],
 	iDimmValue		:= gvl_mb.Output_Registers[10],
 	bOnlyAtNight	:= TRUE,
@@ -138,8 +138,8 @@ fbLichtEsszimmer.bInputs[1] 	:= gvl_EA.bID02_1;
 
 fbLichtEsszimmer
 (
-	bInputSec		:= gvl_HA.bSecAl_LightIN,
-	bInputSecTest	:= gvl_HA.bOD01_2_Test,
+	bInputSec		:= gvl_mb.Output_Coils[242],
+	bInputSecTest	:= gvl_mb.Output_Coils[252],
 	bInputHA		:= gvl_mb.Output_Coils[8],
 	iDimmValue		:= gvl_mb.Output_Registers[8],
 	iNumPress4Dimm	:= 4,
@@ -153,8 +153,8 @@ fbLichtWohnzimmer.bInputs[0] 	:= gvl_EA.bID01_2;
 
 fbLichtWohnzimmer
 (
-	bInputSec		:= gvl_HA.bSecAl_LightIN,
-	bInputSecTest	:= gvl_HA.bOD01_3_Test,
+	bInputSec		:= gvl_mb.Output_Coils[242],
+	bInputSecTest	:= gvl_mb.Output_Coils[253],
 	bInputHA		:= gvl_mb.Output_Coils[9],
 	iDimmValue		:= gvl_mb.Output_Registers[9],
 	iNumPress4Dimm	:= 4,

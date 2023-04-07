@@ -41,38 +41,38 @@ sub_Power();
 
 //ÖFFNER LOGIK
 trigRelais1(CLK := gvl_EA.bID24_01_2);
-TON_HTUER(IN := gvl_HA.bHaustuerOeffnerImpuls, PT := T#5000MS);				//Timer für Impulsöffnung
+TON_HTUER(IN := gvl_mb.Output_Coils[16], PT := T#5000MS);				//Timer für Impulsöffnung
 
-IF gvl_HA.bHaustuerOeffnerDauer THEN
+IF gvl_mb.Output_Coils[17] THEN
 
 	gvl_EA.bOD04_5 := TRUE; //Haustür IMMER Offen
-	gvl_HA.bHaustuerOeffnerImpuls := FALSE;
+	gvl_mb.Output_Coils[16] := FALSE;
 
 ELSE
 	IF trigRelais1.Q THEN // Wenn Türöffner (Innenstation Relais 1 - Klingel)
 
-		gvl_HA.bHaustuerOeffnerImpuls := TRUE;
+		gvl_mb.Output_Coils[16] := TRUE;
 
 	END_IF
 	
 	// Wird benötigt um Daueröffnung wieder aufzuheben.
-	IF NOT gvl_HA.bHaustuerOeffnerDauer AND NOT gvl_HA.bHaustuerOeffnerImpuls THEN
+	IF NOT gvl_mb.Output_Coils[17] AND NOT gvl_mb.Output_Coils[16] THEN
 		gvl_EA.bOD04_5 := FALSE; 	//Haustür zu
 	END_IF
 	
-	IF gvl_HA.bHaustuerOeffnerImpuls THEN  // Wenn Impuls gewünscht
+	IF gvl_mb.Output_Coils[16] THEN  // Wenn Impuls gewünscht
 	
 		gvl_EA.bOD04_5 := TRUE; // Öffne Tür
 		//Starte Timer
 		
-		IF gvl_HA.bENV_NoDaylight THEN
+		IF gvl_mb.Output_Coils[19] THEN
 			gvl_mb.Output_Coils[1] := TRUE;		// Beleuchtung Hausgang ein, wenn Dunkel	
 		END_IF
 
 	END_IF
 
 	IF TON_HTUER.Q THEN
-		gvl_HA.bHaustuerOeffnerImpuls := FALSE;
+		gvl_mb.Output_Coils[16] := FALSE;
 		gvl_EA.bOD04_5 := FALSE; // Schließe Tür
 	END_IF
 	
@@ -82,7 +82,7 @@ END_IF
 //-------------------------------------HEIZUNG--------------------------------------------
 
 //Vitramo BAD OG
-IF gvl_HA.bOD04_4 THEN
+IF gvl_mb.Output_Coils[15] THEN
 	gvl_EA.bOD04_4 := TRUE;
 ELSE
 	gvl_EA.bOD04_4 := gvl_EA.bID04_4;		//Steuerung über Heizung
@@ -95,7 +95,7 @@ END_IF
 // Automatisch Licht an Wenn Tür auf (Nachts)
 trigWerkstattTuer(CLK := gvl_EA.bWID01_3);
 
-IF gvl_HA.bENV_NoDaylight AND gvl_EA.bWOD01_1 AND trigWerkstattTuer.Q THEN
+IF gvl_mb.Output_Coils[19] AND gvl_EA.bWOD01_1 AND trigWerkstattTuer.Q THEN
 	gvl_mb.Output_Coils[6] := TRUE;
 END_IF
 
@@ -106,17 +106,17 @@ TON_ENV(IN := bBlockENV, PT := T#60000MS);
 
 IF NOT bBlockENV THEN
 	//----------------------------------------------
-	gvl_HA.iIAV01_1 := F_Convert10V2Temp(gvl_EA.iIAV01_1);		// Konvertiere Wohnzimmer Temperatur (0 - 50 °C)
-	gvl_HA.iIAV01_2 := F_Convert10V2Hum(gvl_EA.iIAV01_2);		// Konvertiere Wohnzimmer Feuchtigkeit
-	gvl_HA.iIAV01_3 := F_Convert10V2CO2(gvl_EA.iIAV01_3);		// Konvertiere Wohnzimmer CO2
+	gvl_mb.Output_Registers[14] := F_Convert10V2Temp(gvl_EA.iIAV01_1);		// Konvertiere Wohnzimmer Temperatur (0 - 50 °C)
+	gvl_mb.Output_Registers[15] := F_Convert10V2Hum(gvl_EA.iIAV01_2);		// Konvertiere Wohnzimmer Feuchtigkeit
+	gvl_mb.Output_Registers[16] := F_Convert10V2CO2(gvl_EA.iIAV01_3);		// Konvertiere Wohnzimmer CO2
 	
-	gvl_HA.iIAPT_01_1 := gvl_EA.iIAPT_01_1;						// Temperatur Bühne
+	gvl_mb.Output_Registers[19] := gvl_EA.iIAPT_01_1;						// Temperatur Bühne
 	
-	gvl_HA.iIAV01_4 := F_Convert10V2Temp2(gvl_EA.iIAV01_4);		// Konvertiere Technikraum Temperatur (-30 - +70 °C)
-	gvl_HA.iIAV02_1 := F_Convert10V2Hum(gvl_EA.iIAV02_1);		// Konvertiere Technikraum Feuchtigkeit
+	gvl_mb.Output_Registers[17] := F_Convert10V2Temp2(gvl_EA.iIAV01_4);		// Konvertiere Technikraum Temperatur (-30 - +70 °C)
+	gvl_mb.Output_Registers[18] := F_Convert10V2Hum(gvl_EA.iIAV02_1);		// Konvertiere Technikraum Feuchtigkeit
 	
-	gvl_HA.iWIAV01_1 := F_Convert10V2Temp2(gvl_EA.iWIAV01_1);	// Konvertiere Wohnzimmer Temperatur (-30 - +70 °C)
-	gvl_HA.iWIAV01_2 := F_Convert10V2Hum(gvl_EA.iWIAV01_2);		// Konvertiere Werkstatt Feuchtigkeit
+	gvl_mb.Output_Registers[20] := F_Convert10V2Temp2(gvl_EA.iWIAV01_1);	// Konvertiere Wohnzimmer Temperatur (-30 - +70 °C)
+	gvl_mb.Output_Registers[21] := F_Convert10V2Hum(gvl_EA.iWIAV01_2);		// Konvertiere Werkstatt Feuchtigkeit
 	
 	//---------------------------Zisterne Arithmetisches Mittel------------------------------
 	IF counterZ1 < 10 THEN //Initiale Befüllung
@@ -134,9 +134,9 @@ IF NOT bBlockENV THEN
  		valueZ[counterZ3] := gvl_EA.iIAA01_1;
 	END_IF
 	
-	gvl_HA.iIAA01_1 		:= REAL_TO_INT(xZ / 100); // Zisterne 4-20mA durch 100 geglättet
-	gvl_HA.iIAA01_1_Proz 	:= F_ConvertZisterne_mA2Perc(gvl_HA.iIAA01_1);			// Zisterne %
-	gvl_HA.iIAA01_1_Liter	:= F_ConvertZisterne_Perc2Liter(gvl_HA.iIAA01_1_Proz);	// Zisterne Liter
+	gvl_mb.Output_Registers[11] := REAL_TO_INT(xZ / 100); // Zisterne 4-20mA durch 100 geglättet
+	gvl_mb.Output_Registers[12]	:= F_ConvertZisterne_mA2Perc(gvl_mb.Output_Registers[11]);			// Zisterne %
+	gvl_mb.Output_Registers[13]	:= F_ConvertZisterne_Perc2Liter(gvl_mb.Output_Registers[12]);	// Zisterne Liter
 	
 	//----------------------------------------------
 	bBlockENV := TRUE;
