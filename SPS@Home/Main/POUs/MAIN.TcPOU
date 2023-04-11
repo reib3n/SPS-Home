@@ -37,6 +37,10 @@ sub_Security();
 sub_Access();
 sub_Power();
 
+gvl_mb.Output_Registers[0] := gvl_RETAIN.waterConsumption;
+
+gvl_mb.Output_Coils[27] := FALSE;	//Heizung Werkstatt aus!
+
 //------------------------------------ÖFFNER HAUSTÜRE--------------------------------
 
 //ÖFFNER LOGIK
@@ -99,8 +103,6 @@ IF gvl_mb.Output_Coils[19] AND gvl_EA.bWOD01_1 AND trigWerkstattTuer.Q THEN
 	gvl_mb.Output_Coils[6] := TRUE;
 END_IF
 
-gvl_EA.bWOD01_5 := FALSE;
-
 //---------------------------------- ENVIRONMENT ----------------------------
 TON_ENV(IN := bBlockENV, PT := T#60000MS);
 
@@ -150,21 +152,31 @@ END_IF
 trigWater(CLK := gvl_EA.bID24_03_3);
 
 IF trigWater.Q THEN
-	gvl_RETAIN.waterConsumption := gvl_RETAIN.waterConsumption + 1;
+	IF gvl_RETAIN.waterConsumption = 65535 THEN
+		gvl_RETAIN.waterConsumption := 0;
+	ELSE
+		gvl_RETAIN.waterConsumption := gvl_RETAIN.waterConsumption + 1;
+	END_IF
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="80" Count="3" />
       <LineId Id="860" Count="2" />
       <LineId Id="926" Count="0" />
+      <LineId Id="953" Count="0" />
+      <LineId Id="952" Count="0" />
+      <LineId Id="985" Count="0" />
+      <LineId Id="984" Count="0" />
       <LineId Id="335" Count="1" />
       <LineId Id="338" Count="39" />
       <LineId Id="385" Count="8" />
       <LineId Id="395" Count="3" />
       <LineId Id="408" Count="4" />
       <LineId Id="414" Count="1" />
-      <LineId Id="429" Count="1" />
-      <LineId Id="448" Count="50" />
+      <LineId Id="448" Count="49" />
+      <LineId Id="954" Count="1" />
+      <LineId Id="957" Count="1" />
+      <LineId Id="956" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>

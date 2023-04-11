@@ -24,7 +24,7 @@ Output_Coils[7] 	- 1007 <- Licht Esszimmertisch
 Output_Coils[8] 	- 1008 <- Licht Esszimmer
 Output_Coils[9] 	- 1009 <- Licht Wohnzimmer
 Output_Coils[10] 	- 1010 <- Aussenbeleuchtung Balkon
-Output_Coils[11] 	- 1011 <- 
+Output_Coils[11] 	- 1011 <- Wohnzimmer Steckdose Uhr
 Output_Coils[12] 	- 1012 <- Werkstatt Steckdose
 Output_Coils[13] 	- 1013 <- Garagentor Impuls
 Output_Coils[14] 	- 1014 <- Türgong Impuls
@@ -33,9 +33,24 @@ Output_Coils[16] 	- 1016 <- Haustüröffner Impuls
 Output_Coils[17] 	- 1017 <- Haustüröffner Dauer
 Output_Coils[18] 	- 1018 <- Wohnzimmer Steckdose Fernseher
 Output_Coils[19] 	- 1019 <- ENV_NoDailight
-Output_Coils[20] 	- 1020 <- 
-Output_Coils[21] 	- 1021 <- 
-Output_Coils[22] 	- 1022 <- 
+Output_Coils[20] 	- 1020 <- Wohnzimmer Steckdose Esszimmer
+Output_Coils[21] 	- 1021 <- Aussensteckdose Haustür
+Output_Coils[22] 	- 1022 <- Aussensteckdose Balkon
+Output_Coils[23] 	- 1023 <- Strom Zisternenpumpe
+Output_Coils[24] 	- 1024 <- Strom SmartMirror
+Output_Coils[25] 	- 1025 <- Wohnzimmer Steckdose LED-Band
+Output_Coils[26] 	- 1026 <- Lüfter Werkstatt
+Output_Coils[27] 	- 1027 <- Strom Heizung Werkstatt
+Output_Coils[28] 	- 1028 <- 
+Output_Coils[29] 	- 1029 <- 
+Output_Coils[30] 	- 1030 <- 
+Output_Coils[31] 	- 1031 <- 
+Output_Coils[32] 	- 1032 <- 
+Output_Coils[33] 	- 1033 <- 
+Output_Coils[34] 	- 1034 <- 
+Output_Coils[35] 	- 1035 <- 
+Output_Coils[36] 	- 1036 <- 
+
 
 ########################----FENSTER / TÜRKONTAKTE----################
 Output_coils[200]	- 1200 <- Fenster 	EG 	BAD
@@ -80,6 +95,7 @@ Output_coils[255]	- 1255 <-
 ------------------------------------------------------------------------------*)
 
 (*-----------------------------------------------------------------------------
+Output_Registers[0] 	- 2000 <- Trinkwasserverbrauch gvl_RETAIN 
 Output_Registers[7] 	- 2007 <- Helligkeit Esszimmertisch
 Output_Registers[8] 	- 2008 <- Helligkeit Esszimmer
 Output_Registers[9] 	- 2009 <- Helligkeit Wohnzimmer

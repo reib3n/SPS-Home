@@ -3,8 +3,17 @@
   <POU Name="sub_Power" Id="{b9be3092-8a4e-4bbc-8f3f-2431869a4bad}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM sub_Power
 VAR
-		fbPowerWerkstatt	:	FB_PowerSocket;
-		fbPowerFernseher	:	FB_PowerSocket;
+		fbPowerWerkstatt		:	FB_PowerSocket;
+		fbPowerFernseher		:	FB_PowerSocket;
+		fbPowerUhr				:	FB_PowerSocket;
+		fbPowerEsszimmer		:	FB_PowerSocket;
+		fbPowerAussenHaustur	:	FB_PowerSocket;
+		fbPowerAussenBalkon		:	FB_PowerSocket;
+		fbPowerZisterne			:	FB_PowerSocket;
+		fbPowerSmartMirror		:	FB_PowerSocket;
+		fbPowerLEDBandWohn		:	FB_PowerSocket;
+		fbPowerFANWerkstatt		:	FB_PowerSocket;
+		fbPowerHeatWerkstatt	:	FB_PowerSocket;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -30,6 +39,78 @@ fbPowerFernseher
 	bInputHA		:=	gvl_mb.Output_Coils[18],
 	bOut			=>	gvl_EA.bOD02_6,
 );
+//-------------------------------------------------------------------------
+
+//--------------------UHR STECKDOSE----------------------------------
+fbPowerUhr
+(
+	bInputHA		:=	gvl_mb.Output_Coils[11],
+	bOut			=>	gvl_EA.bOD02_5,
+);
+//-------------------------------------------------------------------------
+
+//--------------------ESSZIMMER STECKDOSE----------------------------------
+fbPowerEsszimmer
+(
+	bInputHA		:=	gvl_mb.Output_Coils[20],
+	bOut			=>	gvl_EA.bOD02_4,
+);
+//-------------------------------------------------------------------------
+
+//--------------------HAUSTÜR AUSSENSTECKDOSE----------------------------------
+fbPowerAussenHaustur
+(
+	bInputHA		:=	gvl_mb.Output_Coils[21],
+	bOut			=>	gvl_EA.bOD02_7,
+);
+//-------------------------------------------------------------------------
+
+//--------------------BALKON AUSSENSTECKDOSE----------------------------------
+fbPowerAussenBalkon
+(
+	bInputHA		:=	gvl_mb.Output_Coils[22],
+	bOut			=>	gvl_EA.bOD02_8,
+);
+//-------------------------------------------------------------------------
+
+//--------------------STROM ZISTERNE----------------------------------
+fbPowerZisterne
+(
+	bInputHA		:=	gvl_mb.Output_Coils[23],
+	bOut			=>	gvl_EA.bOD03_6,
+);
+//-------------------------------------------------------------------------
+
+//--------------------STROM SMARTMIRROR----------------------------------
+fbPowerSmartMirror
+(
+	bInputHA		:=	gvl_mb.Output_Coils[24],
+	bOut			=>	gvl_EA.bOD04_2,
+);
+//-------------------------------------------------------------------------
+
+//--------------------LED-BAND WOHNZIMMER STECKDOSE-------------------------------
+fbPowerLEDBandWohn
+(
+	bInputHA		:=	gvl_mb.Output_Coils[25],
+	bOut			=>	gvl_EA.bOD04_3,
+);
+//-------------------------------------------------------------------------
+
+//--------------------LÜFTER WERKSTATT-------------------------------
+fbPowerFANWerkstatt
+(
+	bInputHA		:=	gvl_mb.Output_Coils[26],
+	bOut			=>	gvl_EA.bWOD01_4,
+);
+//-------------------------------------------------------------------------
+
+//--------------------HEIZUNG WERKSTATT-------------------------------
+fbPowerHeatWerkstatt
+(
+	bInputHA		:=	gvl_mb.Output_Coils[27],
+	bOut			=>	gvl_EA.bWOD01_5,
+);
 //-------------------------------------------------------------------------]]></ST>
     </Implementation>
     <LineIds Name="sub_Power">
@@ -46,6 +127,25 @@ fbPowerFernseher
       <LineId Id="132" Count="2" />
       <LineId Id="136" Count="2" />
       <LineId Id="124" Count="0" />
+      <LineId Id="145" Count="3" />
+      <LineId Id="150" Count="2" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="155" Count="6" />
+      <LineId Id="154" Count="0" />
+      <LineId Id="171" Count="6" />
+      <LineId Id="170" Count="0" />
+      <LineId Id="179" Count="6" />
+      <LineId Id="178" Count="0" />
+      <LineId Id="187" Count="6" />
+      <LineId Id="186" Count="0" />
+      <LineId Id="195" Count="6" />
+      <LineId Id="194" Count="0" />
+      <LineId Id="203" Count="6" />
+      <LineId Id="202" Count="0" />
+      <LineId Id="211" Count="6" />
+      <LineId Id="210" Count="0" />
+      <LineId Id="220" Count="6" />
+      <LineId Id="219" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL RETAIN
 	//Brauchwassermenge verbraucht in m3
-    waterConsumption : ULINT;
+    waterConsumption : WORD;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

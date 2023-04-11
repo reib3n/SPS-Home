@@ -606,7 +606,7 @@
 						<Var>
 							<Name>gvl_RETAIN.waterConsumption</Name>
 							<Comment><![CDATA[Brauchwassermenge verbraucht in m3]]></Comment>
-							<Type>ULINT</Type>
+							<Type>WORD</Type>
 							<InOut>7</InOut>
 						</Var>
 					</Vars>
