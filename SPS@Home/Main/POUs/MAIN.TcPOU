@@ -22,9 +22,6 @@ VAR
 	counterZ2	: INT;
 	counterZ3	: INT := 0;
 	
-	//Wasserverbrauch
-	trigWater	:	R_TRIG;
-	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -36,8 +33,8 @@ sub_Light();
 sub_Security();
 sub_Access();
 sub_Power();
-
-gvl_mb.Output_Registers[0] := gvl_RETAIN.waterConsumption;
+sub_Measure();
+sub_Heating();
 
 gvl_mb.Output_Coils[27] := FALSE;	//Heizung Werkstatt aus!
 
@@ -83,17 +80,6 @@ ELSE
 END_IF
 //----------------------------------------------------------------------------------------
 
-//-------------------------------------HEIZUNG--------------------------------------------
-
-//Vitramo BAD OG
-IF gvl_mb.Output_Coils[15] THEN
-	gvl_EA.bOD04_4 := TRUE;
-ELSE
-	gvl_EA.bOD04_4 := gvl_EA.bID04_4;		//Steuerung über Heizung
-END_IF
-
-//----------------------------------------------------------------------------------------
-
 //-------------------------------------WERKSTATT-------------------------------------------
 
 // Automatisch Licht an Wenn Tür auf (Nachts)
@@ -109,16 +95,11 @@ TON_ENV(IN := bBlockENV, PT := T#60000MS);
 IF NOT bBlockENV THEN
 	//----------------------------------------------
 	gvl_mb.Output_Registers[14] := F_Convert10V2Temp(gvl_EA.iIAV01_1);		// Konvertiere Wohnzimmer Temperatur (0 - 50 °C)
-	gvl_mb.Output_Registers[15] := F_Convert10V2Hum(gvl_EA.iIAV01_2);		// Konvertiere Wohnzimmer Feuchtigkeit
-	gvl_mb.Output_Registers[16] := F_Convert10V2CO2(gvl_EA.iIAV01_3);		// Konvertiere Wohnzimmer CO2
-	
 	gvl_mb.Output_Registers[19] := gvl_EA.iIAPT_01_1;						// Temperatur Bühne
 	
 	gvl_mb.Output_Registers[17] := F_Convert10V2Temp2(gvl_EA.iIAV01_4);		// Konvertiere Technikraum Temperatur (-30 - +70 °C)
-	gvl_mb.Output_Registers[18] := F_Convert10V2Hum(gvl_EA.iIAV02_1);		// Konvertiere Technikraum Feuchtigkeit
 	
 	gvl_mb.Output_Registers[20] := F_Convert10V2Temp2(gvl_EA.iWIAV01_1);	// Konvertiere Wohnzimmer Temperatur (-30 - +70 °C)
-	gvl_mb.Output_Registers[21] := F_Convert10V2Hum(gvl_EA.iWIAV01_2);		// Konvertiere Werkstatt Feuchtigkeit
 	
 	//---------------------------Zisterne Arithmetisches Mittel------------------------------
 	IF counterZ1 < 10 THEN //Initiale Befüllung
@@ -146,38 +127,24 @@ END_IF
 
 IF TON_ENV.Q THEN
 	bBlockENV := FALSE;
-END_IF
-
-//---------------------------------------WASSERVERBRAUCH ZÄHLEN (1 = 10 Liter)--------------
-trigWater(CLK := gvl_EA.bID24_03_3);
-
-IF trigWater.Q THEN
-	IF gvl_RETAIN.waterConsumption = 65535 THEN
-		gvl_RETAIN.waterConsumption := 0;
-	ELSE
-		gvl_RETAIN.waterConsumption := gvl_RETAIN.waterConsumption + 1;
-	END_IF
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="80" Count="3" />
       <LineId Id="860" Count="2" />
       <LineId Id="926" Count="0" />
-      <LineId Id="953" Count="0" />
-      <LineId Id="952" Count="0" />
+      <LineId Id="1011" Count="1" />
       <LineId Id="985" Count="0" />
       <LineId Id="984" Count="0" />
       <LineId Id="335" Count="1" />
       <LineId Id="338" Count="39" />
-      <LineId Id="385" Count="8" />
-      <LineId Id="395" Count="3" />
+      <LineId Id="397" Count="1" />
       <LineId Id="408" Count="4" />
       <LineId Id="414" Count="1" />
-      <LineId Id="448" Count="49" />
-      <LineId Id="954" Count="1" />
-      <LineId Id="957" Count="1" />
-      <LineId Id="956" Count="0" />
-      <LineId Id="2" Count="0" />
+      <LineId Id="448" Count="6" />
+      <LineId Id="458" Count="2" />
+      <LineId Id="462" Count="1" />
+      <LineId Id="465" Count="27" />
     </LineIds>
   </POU>
 </TcPlcObject>

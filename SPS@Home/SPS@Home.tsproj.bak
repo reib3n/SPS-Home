@@ -81,7 +81,7 @@
 						</Var>
 						<Var>
 							<Name>gvl_EA.bID03_4</Name>
-							<Comment><![CDATA[ Bewegungsmelder Aussen L6 (OST)]]></Comment>
+							<Comment><![CDATA[ Bewegungsmelder Aussen L8 (Treppe Süd)]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -189,11 +189,12 @@
 						</Var>
 						<Var>
 							<Name>gvl_EA.bID24_03_3</Name>
-							<Comment><![CDATA[ Wasseruhr Impuls = 10 Liter]]></Comment>
+							<Comment><![CDATA[ Wasseruhr Trinkwasser 	Impuls = 10 Liter]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>gvl_EA.bID24_03_4</Name>
+							<Comment><![CDATA[ Wasseruhr Zisterne 		Impuls = 1 Liter]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -265,14 +266,17 @@
 						</Var>
 						<Var>
 							<Name>gvl_EA.bWID01_5</Name>
+							<Comment><![CDATA[ Taster Garage Haus]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>gvl_EA.bWID01_6</Name>
+							<Comment><![CDATA[ Taster Garage Strasse]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>gvl_EA.bWID01_7</Name>
+							<Comment><![CDATA[ Bewegungsmelder Überdachung]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -562,10 +566,12 @@
 						</Var>
 						<Var>
 							<Name>gvl_EA.bWOD01_7</Name>
+							<Comment><![CDATA[ Licht Garage]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>gvl_EA.bWOD01_8</Name>
+							<Comment><![CDATA[ Licht Überdachung]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -606,6 +612,11 @@
 						<Var>
 							<Name>gvl_RETAIN.waterConsumption</Name>
 							<Comment><![CDATA[Brauchwassermenge verbraucht in m3]]></Comment>
+							<Type>WORD</Type>
+							<InOut>7</InOut>
+						</Var>
+						<Var>
+							<Name>gvl_RETAIN.waterConsumptionZisterne</Name>
 							<Type>WORD</Type>
 							<InOut>7</InOut>
 						</Var>

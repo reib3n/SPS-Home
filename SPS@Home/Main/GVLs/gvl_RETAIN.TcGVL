@@ -5,6 +5,7 @@
 VAR_GLOBAL RETAIN
 	//Brauchwassermenge verbraucht in m3
     waterConsumption : WORD;
+	waterConsumptionZisterne : WORD;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

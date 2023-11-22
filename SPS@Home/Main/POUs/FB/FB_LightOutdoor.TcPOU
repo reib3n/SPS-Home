@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="FB_LightOutdoor" Id="{cbbe7e41-8b68-42de-afac-9168fd20c377}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_LightOutdoor
+VAR_INPUT
+	bInputPIR		:	BOOL;						//Input des Bewegungsmelders
+	bInputSecLoop	:	BOOL := FALSE;				//Input für Security Loop
+	tHigh			:	TIME;						//Zeit (ms) für High
+END_VAR
+VAR_IN_OUT
+	bInputHA		:	BOOL;						//Input (HA)
+//	iLightMode		:	WORD;						//LichtModus für Aussenumgebung
+END_VAR
+VAR_OUTPUT
+	bOut			:	BOOL;
+END_VAR
+VAR CONSTANT
+	tSec			:	TIME := T#1S;
+END_VAR
+VAR
+	fbRtrigPIR		:	R_TRIG;
+	fbFtrig			:	F_TRIG;
+	bTriggerPIR		:	BOOL;
+	bStateOut		:	BOOL;
+	
+	fbRtrigInit		:	R_TRIG;
+	tpPulse			:	TP;
+	
+	tpPulseSec		:	TP;
+	tofDelaySec		:	TOF;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbRtrigInit(CLK:= bInputSecLoop, Q=> );
+//tpPulse(IN := bOut, PT := tHigh);
+
+tpPulseSec(IN := bOut, PT := tSec);
+tofDelaySec(IN := bOut, PT := tSec);
+
+IF bInputSecLoop THEN	//Dauerlicht bei Security Falls
+
+	IF fbRtrigInit.Q THEN
+		bOut	:= TRUE;
+	END_IF
+	
+	IF NOT tpPulseSec.Q THEN
+		bOut := FALSE;
+	END_IF
+	
+	IF NOT tofDelaySec.Q THEN
+		bOut := TRUE;
+	END_IF	
+	
+	bInputHA	:=	bOut;
+	
+ELSE	//Normale Funktion
+	bTriggerPIR	:= FALSE;
+
+	//INIT PIR TRIGGER	
+	fbRtrigPIR(CLK:= bInputPIR, Q=> );
+	bTriggerPIR := bTriggerPIR OR fbRtrigPIR.Q;
+
+	// Pulse
+	tpPulse(IN := bTriggerPIR, PT := tHigh);
+
+	IF tpPulse.Q THEN
+		bStateOut	:= TRUE;
+	ELSIF NOT bInputHA THEN
+		bStateOut 	:= FALSE;
+	END_IF
+	
+	// Wenn über HA dauer an
+	IF bInputHA THEN
+		bStateOut	:= TRUE;
+	END_IF
+	
+	fbFtrig(CLK:= bInputHA, Q=> );
+	
+	IF	fbFtrig.Q THEN
+		bStateOut	:= FALSE;
+	END_IF
+	
+	bOut	:= 	bStateOut;	
+	
+END_IF
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_LightOutdoor">
+      <LineId Id="124" Count="1" />
+      <LineId Id="166" Count="1" />
+      <LineId Id="165" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="33" Count="1" />
+      <LineId Id="126" Count="9" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="172" Count="1" />
+      <LineId Id="42" Count="1" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="109" Count="0" />
+      <LineId Id="99" Count="1" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="164" Count="0" />
+      <LineId Id="153" Count="0" />
+      <LineId Id="155" Count="0" />
+      <LineId Id="157" Count="4" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="175" Count="0" />
+      <LineId Id="96" Count="0" />
+      <LineId Id="91" Count="2" />
+      <LineId Id="183" Count="0" />
+      <LineId Id="186" Count="0" />
+      <LineId Id="184" Count="0" />
+      <LineId Id="187" Count="0" />
+      <LineId Id="94" Count="0" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="95" Count="0" />
+      <LineId Id="181" Count="0" />
+      <LineId Id="180" Count="0" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

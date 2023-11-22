@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="FB_LightPIR" Id="{18fc6d29-bfc9-47ea-816f-b72b3250efe3}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_LightPIR
+VAR_INPUT
+	bInputPIR		:	BOOL;						//Input des Bewegungsmelders
+	bInputSecLoop	:	BOOL := FALSE;				//Input für Security Loop
+	tHigh			:	TIME;						//Zeit (ms) für High
+END_VAR
+VAR_IN_OUT
+	bInputHA		:	BOOL;						//Input (HA)
+END_VAR
+VAR_OUTPUT
+	bOut			:	BOOL;
+END_VAR
+VAR CONSTANT
+	tSec			:	TIME := T#1S;
+END_VAR
+VAR
+	fbRtrigPIR		:	R_TRIG;
+	fbTrigSec		:	R_TRIG;
+	
+	bStateOut		:	BOOL := FALSE;
+
+	tpPulse			:	TP_RST;
+	
+	tpPulseSec		:	TP;
+	tofDelaySec		:	TOF;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Security Loop
+fbTrigSec	(CLK:= bInputPIR, Q=> );
+
+IF bInputSecLoop THEN
+	
+	tpPulseSec	(IN := bStateOut, PT := tSec);
+    tofDelaySec	(IN := bStateOut, PT := tSec);
+
+	IF fbTrigSec.Q THEN
+		bStateOut	:= TRUE;
+	END_IF
+	
+	IF NOT tpPulseSec.Q THEN
+		bStateOut := FALSE;
+	END_IF
+	
+	IF NOT tofDelaySec.Q THEN
+		bStateOut := TRUE;
+	END_IF	
+
+ELSIF bInputHA THEN
+
+	bStateOut := TRUE;
+
+ELSE
+
+	fbRtrigPIR(CLK:= bInputPIR, Q=> );
+	
+	// Pulse
+	tpPulse(IN := fbRtrigPIR.Q, PT := tHigh);
+
+	IF tpPulse.Q THEN
+		bStateOut	:= TRUE;
+		
+		//Reset Pulse bei neuer erkennung
+		tpPulse.RST := fbRtrigPIR.Q;
+		
+	ELSE
+		bStateOut 	:= FALSE;
+	END_IF
+	
+	IF bInputPIR THEN
+		bStateOut	:= TRUE;
+	END_IF
+
+END_IF
+
+bOut		:= bStateOut;]]></ST>
+    </Implementation>
+    <LineIds Name="FB_LightPIR">
+      <LineId Id="275" Count="0" />
+      <LineId Id="357" Count="0" />
+      <LineId Id="356" Count="0" />
+      <LineId Id="279" Count="0" />
+      <LineId Id="358" Count="0" />
+      <LineId Id="374" Count="2" />
+      <LineId Id="361" Count="9" />
+      <LineId Id="359" Count="0" />
+      <LineId Id="320" Count="0" />
+      <LineId Id="317" Count="0" />
+      <LineId Id="322" Count="0" />
+      <LineId Id="319" Count="0" />
+      <LineId Id="321" Count="0" />
+      <LineId Id="318" Count="0" />
+      <LineId Id="306" Count="0" />
+      <LineId Id="282" Count="0" />
+      <LineId Id="293" Count="0" />
+      <LineId Id="308" Count="0" />
+      <LineId Id="296" Count="3" />
+      <LineId Id="309" Count="0" />
+      <LineId Id="316" Count="0" />
+      <LineId Id="312" Count="0" />
+      <LineId Id="310" Count="0" />
+      <LineId Id="300" Count="1" />
+      <LineId Id="294" Count="0" />
+      <LineId Id="324" Count="3" />
+      <LineId Id="284" Count="0" />
+      <LineId Id="283" Count="0" />
+      <LineId Id="286" Count="0" />
+      <LineId Id="276" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

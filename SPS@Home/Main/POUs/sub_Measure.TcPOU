@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="sub_Measure" Id="{c86e02d1-7a17-45fa-8e50-215beceed17d}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM sub_Measure
+VAR
+		fbWaterConsumption			:	FB_Count;
+		fbWaterConsumptionZisterne	:	FB_Count;
+		
+		fbHumWohnzimmer		:	FB_Convert_10V2relHum;
+		fbHumTechnikraum	:	FB_Convert_10V2relHum;
+		fbHumWerkstatt		:	FB_Convert_10V2relHum;
+		
+		fbCO2Wohnzimmer		:	FB_Convert_10V2co2;
+	iOut: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//###################################################################################
+//##-----------------------------------MEASUREMENT---------------------------------##
+//###################################################################################
+
+//--------------------WATER CONSUMPTION Trinkwasser (1 = 10 Liter)-------------------
+fbWaterConsumption
+(
+	bInput			:= gvl_EA.bID24_03_3,
+	bAllFlanks 		:= FALSE,
+	wCountRetain	:= gvl_RETAIN.waterConsumption,
+	wOut			=> gvl_mb.Output_Registers[0]
+);
+//-----------------------------------------------------------------------
+//--------------------WATER CONSUMPTION Zisterne (1 = 1 Liter)-------------------
+fbWaterConsumptionZisterne
+(
+	bInput			:= gvl_EA.bID24_03_4,
+	bAllFlanks 		:= FALSE,
+	wCountRetain	:= gvl_RETAIN.waterConsumptionZisterne,
+	wOut			=> gvl_mb.Output_Registers[22]
+);
+//-----------------------------------------------------------------------
+//--------------------HUMIDITY WOHNZIMMER--------------------------------
+fbHumWohnzimmer
+(
+	iInput		:= gvl_EA.iIAV01_2,
+	tRefresh 	:= T#1S,
+	wOut 		=> gvl_mb.Output_Registers[15]
+);
+//-----------------------------------------------------------------------
+//--------------------HUMIDITY TECHNIKRAUM--------------------------------
+fbHumTechnikraum
+(
+	iInput		:= gvl_EA.iIAV02_1,
+	tRefresh 	:= T#1S,
+	wOut 		=> gvl_mb.Output_Registers[18]
+);
+//-----------------------------------------------------------------------
+//--------------------HUMIDITY WERKSTATT--------------------------------
+fbHumWerkstatt
+(
+	iInput		:= gvl_EA.iWIAV01_2,
+	tRefresh 	:= T#1S,
+	wOut 		=> gvl_mb.Output_Registers[21]
+);
+//-----------------------------------------------------------------------
+//--------------------CO2 WOHNZIMMER-------------------------------------
+fbCO2Wohnzimmer
+(
+	iInput		:= gvl_EA.iIAV01_3,
+	tRefresh 	:= T#1S,
+	wOut 		=> gvl_mb.Output_Registers[16]
+);
+//-----------------------------------------------------------------------]]></ST>
+    </Implementation>
+    <LineIds Name="sub_Measure">
+      <LineId Id="6" Count="3" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="15" Count="1" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="88" Count="7" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="24" Count="1" />
+      <LineId Id="32" Count="4" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="41" Count="6" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="49" Count="6" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="69" Count="6" />
+      <LineId Id="67" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

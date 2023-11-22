@@ -78,7 +78,7 @@
 	bID03_1		AT	%I*:BOOL;			// 115 T11 (Diele - Eingang Esszimmer unten)
 	bID03_2		AT	%I*:BOOL;			// 115 T12 (Diele - Haustür / Bad EG)
 	bID03_3		AT	%I*:BOOL;			// Schalter Technikraum
-	bID03_4		AT	%I*:BOOL;			// Bewegungsmelder Aussen L6 (OST)
+	bID03_4		AT	%I*:BOOL;			// Bewegungsmelder Aussen L8 (Treppe Süd)
 
 	//----------ID04----------------------
 	bID04_1		AT	%I*:BOOL;			// Schalter Hobbyraum
@@ -113,8 +113,8 @@
 	//----------ID24-03--------------------
 	bID24_03_1		AT	%I*:BOOL;	// Fensterkontakt Hobbyraum West
 	bID24_03_2		AT	%I*:BOOL;	// Türkontakt Balkontür EG
-	bID24_03_3		AT	%I*:BOOL;	// Wasseruhr Impuls = 10 Liter
-	bID24_03_4		AT	%I*:BOOL;
+	bID24_03_3		AT	%I*:BOOL;	// Wasseruhr Trinkwasser 	Impuls = 10 Liter
+	bID24_03_4		AT	%I*:BOOL;	// Wasseruhr Zisterne 		Impuls = 1 Liter
 	
 	//----------OADim01---------------------
 	iOADim01		AT	%Q*:INT;	// Dimmer Esszimmerlampe
@@ -150,8 +150,8 @@
 	bWOD01_4		AT	%Q*:BOOL;				// Lüfter UG
 	bWOD01_5		AT	%Q*:BOOL;				// Heizer Werkstatt
 	bWOD01_6		AT	%Q*:BOOL;				// Garagentor
-	bWOD01_7		AT	%Q*:BOOL;
-	bWOD01_8		AT	%Q*:BOOL;
+	bWOD01_7		AT	%Q*:BOOL;				// Licht Garage
+	bWOD01_8		AT	%Q*:BOOL;				// Licht Überdachung
 	bWOD01_9		AT	%Q*:BOOL;
 	bWOD01_10		AT	%Q*:BOOL;
 	bWOD01_11		AT	%Q*:BOOL;
@@ -166,9 +166,9 @@
 	bWID01_2		AT	%I*:BOOL;				// Stromschalter Werkstatt
 	bWID01_3		AT	%I*:BOOL;				// Reedkontakt Werkstatttür
 	bWID01_4		AT	%I*:BOOL;				// Reedkontakt Werkstattfenster
-	bWID01_5		AT	%I*:BOOL;
-	bWID01_6		AT	%I*:BOOL;
-	bWID01_7		AT	%I*:BOOL;
+	bWID01_5		AT	%I*:BOOL;				// Taster Garage Haus
+	bWID01_6		AT	%I*:BOOL;				// Taster Garage Strasse
+	bWID01_7		AT	%I*:BOOL;				// Bewegungsmelder Überdachung
 	bWID01_8		AT	%I*:BOOL;
 	bWID01_9		AT	%I*:BOOL;
 	bWID01_10		AT	%I*:BOOL;

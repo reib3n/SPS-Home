@@ -8,12 +8,15 @@ VAR
 		fbLichtHobbyraum 		: FB_Light;
 		fbLichtKueche			: FB_Light;
 		fbLichtWerkstatt		: FB_Light;
+		fbLichtGarage			: FB_Light;
 		fbLichtEsstisch			: FB_LIghtDimm;
 		fbLichtBalkon			: FB_LIghtDimm;
 		fbLichtEsszimmer		: FB_LightDimmIndirectNC;
 		fbLichtWohnzimmer		: FB_LightDimmIndirectNC;
-		fbLichtAussenOST		: FB_Light;
-		fbLichtAussenHaustur	: FB_Light;
+		fbLichtAussenOST		: FB_LightPIR;
+		fbLichtAussenHaustur	: FB_LightPIR;
+		fbLichtAussenTreppeSud	: FB_LightPIR;
+		fbLichtAussenEingang	: FB_LightPIR;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -85,21 +88,24 @@ fbLichtWerkstatt
 );
 //-----------------------------------------------------------------
 
-//--------------------AUSSEN OST----------------------------------
-fbLichtAussenOST
+//--------------------GARAGE----------------------------------
+fbLichtGarage.bInputs[0] := gvl_EA.bWID01_5;
+fbLichtGarage.bInputs[1] := gvl_EA.bWID01_6;
+
+fbLichtGarage
 (	
-	bInputSec		:= gvl_mb.Output_Coils[243],
-	bInputHA		:= gvl_mb.Output_Coils[2],
-	bOut 			=> gvl_EA.bOD01_6,
+	bInputSec		:= gvl_mb.Output_Coils[242],
+	bInputHA		:= gvl_mb.Output_Coils[30],
+	bOut 			=> gvl_EA.bWOD01_7,
 );
 //-----------------------------------------------------------------
 
-//--------------------AUSSEN HAUSTÜR----------------------------------
-fbLichtAussenHaustur
+//--------------------AUSSEN OST----------------------------------
+fbLichtAussenOST
 (	
-	bInputSec		:= gvl_mb.Output_Coils[243],
-	bInputHA		:= gvl_mb.Output_Coils[3],
-	bOut 			=> gvl_EA.bOD01_7,
+	bInputSecLoop	:= gvl_mb.Output_Coils[243],
+	bInputHA		:= gvl_mb.Output_Coils[2],
+	bOut 			=> gvl_EA.bOD01_6,
 );
 //-----------------------------------------------------------------
 
@@ -161,6 +167,45 @@ fbLichtWohnzimmer
 	iOut 			=> gvl_EA.iOA01_1,
 	bOut			=> gvl_EA.bOD01_3,
 );
+//-----------------------------------------------------------------
+
+//--------------------Aussenbeleuchtung Treppe Süd-------------
+fbLichtAussenTreppeSud
+(
+	bInputSecLoop	:= gvl_mb.Output_Coils[243],
+	bInputPIR		:= gvl_ea.bID03_4,
+	bInputHA		:= gvl_mb.Output_Coils[28],
+	tHigh			:= T#1M,
+	bOut			=> gvl_ea.bOD01_8,
+);
+
+// Sync PIR to HA
+gvl_mb.Output_Coils[29] := gvl_ea.bID03_4;
+//-----------------------------------------------------------------
+
+//--------------------Aussenbeleuchtung Eingang Haus-----------
+fbLichtAussenEingang
+(
+	bInputSecLoop	:= gvl_mb.Output_Coils[243],
+	bInputPIR		:= gvl_ea.bWID01_7,
+	bInputHA		:= gvl_mb.Output_Coils[32],
+	tHigh			:= T#1M,
+	bOut			=> gvl_ea.bWOD01_8,
+);
+
+// Sync PIR to HA
+gvl_mb.Output_Coils[31] := gvl_ea.bWID01_7;
+//----------------------------------------------------------------
+
+//--------------------AUSSEN HAUSTÜR----------------------------------
+fbLichtAussenHaustur
+(	
+	bInputSecLoop	:= gvl_mb.Output_Coils[243],
+	bInputPIR		:= gvl_ea.bWID01_7,
+	tHigh			:= T#1M,
+	bInputHA		:= gvl_mb.Output_Coils[3],
+	bOut 			=> gvl_EA.bOD01_7,
+);
 //-----------------------------------------------------------------]]></ST>
     </Implementation>
     <LineIds Name="sub_Light">
@@ -195,14 +240,16 @@ fbLichtWohnzimmer
       <LineId Id="83" Count="8" />
       <LineId Id="93" Count="1" />
       <LineId Id="82" Count="0" />
-      <LineId Id="222" Count="1" />
+      <LineId Id="318" Count="2" />
+      <LineId Id="331" Count="0" />
+      <LineId Id="321" Count="3" />
+      <LineId Id="326" Count="2" />
+      <LineId Id="222" Count="0" />
+      <LineId Id="329" Count="0" />
+      <LineId Id="223" Count="0" />
       <LineId Id="226" Count="2" />
       <LineId Id="230" Count="2" />
       <LineId Id="221" Count="0" />
-      <LineId Id="234" Count="1" />
-      <LineId Id="238" Count="2" />
-      <LineId Id="242" Count="2" />
-      <LineId Id="233" Count="0" />
       <LineId Id="105" Count="6" />
       <LineId Id="156" Count="0" />
       <LineId Id="113" Count="0" />
@@ -232,6 +279,28 @@ fbLichtWohnzimmer
       <LineId Id="260" Count="0" />
       <LineId Id="202" Count="4" />
       <LineId Id="191" Count="0" />
+      <LineId Id="278" Count="1" />
+      <LineId Id="282" Count="2" />
+      <LineId Id="295" Count="0" />
+      <LineId Id="286" Count="0" />
+      <LineId Id="296" Count="0" />
+      <LineId Id="290" Count="1" />
+      <LineId Id="297" Count="0" />
+      <LineId Id="294" Count="0" />
+      <LineId Id="293" Count="0" />
+      <LineId Id="277" Count="0" />
+      <LineId Id="314" Count="0" />
+      <LineId Id="313" Count="0" />
+      <LineId Id="340" Count="6" />
+      <LineId Id="338" Count="0" />
+      <LineId Id="349" Count="0" />
+      <LineId Id="334" Count="0" />
+      <LineId Id="332" Count="0" />
+      <LineId Id="316" Count="0" />
+      <LineId Id="351" Count="3" />
+      <LineId Id="376" Count="2" />
+      <LineId Id="356" Count="2" />
+      <LineId Id="350" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

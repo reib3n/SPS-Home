@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="sub_Heating" Id="{2e634880-e46e-4912-9fc3-3ca3480f5766}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM sub_Heating
+VAR
+	fbVitramoBadOG		:	FB_Heating;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//###################################################################################
+//##-----------------------------------HEATING-------------------------------------##
+//###################################################################################
+
+//--------------------------------VITRAMO BAD----------------------------------
+fbVitramoBadOG
+(
+	bInput			:=	gvl_EA.bID04_4,
+	bInputOverwrite	:=	gvl_mb.Output_Coils[15],
+	bOut			=>	gvl_EA.bOD04_4
+);
+//-----------------------------------------------------------------------------]]></ST>
+    </Implementation>
+    <LineIds Name="sub_Heating">
+      <LineId Id="6" Count="3" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="21" Count="2" />
+      <LineId Id="10" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

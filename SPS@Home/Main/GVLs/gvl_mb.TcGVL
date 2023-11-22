@@ -41,11 +41,11 @@ Output_Coils[24] 	- 1024 <- Strom SmartMirror
 Output_Coils[25] 	- 1025 <- Wohnzimmer Steckdose LED-Band
 Output_Coils[26] 	- 1026 <- Lüfter Werkstatt
 Output_Coils[27] 	- 1027 <- Strom Heizung Werkstatt
-Output_Coils[28] 	- 1028 <- 
-Output_Coils[29] 	- 1029 <- 
-Output_Coils[30] 	- 1030 <- 
-Output_Coils[31] 	- 1031 <- 
-Output_Coils[32] 	- 1032 <- 
+Output_Coils[28] 	- 1028 <- Aussenbeleuchtung Treppe Süd
+Output_Coils[29] 	- 1029 <- Eingang Bewegungsmelder Treppe Süd
+Output_Coils[30] 	- 1030 <- Licht Garage
+Output_Coils[31] 	- 1031 <- Eingang Bewegungsmelder Überdachung OST
+Output_Coils[32] 	- 1032 <- Licht Aussen Hauseingang
 Output_Coils[33] 	- 1033 <- 
 Output_Coils[34] 	- 1034 <- 
 Output_Coils[35] 	- 1035 <- 
@@ -111,7 +111,7 @@ Output_Registers[18] 	- 2018 <- Technikraum Feuchtigkeit
 Output_Registers[19] 	- 2019 <- Dachboden Temperatur
 Output_Registers[20] 	- 2020 <- Werkstatt Temperatur
 Output_Registers[21] 	- 2021 <- Werkstatt Feuchtigkeit
-Output_Registers[22] 	- 2022 <- 
+Output_Registers[22] 	- 2022 <- Zisternenwasserverbrauch gvl_RETAIN
 
 
 

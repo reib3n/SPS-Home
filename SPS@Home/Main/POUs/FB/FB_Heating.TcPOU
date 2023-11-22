@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="FB_Heating" Id="{9baa2ebe-d006-4adc-9e0a-95958572b8cd}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Heating
+VAR_INPUT
+	bInput			:	BOOL;
+	bInputOverwrite	:	BOOL;
+END_VAR
+VAR_OUTPUT
+	bOut			:	BOOL;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bInputOverwrite THEN
+	bOut := TRUE;
+ELSE
+	bOut := bInput;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Heating">
+      <LineId Id="13" Count="3" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

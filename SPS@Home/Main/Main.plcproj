@@ -32,12 +32,6 @@
     <Compile Include="PLC1_Main.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Environment\F_Convert10V2CO2.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Environment\F_Convert10V2Hum.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\Environment\F_Convert10V2Temp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -48,6 +42,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Environment\F_ConvertZisterne_Perc2Liter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB\FB_Convert_10V2relHum.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB\FB_Convert_10V2co2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB\FB_Count.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB\FB_Heating.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB\FB_Light.TcPOU">
@@ -62,7 +68,13 @@
     <Compile Include="POUs\FB\FB_LightDimmIndirectNC.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB\FB_LightPIR.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB\FB_PowerSocket.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB\TP_RST.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Light\F_DimmAlgoForSwitch.TcPOU">
@@ -74,10 +86,16 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\sub_Heating.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\sub_Light.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\sub_Access.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\sub_Measure.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\sub_Security.TcPOU">

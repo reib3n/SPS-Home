@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="TP_RST" Id="{ad042526-ef78-44b3-9d50-9e8e01b6b282}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TP_RST
+VAR_INPUT
+   IN : BOOL;
+   PT : TIME;
+   RST : BOOL;
+END_VAR
+VAR_OUTPUT
+   Q : BOOL;
+   ET : TIME;
+END_VAR
+VAR CONSTANT
+   INIT : INT := 0;
+   RUN_PULSE : INT := 1;
+   PULSE_DONE : INT := 2;
+   RESET_TIME : INT := 3;
+END_VAR
+VAR
+   Timer : TON;
+   State : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE State OF
+   INIT://Make sure output and timer are off
+      Timer(IN:=FALSE, PT:=PT, ET=>ET);
+      Q := FALSE;
+      //See if user wants to start pulse
+      IF IN THEN
+         State := RUN_PULSE;
+      END_IF
+      
+   RUN_PULSE://Normal pulse (output is true)
+      Timer(IN:=TRUE, PT:=PT, ET=>ET);
+      Q := TRUE;
+      //See if timer reset requested
+      IF RST THEN
+         State := RESET_TIME;
+      END_IF
+      //See if timer expired (this overrides RST signal if timer is already done)
+      IF Timer.Q THEN
+         State := PULSE_DONE;
+      END_IF
+   
+   PULSE_DONE://Pulse is done - ignore RST input
+      //Keep timer TRUE to maintain ET like normal TP
+      Timer(IN:=TRUE, PT:=PT, ET=>ET);
+      Q := FALSE;
+      //See if user shuts off timer
+      IF NOT IN THEN
+         State := INIT;
+      END_IF
+      
+   RESET_TIME://User wants to extend pulse output (keep output high)
+      //Reset timer (ET = 0 again)
+      Timer(IN:=FALSE, PT:=PT, ET=>ET);
+      Q := TRUE;
+      //Watch for drop of RST - and go back to normal pulse output
+      IF NOT RST THEN
+         State := RUN_PULSE;
+      END_IF
+      
+   ELSE //problem in code - reset state machine so FB doesn't freeze
+      State := INIT;
+      
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="TP_RST">
+      <LineId Id="30" Count="41" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
