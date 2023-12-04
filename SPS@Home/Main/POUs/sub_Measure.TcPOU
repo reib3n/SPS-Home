@@ -9,15 +9,23 @@ VAR
 		fbHumWohnzimmer		:	FB_Convert_10V2relHum;
 		fbHumTechnikraum	:	FB_Convert_10V2relHum;
 		fbHumWerkstatt		:	FB_Convert_10V2relHum;
+		fbHumGarage			:	FB_Convert_10V2relHum;
 		
 		fbCO2Wohnzimmer		:	FB_Convert_10V2co2;
-	iOut: INT;
+		
+		fbTempGarage		:	FB_Convert_10V2temp;
+		fbTempWerkstatt		:	FB_Convert_10V2temp;
+		fbTempTechnikraum	:	FB_Convert_10V2temp;
+		fbTempWohnzimmer	:	FB_Convert_10V2temp;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//###################################################################################
 //##-----------------------------------MEASUREMENT---------------------------------##
 //###################################################################################
+
+
+gvl_mb.Output_Registers[19] := gvl_EA.iIAPT_01_1;	// Temperatur Bühne
 
 //--------------------WATER CONSUMPTION Trinkwasser (1 = 10 Liter)-------------------
 fbWaterConsumption
@@ -41,7 +49,7 @@ fbWaterConsumptionZisterne
 fbHumWohnzimmer
 (
 	iInput		:= gvl_EA.iIAV01_2,
-	tRefresh 	:= T#1S,
+	tRefresh 	:= T#10S,
 	wOut 		=> gvl_mb.Output_Registers[15]
 );
 //-----------------------------------------------------------------------
@@ -49,7 +57,7 @@ fbHumWohnzimmer
 fbHumTechnikraum
 (
 	iInput		:= gvl_EA.iIAV02_1,
-	tRefresh 	:= T#1S,
+	tRefresh 	:= T#10S,
 	wOut 		=> gvl_mb.Output_Registers[18]
 );
 //-----------------------------------------------------------------------
@@ -57,21 +65,72 @@ fbHumTechnikraum
 fbHumWerkstatt
 (
 	iInput		:= gvl_EA.iWIAV01_2,
-	tRefresh 	:= T#1S,
+	tRefresh 	:= T#10S,
 	wOut 		=> gvl_mb.Output_Registers[21]
+);
+//-----------------------------------------------------------------------
+//--------------------HUMIDITY GARAGE--------------------------------
+fbHumGarage
+(
+	iInput		:= gvl_EA.iWIAV01_3,
+	tRefresh 	:= T#10S,
+	wOut 		=> gvl_mb.Output_Registers[24]
 );
 //-----------------------------------------------------------------------
 //--------------------CO2 WOHNZIMMER-------------------------------------
 fbCO2Wohnzimmer
 (
 	iInput		:= gvl_EA.iIAV01_3,
-	tRefresh 	:= T#1S,
+	tRefresh 	:= T#10S,
 	wOut 		=> gvl_mb.Output_Registers[16]
+);
+//-----------------------------------------------------------------------
+//--------------------TEMP GARAGE-------------------------------------
+fbTempGarage
+(
+	iInput		:= gvl_EA.iWIAV01_4,
+	tRefresh 	:= T#10S,
+	itempMAX	:= 70,
+	itempMIN	:= -30,
+	wOut 		=> gvl_mb.Output_Registers[23]
+);
+//-----------------------------------------------------------------------
+//--------------------TEMP WERKSTATT-------------------------------------
+fbTempWerkstatt
+(
+	iInput		:= gvl_EA.iWIAV01_1,
+	tRefresh 	:= T#10S,
+	itempMAX	:= 70,
+	itempMIN	:= -30,
+	wOut 		=> gvl_mb.Output_Registers[20]
+);
+//-----------------------------------------------------------------------
+//--------------------TEMP TECHNIKRAUM-------------------------------------
+fbTempTechnikraum
+(
+	iInput		:= gvl_EA.iIAV01_4,
+	tRefresh 	:= T#10S,
+	itempMAX	:= 70,
+	itempMIN	:= -30,
+	wOut 		=> gvl_mb.Output_Registers[17]
+);
+//-----------------------------------------------------------------------
+//--------------------TEMP WOHNZIMMER-------------------------------------
+fbTempWohnzimmer
+(
+	iInput		:= gvl_EA.iIAV01_1,
+	tRefresh 	:= T#10S,
+	itempMAX	:= 50,
+	itempMIN	:= 0,
+	wOut 		=> gvl_mb.Output_Registers[14]
 );
 //-----------------------------------------------------------------------]]></ST>
     </Implementation>
     <LineIds Name="sub_Measure">
-      <LineId Id="6" Count="3" />
+      <LineId Id="6" Count="2" />
+      <LineId Id="185" Count="1" />
+      <LineId Id="184" Count="0" />
+      <LineId Id="9" Count="0" />
       <LineId Id="5" Count="0" />
       <LineId Id="11" Count="0" />
       <LineId Id="14" Count="0" />
@@ -89,8 +148,20 @@ fbCO2Wohnzimmer
       <LineId Id="40" Count="0" />
       <LineId Id="49" Count="6" />
       <LineId Id="48" Count="0" />
+      <LineId Id="110" Count="6" />
+      <LineId Id="109" Count="0" />
       <LineId Id="69" Count="6" />
       <LineId Id="67" Count="0" />
+      <LineId Id="131" Count="4" />
+      <LineId Id="146" Count="1" />
+      <LineId Id="136" Count="1" />
+      <LineId Id="129" Count="0" />
+      <LineId Id="164" Count="8" />
+      <LineId Id="163" Count="0" />
+      <LineId Id="174" Count="8" />
+      <LineId Id="173" Count="0" />
+      <LineId Id="189" Count="8" />
+      <LineId Id="188" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="FB_Convert_10V2temp" Id="{1aef795d-fbd2-4a71-be44-896f67cfdb69}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Convert_10V2temp
+VAR_INPUT
+	iInput			:	INT;
+	tRefresh		:	TIME;
+	itempMAX		:	INT;
+	iTempMIN		:	INT;
+END_VAR
+VAR_OUTPUT
+	wOut			:	WORD;
+END_VAR
+VAR
+	rX				:	REAL;
+	tonBlock		:	TON;
+	bBlock			:	BOOL := FALSE;
+	
+	rMaxTempStep	:	REAL;
+	rValuePerStep	:	REAL;
+	bInit			:	BOOL := FALSE;
+	iOut			:	INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// For Convertion of 0-10V Signal from 0-100%
+tonBlock(IN := NOT tonBlock.Q, PT := tRefresh);
+
+IF NOT bInit THEN
+	rMaxTempStep	:= INT_TO_REAL(iTempMax + (iTempMin * (-1)));
+	rValuePerStep	:= (rMaxTempStep / INT_TO_REAL(32767));
+
+	bInit := TRUE;
+END_IF
+
+
+IF tonBlock.Q THEN
+
+	rX := INT_TO_REAL(iInput) * rValuePerStep;
+	
+	rX := rX + INT_TO_REAL(iTempMIN);
+
+	
+	iOut := REAL_TO_INT(rX * 10.0);
+	wOut := INT_TO_WORD(iOut);
+	
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Convert_10V2temp">
+      <LineId Id="42" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="95" Count="0" />
+      <LineId Id="98" Count="0" />
+      <LineId Id="102" Count="0" />
+      <LineId Id="101" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="99" Count="0" />
+      <LineId Id="96" Count="0" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="43" Count="1" />
+      <LineId Id="132" Count="1" />
+      <LineId Id="129" Count="0" />
+      <LineId Id="131" Count="0" />
+      <LineId Id="137" Count="1" />
+      <LineId Id="57" Count="1" />
+      <LineId Id="62" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

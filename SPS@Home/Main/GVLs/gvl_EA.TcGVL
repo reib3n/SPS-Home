@@ -152,14 +152,32 @@
 	bWOD01_6		AT	%Q*:BOOL;				// Garagentor
 	bWOD01_7		AT	%Q*:BOOL;				// Licht Garage
 	bWOD01_8		AT	%Q*:BOOL;				// Licht Überdachung
-	bWOD01_9		AT	%Q*:BOOL;
-	bWOD01_10		AT	%Q*:BOOL;
-	bWOD01_11		AT	%Q*:BOOL;
-	bWOD01_12		AT	%Q*:BOOL;
-	bWOD01_13		AT	%Q*:BOOL;
-	bWOD01_14		AT	%Q*:BOOL;
-	bWOD01_15		AT	%Q*:BOOL;
-	bWOD01_16		AT	%Q*:BOOL;
+	bWOD01_9		AT	%Q*:BOOL;				// Ventilator Garage
+	bWOD01_10		AT	%Q*:BOOL;				// Türöffner Garage Strasse
+	bWOD01_11		AT	%Q*:BOOL;				// Türöffner Garage Haus
+	bWOD01_12		AT	%Q*:BOOL;				// Garagentormotor Licht AN / AUS
+	bWOD01_13		AT	%Q*:BOOL;				// Garagentor Stellung Lüften
+	bWOD01_14		AT	%Q*:BOOL;				// Garagentor Stellung AUF
+	bWOD01_15		AT	%Q*:BOOL;				// Garagentor Stellung AB
+	bWOD01_16		AT	%Q*:BOOL;				// Garagentor Stellung 1/2
+	
+	//----------bWOD02-----------------------------------
+	bWOD02_1		AT	%Q*:BOOL;				// Türöffner Werkstatt-Tür
+	bWOD02_2		AT	%Q*:BOOL;				// 
+	bWOD02_3		AT	%Q*:BOOL;				// 
+	bWOD02_4		AT	%Q*:BOOL;				// 
+	bWOD02_5		AT	%Q*:BOOL;				// 
+	bWOD02_6		AT	%Q*:BOOL;				// 
+	bWOD02_7		AT	%Q*:BOOL;				// 
+	bWOD02_8		AT	%Q*:BOOL;				// 
+	bWOD02_9		AT	%Q*:BOOL;				// 
+	bWOD02_10		AT	%Q*:BOOL;				// 
+	bWOD02_11		AT	%Q*:BOOL;				// 
+	bWOD02_12		AT	%Q*:BOOL;				// 
+	bWOD02_13		AT	%Q*:BOOL;				//
+	bWOD02_14		AT	%Q*:BOOL;				// 
+	bWOD02_15		AT	%Q*:BOOL;				// 
+	bWOD02_16		AT	%Q*:BOOL;				//
 	
 	//---------bWID01-------------------------------------
 	bWID01_1		AT	%I*:BOOL;				// LichtTaster Werksatt 
@@ -169,21 +187,39 @@
 	bWID01_5		AT	%I*:BOOL;				// Taster Garage Haus
 	bWID01_6		AT	%I*:BOOL;				// Taster Garage Strasse
 	bWID01_7		AT	%I*:BOOL;				// Bewegungsmelder Überdachung
-	bWID01_8		AT	%I*:BOOL;
-	bWID01_9		AT	%I*:BOOL;
-	bWID01_10		AT	%I*:BOOL;
-	bWID01_11		AT	%I*:BOOL;
-	bWID01_12		AT	%I*:BOOL;
-	bWID01_13		AT	%I*:BOOL;
-	bWID01_14		AT	%I*:BOOL;
-	bWID01_15		AT	%I*:BOOL;
-	bWID01_16		AT	%I*:BOOL;
+	bWID01_8		AT	%I*:BOOL;				// Garage Tür Strasse Input from Doorbird
+	bWID01_9		AT	%I*:BOOL;				// Garage Tür Haus Input from Doorbird
+	bWID01_10		AT	%I*:BOOL;				// Werkstatt Tür Input from Doorbird
+	bWID01_11		AT	%I*:BOOL;				// Türkontakt Garagentür Strasse
+	bWID01_12		AT	%I*:BOOL;				// Fensterkontakt Garage
+	bWID01_13		AT	%I*:BOOL;				// Türkontakt Garagentür Haus
+	bWID01_14		AT	%I*:BOOL;				// Lüftersignal Garagentorantrieb UAP1
+	bWID01_15		AT	%I*:BOOL;				// Garagentor Status OFFEN
+	bWID01_16		AT	%I*:BOOL;				// Garagentor Status GESCHLOSSEN
+	
+	//---------bWID02-------------------------------------
+	bWID02_1		AT	%I*:BOOL;				// Licht Garagentor AN Rückmeldung
+	bWID02_2		AT	%I*:BOOL;				// 
+	bWID02_3		AT	%I*:BOOL;				// 
+	bWID02_4		AT	%I*:BOOL;				// 
+	bWID02_5		AT	%I*:BOOL;				// 
+	bWID02_6		AT	%I*:BOOL;				// 
+	bWID02_7		AT	%I*:BOOL;				// 
+	bWID02_8		AT	%I*:BOOL;				// 
+	bWID02_9		AT	%I*:BOOL;				// 
+	bWID02_10		AT	%I*:BOOL;				// 
+	bWID02_11		AT	%I*:BOOL;				// 
+	bWID02_12		AT	%I*:BOOL;				// 
+	bWID02_13		AT	%I*:BOOL;				// 
+	bWID02_14		AT	%I*:BOOL;				// 
+	bWID02_15		AT	%I*:BOOL;				// 
+	bWID02_16		AT	%I*:BOOL;				// 
 	
 	//----------IWAV01-----------------------
 	iWIAV01_1		AT	%I*:INT;	// Temperatur Werkstatt (-30 - +70 °C)
 	iWIAV01_2		AT	%I*:INT;	// Feuchtigkeit Werkstatt (%)
-	iWIAV01_3		AT	%I*:INT;
-	iWIAV01_4		AT	%I*:INT;
+	iWIAV01_3		AT	%I*:INT;	// Feuchtigkeit Garage (%)
+	iWIAV01_4		AT	%I*:INT;	// Temperatur Garage (-30 - +70 °C)
 	
 END_VAR]]></Declaration>
   </GVL>

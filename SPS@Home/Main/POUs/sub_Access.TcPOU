@@ -3,8 +3,14 @@
   <POU Name="sub_Access" Id="{cf2eef73-b407-45a6-8d6e-b5c80300240a}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM sub_Access
 VAR
-	fbTuerGong		:	FB_Impulse;
-	fbGaragentor	:	FB_Impulse;
+	fbTuerGong			:	FB_Impulse;
+	fbGaragentor		:	FB_Impulse;
+	fbgaragentorStatus	:	FB_GarageStatus;
+	
+	fbTuerGarageHaus	:	FB_Door;
+	fbTuerGarageStrasse	:	FB_Door;
+	fbTuerWerkstatt		:	FB_Door;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -33,7 +39,56 @@ fbGaragentor(
 	tHigh			:= T#500MS,
 	bOut			=> gvl_EA.bWOD01_6
 );
-//-------------------------------------------------------------]]></ST>
+//-------------------------------------------------------------
+
+//--------------------Garagentor Status----------------------------------
+fbGaragentorStatus(
+	bInputOpened	:= gvl_EA.bWID01_15,
+	bInputClosed	:= gvl_EA.bWID01_16,
+	bInputAir		:= gvl_EA.bWID01_14,
+	iOut			=> gvl_mb.Output_Registers[25]
+);
+//-------------------------------------------------------------
+
+//--------------------Türöffner Garagentür Haus----------------------------------
+fbTuerGarageHaus(
+	bInput			:= gvl_EA.bWID01_9,
+	bInputSwitch	:= gvl_EA.bID05_2,
+	bInputHA		:= gvl_mb.Output_Coils[35],
+	tPulse			:= T#5S,
+	tPulseSwitch	:= T#10S,
+	bOut			=> gvl_EA.bWOD01_11
+);
+//-------------------------------------------------------------
+
+//--------------------Türöffner Garagentür Strasse----------------------------------
+fbTuerGarageStrasse(
+	bInput			:= gvl_EA.bWID01_8,
+	bInputHA		:= gvl_mb.Output_Coils[34],
+	tPulse			:= T#5S,
+	bOut			=> gvl_EA.bWOD01_10
+);
+//-------------------------------------------------------------
+
+//--------------------Türöffner Werkstatt----------------------------------
+fbTuerGarageStrasse(
+	bInput			:= gvl_EA.bWID01_10,
+	bInputHA		:= gvl_mb.Output_Coils[41],
+	tPulse			:= T#5S,
+	bOut			=> gvl_EA.bWOD02_1
+);
+//-------------------------------------------------------------
+
+
+
+gvl_EA.bWOD01_12 := gvl_mb.Output_Coils[36];
+gvl_EA.bWOD01_13 := gvl_mb.Output_Coils[37];
+gvl_EA.bWOD01_14 := gvl_mb.Output_Coils[38];
+gvl_EA.bWOD01_15 := gvl_mb.Output_Coils[39];
+gvl_EA.bWOD01_16 := gvl_mb.Output_Coils[40];
+
+
+]]></ST>
     </Implementation>
     <LineIds Name="sub_Access">
       <LineId Id="83" Count="3" />
@@ -50,6 +105,31 @@ fbGaragentor(
       <LineId Id="95" Count="5" />
       <LineId Id="102" Count="3" />
       <LineId Id="94" Count="0" />
+      <LineId Id="183" Count="1" />
+      <LineId Id="187" Count="5" />
+      <LineId Id="182" Count="0" />
+      <LineId Id="132" Count="1" />
+      <LineId Id="136" Count="0" />
+      <LineId Id="142" Count="0" />
+      <LineId Id="144" Count="3" />
+      <LineId Id="140" Count="1" />
+      <LineId Id="131" Count="0" />
+      <LineId Id="152" Count="3" />
+      <LineId Id="157" Count="1" />
+      <LineId Id="160" Count="1" />
+      <LineId Id="151" Count="0" />
+      <LineId Id="163" Count="7" />
+      <LineId Id="162" Count="0" />
+      <LineId Id="112" Count="0" />
+      <LineId Id="111" Count="0" />
+      <LineId Id="115" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="116" Count="0" />
+      <LineId Id="121" Count="0" />
+      <LineId Id="120" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="117" Count="1" />
+      <LineId Id="114" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

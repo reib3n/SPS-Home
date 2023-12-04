@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="FB_GarageStatus" Id="{85455d78-3084-4711-ba15-29179cb79f00}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_GarageStatus
+VAR_INPUT
+	bInputOpened	:	BOOL;
+	bInputClosed	:	BOOL;
+	bInputAir		:	BOOL;
+
+END_VAR
+VAR_OUTPUT
+	iOut			:	INT;
+END_VAR
+VAR_IN_OUT
+END_VAR
+VAR CONSTANT
+END_VAR
+VAR
+	fbRtrig			:	R_TRIG;
+	fbRtrigSwitch	:	R_TRIG;
+	fbRtrigHA		:	R_TRIG;
+	
+	tpPulse			:	TP;
+	tpPulseSwitch	:	TP;
+		
+	bTrigger		:	BOOL;
+	
+
+	
+	bInputOpenedAND: INT;
+END_VAR
+VAR_TEMP
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+IF bInputOpened AND NOT bInputClosed AND NOT bInputAir THEN
+	//Geöffnet
+	iOut := 3;
+ELSIF NOT bInputOpened AND bInputClosed AND NOT bInputAir THEN
+	//Geschlossen
+	iOut := 2;
+ELSIF NOT bInputOpened AND NOT bInputClosed AND bInputAir THEN
+	//Lüftungstellung
+	iOut := 1;
+ELSE
+	// Teilgeöffnet
+	iOut := 0;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_GarageStatus">
+      <LineId Id="599" Count="0" />
+      <LineId Id="454" Count="0" />
+      <LineId Id="600" Count="0" />
+      <LineId Id="612" Count="0" />
+      <LineId Id="603" Count="0" />
+      <LineId Id="606" Count="0" />
+      <LineId Id="613" Count="0" />
+      <LineId Id="607" Count="1" />
+      <LineId Id="614" Count="0" />
+      <LineId Id="610" Count="1" />
+      <LineId Id="602" Count="0" />
+      <LineId Id="601" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -32,12 +32,6 @@
     <Compile Include="PLC1_Main.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Environment\F_Convert10V2Temp.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Environment\F_Convert10V2Temp2.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\Environment\F_ConvertZisterne_mA2Perc.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -50,10 +44,19 @@
     <Compile Include="POUs\FB\FB_Convert_10V2co2.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB\FB_Convert_10V2temp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB\FB_Count.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB\FB_GarageStatus.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB\FB_Heating.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB\FB_Door.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB\FB_Light.TcPOU">
@@ -72,6 +75,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB\FB_PowerSocket.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB\FB_Fan.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB\TP_RST.TcPOU">

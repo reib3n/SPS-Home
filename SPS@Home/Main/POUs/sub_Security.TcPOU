@@ -41,7 +41,14 @@ gvl_mb.Output_Coils[207] := NOT gvl_EA.bID24_02_4;		// Kontakt Terassentür UG
 gvl_mb.Output_Coils[206] := NOT gvl_EA.bID24_03_1;		// Fensterkontakt Hobbyraum West
 gvl_mb.Output_Coils[202] := NOT gvl_EA.bID24_03_2;		// Kontakt Balkontür
 gvl_mb.Output_Coils[209] := NOT gvl_EA.bWID01_3;		// Reedkontakt Werkstatttür
-gvl_mb.Output_Coils[208] := NOT gvl_EA.bWID01_4;		// Reedkontakt Werkstattfenster]]></ST>
+gvl_mb.Output_Coils[208] := NOT gvl_EA.bWID01_4;		// Reedkontakt Werkstattfenster
+gvl_mb.Output_coils[210] :=	NOT gvl_EA.bWID01_11; 		// TüR		OG	Garage Strasse
+gvl_mb.Output_coils[211] :=	NOT gvl_EA.bWID01_12; 		// Fenster	OG	Garage
+gvl_mb.Output_Coils[212] :=	NOT gvl_EA.bWID01_13; 		// TüR		OG	Garage Haus
+
+gvl_mb.Output_coils[213] :=	gvl_EA.bWID01_15; 			// Garagentor offen
+gvl_mb.Output_coils[214] := gvl_EA.bWID01_16; 			// Garagentor geschlossen
+gvl_mb.Output_Coils[215] := gvl_EA.bWID01_14; 			// Garagentor Lüftung]]></ST>
     </Implementation>
     <LineIds Name="sub_Security">
       <LineId Id="71" Count="3" />
@@ -61,6 +68,10 @@ gvl_mb.Output_Coils[208] := NOT gvl_EA.bWID01_4;		// Reedkontakt Werkstattfenste
       <LineId Id="84" Count="0" />
       <LineId Id="94" Count="11" />
       <LineId Id="93" Count="0" />
+      <LineId Id="118" Count="1" />
+      <LineId Id="117" Count="0" />
+      <LineId Id="121" Count="2" />
+      <LineId Id="120" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="FB_Door" Id="{1fb5dfc0-9653-43b7-a309-82bb47454417}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Door
+VAR_INPUT
+	bInput			:	BOOL;	// Input über ein System
+	bInputSwitch	:	BOOL;	// Input über einen Taster
+	bInputHA		:	BOOL;	// Input über Home Assistant Taster
+	
+	tPulse			:	TIME := T#5S;	//Zeit für High bei System oder HomeAssistant
+	tPulseSwitch	:	TIME := tPulse;	//Zeit für High bei Schalter 
+END_VAR
+VAR_OUTPUT
+	bOut			:	BOOL;
+END_VAR
+VAR_IN_OUT
+END_VAR
+VAR CONSTANT
+END_VAR
+VAR
+	fbRtrig			:	R_TRIG;
+	fbRtrigSwitch	:	R_TRIG;
+	fbRtrigHA		:	R_TRIG;
+	
+	tpPulse			:	TP;
+	tpPulseSwitch	:	TP;
+		
+	bTrigger		:	BOOL;
+	
+
+	
+END_VAR
+VAR_TEMP
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+bTrigger 	:= FALSE;
+
+
+fbRtrig(CLK:= bInput, Q=> );
+fbRtrigSwitch(CLK:= bInputSwitch, Q=> );
+fbRtrigHA(CLK:= bInputHA, Q=> );
+
+bTrigger := bTrigger OR fbRtrig.Q OR fbRtrigHA.Q;
+	
+tpPulse(IN := bTrigger, PT := tPulse);
+tpPulseSwitch(IN := fbRtrigSwitch.Q, PT := tPulseSwitch);
+
+IF tpPulse.Q OR tpPulseSwitch.Q THEN
+	bOut 		:= TRUE;
+ELSE
+	bOut 		:= FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Door">
+      <LineId Id="383" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="149" Count="0" />
+      <LineId Id="262" Count="0" />
+      <LineId Id="270" Count="0" />
+      <LineId Id="527" Count="2" />
+      <LineId Id="265" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="281" Count="0" />
+      <LineId Id="534" Count="0" />
+      <LineId Id="274" Count="0" />
+      <LineId Id="269" Count="0" />
+      <LineId Id="275" Count="0" />
+      <LineId Id="285" Count="0" />
+      <LineId Id="333" Count="0" />
+      <LineId Id="454" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

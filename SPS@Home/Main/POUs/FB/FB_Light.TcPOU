@@ -4,9 +4,11 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Light
 VAR_INPUT
 	bInputs			:	ARRAY[0..nSize] OF BOOL;	//Input Schalter oder Taster
+	bInputsDoors	:	ARRAY[0..nSize] OF BOOL;	//Inputs for Door Contacts to put on light at Night
 	bInputSec		:	BOOL := FALSE;				//Input für Security Schaltung
 	bLightInv_NC	:	BOOL := FALSE;				//Ist das Licht invertiert? (NC)
 	bAllFlanks		:	BOOL := FALSE;				//Alle Flanken verwenden?
+	bSunIsDown		:	BOOL;
 END_VAR
 VAR_IN_OUT
 	bInputHA		:	BOOL;						//Input (HA)
@@ -19,6 +21,7 @@ VAR CONSTANT
 END_VAR
 VAR
 	fbRtrig			:	ARRAY[0..nSize] OF R_TRIG;
+	fbRtrigDoor		:	ARRAY[0..nSize] OF R_TRIG;
 	fbFtrig			:	ARRAY[0..nSize] OF F_TRIG;
 	Idx				:	UINT;
 	bTrigger		:	BOOL;
@@ -45,7 +48,15 @@ ELSE	//Normale Funktion
 	
 		//Alle R_Trig
 		fbRtrig[Idx](CLK:= bInputs[Idx], Q=> );
+		fbRtrigDoor[Idx](CLK:= bInputsDoors[Idx], Q=> );
+		
 		bTrigger := bTrigger OR fbRtrig[Idx].Q;
+		
+		IF bLightInv_NC THEN
+			bTrigger := bTrigger OR (fbRtrigDoor[Idx].Q AND bSunIsDown AND bOut);
+		ELSE
+			bTrigger := bTrigger OR (fbRtrigDoor[Idx].Q AND bSunIsDown AND NOT bOut);
+		END_IF
 	
 		IF bAllFlanks THEN //Wenn alle Flanken
 			fbFtrig[Idx](CLK:= bInputs[Idx], Q=> );
@@ -53,6 +64,7 @@ ELSE	//Normale Funktion
 		END_IF
 	
 	END_FOR
+	
 
 	IF bLightInv_NC THEN	//Wenn Licht Invertiert
 	
@@ -94,7 +106,15 @@ END_IF
       <LineId Id="247" Count="0" />
       <LineId Id="199" Count="0" />
       <LineId Id="201" Count="0" />
-      <LineId Id="203" Count="40" />
+      <LineId Id="203" Count="6" />
+      <LineId Id="294" Count="1" />
+      <LineId Id="210" Count="0" />
+      <LineId Id="299" Count="1" />
+      <LineId Id="303" Count="1" />
+      <LineId Id="301" Count="1" />
+      <LineId Id="211" Count="6" />
+      <LineId Id="277" Count="0" />
+      <LineId Id="218" Count="25" />
       <LineId Id="202" Count="0" />
       <LineId Id="200" Count="0" />
       <LineId Id="197" Count="0" />

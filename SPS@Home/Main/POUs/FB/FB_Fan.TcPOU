@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="FB_Fan" Id="{682d3b5f-49e2-40c6-8dd2-030b9b586ca1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Fan
+VAR_INPUT
+	bInputControl	:	BOOL;	
+END_VAR
+VAR_IN_OUT
+	bInputHA		:	BOOL;						//Input (HA)
+END_VAR
+VAR_OUTPUT
+	bOut			:	BOOL;
+END_VAR
+VAR CONSTANT
+END_VAR
+VAR
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+IF bInputHA THEN
+	bOut := TRUE;
+ELSE
+	bOut := bInputControl;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Fan">
+      <LineId Id="345" Count="0" />
+      <LineId Id="202" Count="0" />
+      <LineId Id="346" Count="0" />
+      <LineId Id="348" Count="1" />
+      <LineId Id="347" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

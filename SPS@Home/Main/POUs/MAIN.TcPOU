@@ -83,23 +83,16 @@ END_IF
 //-------------------------------------WERKSTATT-------------------------------------------
 
 // Automatisch Licht an Wenn Tür auf (Nachts)
-trigWerkstattTuer(CLK := gvl_EA.bWID01_3);
+//trigWerkstattTuer(CLK := gvl_EA.bWID01_3);
 
-IF gvl_mb.Output_Coils[19] AND gvl_EA.bWOD01_1 AND trigWerkstattTuer.Q THEN
-	gvl_mb.Output_Coils[6] := TRUE;
-END_IF
+//IF gvl_mb.Output_Coils[19] AND gvl_EA.bWOD01_1 AND trigWerkstattTuer.Q THEN
+//	gvl_mb.Output_Coils[6] := TRUE;
+//END_IF
 
 //---------------------------------- ENVIRONMENT ----------------------------
 TON_ENV(IN := bBlockENV, PT := T#60000MS);
 
 IF NOT bBlockENV THEN
-	//----------------------------------------------
-	gvl_mb.Output_Registers[14] := F_Convert10V2Temp(gvl_EA.iIAV01_1);		// Konvertiere Wohnzimmer Temperatur (0 - 50 °C)
-	gvl_mb.Output_Registers[19] := gvl_EA.iIAPT_01_1;						// Temperatur Bühne
-	
-	gvl_mb.Output_Registers[17] := F_Convert10V2Temp2(gvl_EA.iIAV01_4);		// Konvertiere Technikraum Temperatur (-30 - +70 °C)
-	
-	gvl_mb.Output_Registers[20] := F_Convert10V2Temp2(gvl_EA.iWIAV01_1);	// Konvertiere Wohnzimmer Temperatur (-30 - +70 °C)
 	
 	//---------------------------Zisterne Arithmetisches Mittel------------------------------
 	IF counterZ1 < 10 THEN //Initiale Befüllung
@@ -141,10 +134,9 @@ END_IF]]></ST>
       <LineId Id="397" Count="1" />
       <LineId Id="408" Count="4" />
       <LineId Id="414" Count="1" />
-      <LineId Id="448" Count="6" />
-      <LineId Id="458" Count="2" />
-      <LineId Id="462" Count="1" />
-      <LineId Id="465" Count="27" />
+      <LineId Id="448" Count="4" />
+      <LineId Id="459" Count="0" />
+      <LineId Id="466" Count="26" />
     </LineIds>
   </POU>
 </TcPlcObject>

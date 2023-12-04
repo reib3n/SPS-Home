@@ -12,8 +12,6 @@ VAR
 		fbPowerZisterne			:	FB_PowerSocket;
 		fbPowerSmartMirror		:	FB_PowerSocket;
 		fbPowerLEDBandWohn		:	FB_PowerSocket;
-		fbPowerFANWerkstatt		:	FB_PowerSocket;
-		fbPowerHeatWerkstatt	:	FB_PowerSocket;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -95,22 +93,6 @@ fbPowerLEDBandWohn
 	bInputHA		:=	gvl_mb.Output_Coils[25],
 	bOut			=>	gvl_EA.bOD04_3,
 );
-//-------------------------------------------------------------------------
-
-//--------------------LÜFTER WERKSTATT-------------------------------
-fbPowerFANWerkstatt
-(
-	bInputHA		:=	gvl_mb.Output_Coils[26],
-	bOut			=>	gvl_EA.bWOD01_4,
-);
-//-------------------------------------------------------------------------
-
-//--------------------HEIZUNG WERKSTATT-------------------------------
-fbPowerHeatWerkstatt
-(
-	bInputHA		:=	gvl_mb.Output_Coils[27],
-	bOut			=>	gvl_EA.bWOD01_5,
-);
 //-------------------------------------------------------------------------]]></ST>
     </Implementation>
     <LineIds Name="sub_Power">
@@ -142,10 +124,6 @@ fbPowerHeatWerkstatt
       <LineId Id="194" Count="0" />
       <LineId Id="203" Count="6" />
       <LineId Id="202" Count="0" />
-      <LineId Id="211" Count="6" />
-      <LineId Id="210" Count="0" />
-      <LineId Id="220" Count="6" />
-      <LineId Id="219" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
