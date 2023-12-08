@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="FB_ArithMittel10" Id="{bb4fc685-38f4-4b86-8ac7-1dd0c17bd73e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ArithMittel10
+VAR_INPUT
+	iInputValue	: INT;
+END_VAR
+VAR_OUTPUT
+	iOut		: INT;
+END_VAR
+VAR
+	value 		: ARRAY [0..9] OF INT;
+	counter		: INT 	:= 0;
+	counter2	: INT	:= 0;
+	x			: REAL 	:= 0;
+	bInit		: BOOL	:= FALSE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+value[counter]  := iInputValue;
+
+//Initialisierung abgeschlossen
+IF counter = 9 THEN
+	bInit	:= TRUE;
+END_IF
+
+IF bInit THEN
+	
+	x := 0;
+
+	// Berechnung
+	FOR counter2 := 0 TO 9 BY 1 DO
+    	x := x + value[counter2];
+	END_FOR;
+		
+	x := x / 10;	//Mitteln
+	
+	iOut := REAL_TO_INT(x);
+	
+ELSE
+	iOut := 0;
+END_IF
+
+counter := (counter + 1) MOD 10;
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_ArithMittel10">
+      <LineId Id="65" Count="0" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="84" Count="0" />
+      <LineId Id="80" Count="3" />
+      <LineId Id="67" Count="1" />
+      <LineId Id="91" Count="0" />
+      <LineId Id="99" Count="1" />
+      <LineId Id="92" Count="6" />
+      <LineId Id="103" Count="0" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="86" Count="1" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

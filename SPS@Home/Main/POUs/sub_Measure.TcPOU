@@ -13,6 +13,8 @@ VAR
 		
 		fbCO2Wohnzimmer		:	FB_Convert_10V2co2;
 		
+		fbZisterne			:	FB_Convert_mA2Zisterne;
+		
 		fbTempGarage		:	FB_Convert_10V2temp;
 		fbTempWerkstatt		:	FB_Convert_10V2temp;
 		fbTempTechnikraum	:	FB_Convert_10V2temp;
@@ -25,7 +27,7 @@ END_VAR
 //###################################################################################
 
 
-gvl_mb.Output_Registers[19] := gvl_EA.iIAPT_01_1;	// Temperatur Bühne
+gvl_mb.Output_Registers[19] := INT_TO_WORD(gvl_EA.iIAPT_01_1);	// Temperatur Bühne
 
 //--------------------WATER CONSUMPTION Trinkwasser (1 = 10 Liter)-------------------
 fbWaterConsumption
@@ -124,6 +126,16 @@ fbTempWohnzimmer
 	itempMIN	:= 0,
 	wOut 		=> gvl_mb.Output_Registers[14]
 );
+//-----------------------------------------------------------------------
+//--------------------ZISTERNE-------------------------------------
+fbZisterne
+(
+	iInput		:= gvl_EA.iIAA01_1,
+	tRefresh 	:= T#1M,
+	wOutPerc	=> gvl_mb.Output_Registers[12],
+	wOutLiter	=> gvl_mb.Output_Registers[13]
+
+);
 //-----------------------------------------------------------------------]]></ST>
     </Implementation>
     <LineIds Name="sub_Measure">
@@ -162,6 +174,10 @@ fbTempWohnzimmer
       <LineId Id="173" Count="0" />
       <LineId Id="189" Count="8" />
       <LineId Id="188" Count="0" />
+      <LineId Id="218" Count="4" />
+      <LineId Id="227" Count="1" />
+      <LineId Id="225" Count="1" />
+      <LineId Id="217" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

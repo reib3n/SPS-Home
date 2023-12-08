@@ -3,25 +3,6 @@
   <POU Name="MAIN" Id="{d8fc0d68-0f10-47d6-941d-703010fae0a9}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	
-	//WERKSTATT
-	trigWerkstattTuer  : F_TRIG;
-	
-	//TÜRÖFFNER HAUSTÜRE
-	trigRelais1 : R_TRIG;
-	TON_HTUER	: TON;
-
-	//ENVIRONMENT
-	TON_ENV		: TON;
-	bBlockENV	: BOOL := FALSE;
-	
-	//ZISTERNE
-	valueZ 		: ARRAY [0..9] OF INT;
-	xZ			: REAL := 0;
-	counterZ1	: INT := 0;
-	counterZ2	: INT;
-	counterZ3	: INT := 0;
-	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -34,49 +15,13 @@ sub_Security();
 sub_Access();
 sub_Power();
 sub_Measure();
-sub_Heating();
-
-//---------------------------------- ENVIRONMENT ----------------------------
-TON_ENV(IN := bBlockENV, PT := T#60000MS);
-
-IF NOT bBlockENV THEN
-	
-	//---------------------------Zisterne Arithmetisches Mittel------------------------------
-	IF counterZ1 < 10 THEN //Initiale Befüllung
-		valueZ[counterZ1]  := gvl_EA.iIAA01_1;
-		counterZ1 := counterZ1 + 1;
-	ELSE
-		xZ := 0;
-		// Berechnung
-		FOR counterZ2 := 0 TO 9 BY 1 DO
-    		xZ := xZ + valueZ[counterZ2];
-		END_FOR;
-		
-		xZ := xZ / 10;	//Mitteln
-		counterZ3 := (counterZ3 + 1) MOD 10;
- 		valueZ[counterZ3] := gvl_EA.iIAA01_1;
-	END_IF
-	
-	gvl_mb.Output_Registers[11] := REAL_TO_INT(xZ / 100); // Zisterne 4-20mA durch 100 geglättet
-	gvl_mb.Output_Registers[12]	:= F_ConvertZisterne_mA2Perc(gvl_mb.Output_Registers[11]);			// Zisterne %
-	gvl_mb.Output_Registers[13]	:= F_ConvertZisterne_Perc2Liter(gvl_mb.Output_Registers[12]);	// Zisterne Liter
-	
-	//----------------------------------------------
-	bBlockENV := TRUE;
-END_IF
-
-IF TON_ENV.Q THEN
-	bBlockENV := FALSE;
-END_IF]]></ST>
+sub_Heating();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="80" Count="3" />
       <LineId Id="860" Count="2" />
       <LineId Id="926" Count="0" />
       <LineId Id="1011" Count="1" />
-      <LineId Id="448" Count="4" />
-      <LineId Id="459" Count="0" />
-      <LineId Id="466" Count="26" />
     </LineIds>
   </POU>
 </TcPlcObject>

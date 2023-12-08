@@ -32,12 +32,6 @@
     <Compile Include="PLC1_Main.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Environment\F_ConvertZisterne_mA2Perc.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Environment\F_ConvertZisterne_Perc2Liter.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\FB\FB_Convert_10V2relHum.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -75,6 +69,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB\FB_LightPIR.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB\FB_ArithMittel10.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB\FB_PowerSocket.TcPOU">
@@ -117,7 +114,6 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
-    <Folder Include="POUs\Environment" />
     <Folder Include="POUs\Light" />
     <Folder Include="POUs\FB" />
     <Folder Include="VISUs" />

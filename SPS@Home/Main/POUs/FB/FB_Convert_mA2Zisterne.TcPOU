@@ -7,12 +7,20 @@ VAR_INPUT
 	tRefresh		:	TIME;
 END_VAR
 VAR_OUTPUT
-	wOutPerc		:	WORD;
-	wOutLiter		:	WORD;
+	wOutPerc		: WORD;
+	wOutLiter		: WORD;
 END_VAR
 VAR
-	tonBlock		:	TON;
-	i_finalValue: INT;
+	iValueArith		: INT;
+	iPercent		: INT;
+	iLiter			: INT;
+	tonBlock		: TON;
+	fbArithMittel	: FB_ArithMittel10;
+	i_finalValue	: INT;
+	
+	iMaxValofSensor : INT := 20000;
+	
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -20,23 +28,26 @@ END_VAR
 
 IF tonBlock.Q THEN
 	
+	fbArithMittel(iInputValue := iInput, iOut => iValueArith );
+	
 	//-------------------- Prozent ------------------------
-	r_converted := (INT_TO_REAL(i_Value) / 200);
-
-i_finalValue := REAL_TO_INT(r_converted * 100);
-
-IF i_finalValue > 100 THEN
-	i_finalValue := 100;
-END_IF
+	
+	iPercent	:= (iValueArith / iMaxValofSensor) * 100;
+	
+	IF iPercent > 100 THEN
+		iPercent := 100;
+	END_IF
 	
 	//-----------------------------------------------------
 	
 	//-------------------- Liter --------------------------
-	r_converted := ((INT_TO_REAL(i_Value) / 100) * 5000.0);
-
-i_finalValue := REAL_TO_INT(r_converted);
-
+	
+	iLiter := (iPercent / 100) * 5000;
+	
 	//------------------------------------------------
+	
+	wOutPerc	:= INT_TO_WORD(iPercent);
+	wOutLiter	:= INT_TO_WORD(iLiter);
 	
 END_IF
 ]]></ST>
@@ -45,15 +56,26 @@ END_IF
       <LineId Id="51" Count="0" />
       <LineId Id="54" Count="0" />
       <LineId Id="52" Count="0" />
-      <LineId Id="182" Count="1" />
-      <LineId Id="189" Count="5" />
+      <LineId Id="182" Count="0" />
+      <LineId Id="209" Count="0" />
+      <LineId Id="207" Count="0" />
+      <LineId Id="183" Count="0" />
+      <LineId Id="189" Count="0" />
+      <LineId Id="212" Count="0" />
+      <LineId Id="193" Count="0" />
+      <LineId Id="223" Count="0" />
+      <LineId Id="194" Count="0" />
       <LineId Id="185" Count="3" />
       <LineId Id="43" Count="0" />
-      <LineId Id="180" Count="1" />
-      <LineId Id="138" Count="0" />
-      <LineId Id="197" Count="0" />
+      <LineId Id="180" Count="0" />
+      <LineId Id="228" Count="0" />
+      <LineId Id="227" Count="0" />
       <LineId Id="195" Count="0" />
-      <LineId Id="57" Count="1" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="224" Count="0" />
+      <LineId Id="226" Count="0" />
+      <LineId Id="225" Count="0" />
+      <LineId Id="58" Count="0" />
       <LineId Id="62" Count="0" />
     </LineIds>
   </POU>

@@ -112,7 +112,7 @@ Output_Registers[7] 	- 2007 <- Helligkeit Esszimmertisch
 Output_Registers[8] 	- 2008 <- Helligkeit Esszimmer
 Output_Registers[9] 	- 2009 <- Helligkeit Wohnzimmer
 Output_Registers[10] 	- 2010 <- Helligkeit Aussenbeleuchtung Balkon
-Output_Registers[11] 	- 2011 <- Zisterne Füllstand mA
+Output_Registers[11] 	- 2011 <- 
 Output_Registers[12] 	- 2012 <- Zisterne Füllstand Prozent
 Output_Registers[13] 	- 2013 <- Zisterne Füllstand Liter
 Output_Registers[14] 	- 2014 <- Wohnzimmer Temperatur
