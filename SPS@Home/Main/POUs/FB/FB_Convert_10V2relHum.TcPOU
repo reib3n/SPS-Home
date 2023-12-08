@@ -12,24 +12,17 @@ END_VAR
 VAR
 	rX				:	REAL;
 	tonBlock		:	TON;
-	bBlock			:	BOOL := FALSE;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[// For Convertion of 0-10V Signal from 0-100%
-tonBlock(IN := bBlock, PT := tRefresh);
+tonBlock(IN := NOT tonBlock.Q, PT := tRefresh);
 
-IF NOT bBLock THEN
+IF tonBlock.Q THEN
 
 	rX := iInput * 0.00030518509476; //Annahme 10V entspr. 32767
 	wOut := REAL_TO_WORD(rX * 10);
-
-	bBlock := TRUE;
 	
-END_IF
-
-IF tonBlock.Q THEN
-	bBlock := FALSE;
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="FB_Convert_10V2relHum">
@@ -38,12 +31,7 @@ END_IF]]></ST>
       <LineId Id="54" Count="0" />
       <LineId Id="52" Count="0" />
       <LineId Id="43" Count="2" />
-      <LineId Id="56" Count="0" />
-      <LineId Id="55" Count="0" />
       <LineId Id="57" Count="1" />
-      <LineId Id="60" Count="0" />
-      <LineId Id="59" Count="0" />
-      <LineId Id="61" Count="1" />
     </LineIds>
   </POU>
 </TcPlcObject>

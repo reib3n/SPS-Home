@@ -36,59 +36,6 @@ sub_Power();
 sub_Measure();
 sub_Heating();
 
-gvl_mb.Output_Coils[27] := FALSE;	//Heizung Werkstatt aus!
-
-//------------------------------------ÖFFNER HAUSTÜRE--------------------------------
-
-//ÖFFNER LOGIK
-trigRelais1(CLK := gvl_EA.bID24_01_2);
-TON_HTUER(IN := gvl_mb.Output_Coils[16], PT := T#5000MS);				//Timer für Impulsöffnung
-
-IF gvl_mb.Output_Coils[17] THEN
-
-	gvl_EA.bOD04_5 := TRUE; //Haustür IMMER Offen
-	gvl_mb.Output_Coils[16] := FALSE;
-
-ELSE
-	IF trigRelais1.Q THEN // Wenn Türöffner (Innenstation Relais 1 - Klingel)
-
-		gvl_mb.Output_Coils[16] := TRUE;
-
-	END_IF
-	
-	// Wird benötigt um Daueröffnung wieder aufzuheben.
-	IF NOT gvl_mb.Output_Coils[17] AND NOT gvl_mb.Output_Coils[16] THEN
-		gvl_EA.bOD04_5 := FALSE; 	//Haustür zu
-	END_IF
-	
-	IF gvl_mb.Output_Coils[16] THEN  // Wenn Impuls gewünscht
-	
-		gvl_EA.bOD04_5 := TRUE; // Öffne Tür
-		//Starte Timer
-		
-		IF gvl_mb.Output_Coils[19] THEN
-			gvl_mb.Output_Coils[1] := TRUE;		// Beleuchtung Hausgang ein, wenn Dunkel	
-		END_IF
-
-	END_IF
-
-	IF TON_HTUER.Q THEN
-		gvl_mb.Output_Coils[16] := FALSE;
-		gvl_EA.bOD04_5 := FALSE; // Schließe Tür
-	END_IF
-	
-END_IF
-//----------------------------------------------------------------------------------------
-
-//-------------------------------------WERKSTATT-------------------------------------------
-
-// Automatisch Licht an Wenn Tür auf (Nachts)
-//trigWerkstattTuer(CLK := gvl_EA.bWID01_3);
-
-//IF gvl_mb.Output_Coils[19] AND gvl_EA.bWOD01_1 AND trigWerkstattTuer.Q THEN
-//	gvl_mb.Output_Coils[6] := TRUE;
-//END_IF
-
 //---------------------------------- ENVIRONMENT ----------------------------
 TON_ENV(IN := bBlockENV, PT := T#60000MS);
 
@@ -127,13 +74,6 @@ END_IF]]></ST>
       <LineId Id="860" Count="2" />
       <LineId Id="926" Count="0" />
       <LineId Id="1011" Count="1" />
-      <LineId Id="985" Count="0" />
-      <LineId Id="984" Count="0" />
-      <LineId Id="335" Count="1" />
-      <LineId Id="338" Count="39" />
-      <LineId Id="397" Count="1" />
-      <LineId Id="408" Count="4" />
-      <LineId Id="414" Count="1" />
       <LineId Id="448" Count="4" />
       <LineId Id="459" Count="0" />
       <LineId Id="466" Count="26" />

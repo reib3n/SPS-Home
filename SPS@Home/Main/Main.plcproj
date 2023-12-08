@@ -47,6 +47,9 @@
     <Compile Include="POUs\FB\FB_Convert_10V2temp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB\FB_Convert_mA2Zisterne.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB\FB_Count.TcPOU">
       <SubType>Code</SubType>
     </Compile>

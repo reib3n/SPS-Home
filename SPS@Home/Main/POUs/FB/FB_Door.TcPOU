@@ -6,6 +6,7 @@ VAR_INPUT
 	bInput			:	BOOL;	// Input über ein System
 	bInputSwitch	:	BOOL;	// Input über einen Taster
 	bInputHA		:	BOOL;	// Input über Home Assistant Taster
+	bInputPerm		:	BOOL;	// Input für dauerhaftes öffnen
 	
 	tPulse			:	TIME := T#5S;	//Zeit für High bei System oder HomeAssistant
 	tPulseSwitch	:	TIME := tPulse;	//Zeit für High bei Schalter 
@@ -34,30 +35,38 @@ VAR_TEMP
 
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-bTrigger 	:= FALSE;
-
-
-fbRtrig(CLK:= bInput, Q=> );
-fbRtrigSwitch(CLK:= bInputSwitch, Q=> );
-fbRtrigHA(CLK:= bInputHA, Q=> );
-
-bTrigger := bTrigger OR fbRtrig.Q OR fbRtrigHA.Q;
+      <ST><![CDATA[IF bInputPerm THEN
 	
-tpPulse(IN := bTrigger, PT := tPulse);
-tpPulseSwitch(IN := fbRtrigSwitch.Q, PT := tPulseSwitch);
-
-IF tpPulse.Q OR tpPulseSwitch.Q THEN
-	bOut 		:= TRUE;
+	bOut := TRUE;
+	
 ELSE
-	bOut 		:= FALSE;
+
+	bTrigger 	:= FALSE;
+
+	fbRtrig(CLK:= bInput, Q=> );
+	fbRtrigSwitch(CLK:= bInputSwitch, Q=> );
+	fbRtrigHA(CLK:= bInputHA, Q=> );
+
+	bTrigger := bTrigger OR fbRtrig.Q OR fbRtrigHA.Q;
+	
+	tpPulse(IN := bTrigger, PT := tPulse);
+	tpPulseSwitch(IN := fbRtrigSwitch.Q, PT := tPulseSwitch);
+
+	IF tpPulse.Q OR tpPulseSwitch.Q THEN
+		bOut 		:= TRUE;
+	ELSE
+		bOut 		:= FALSE;
+	END_IF
+	
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="FB_Door">
+      <LineId Id="568" Count="0" />
+      <LineId Id="573" Count="1" />
+      <LineId Id="569" Count="1" />
       <LineId Id="383" Count="0" />
       <LineId Id="43" Count="0" />
       <LineId Id="149" Count="0" />
-      <LineId Id="262" Count="0" />
       <LineId Id="270" Count="0" />
       <LineId Id="527" Count="2" />
       <LineId Id="265" Count="0" />
@@ -70,6 +79,8 @@ END_IF]]></ST>
       <LineId Id="285" Count="0" />
       <LineId Id="333" Count="0" />
       <LineId Id="454" Count="0" />
+      <LineId Id="575" Count="0" />
+      <LineId Id="571" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

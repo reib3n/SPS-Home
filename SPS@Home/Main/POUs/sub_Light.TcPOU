@@ -30,10 +30,13 @@ fbLichtHausgang.bInputs[1] 	:= gvl_EA.bID03_1;
 fbLichtHausgang.bInputs[2] 	:= gvl_EA.bID03_2;
 fbLichtHausgang.bInputs[3] 	:= gvl_EA.bID02_3;
 
+fbLichtHausgang.bInputsDoors[0] 	:= gvl_EA.bID24_01_2;
+
 fbLichtHausgang
 (
 	bInputSec		:= gvl_mb.Output_Coils[242],
 	bInputHA		:= gvl_mb.Output_Coils[1],
+	bSunisDown		:= gvl_mb.Output_Coils[19],
 	bOut 			=> gvl_EA.bOD01_5,
 );
 //-----------------------------------------------------------------
@@ -79,7 +82,7 @@ fbLichtHobbyraum
 //--------------------WERKSTATT----------------------------------
 fbLichtWerkstatt.bInputs[0] := gvl_EA.bWID01_1;
 
-fbLichtWerkstatt.bInputsDoors[0] := gvl_EA.bWID01_3;
+fbLichtWerkstatt.bInputsDoors[0] := gvl_mb.Output_coils[209];
 
 fbLichtWerkstatt
 (	
@@ -95,8 +98,8 @@ fbLichtWerkstatt
 fbLichtGarage.bInputs[0] := gvl_EA.bWID01_5;
 fbLichtGarage.bInputs[1] := gvl_EA.bWID01_6;
 
-fbLichtGarage.bInputsDoors[0] := gvl_EA.bWID01_11;
-fbLichtGarage.bInputsDoors[1] := gvl_EA.bWID01_13;
+fbLichtGarage.bInputsDoors[0] := gvl_mb.Output_coils[210];
+fbLichtGarage.bInputsDoors[1] := gvl_mb.Output_coils[212];
 
 fbLichtGarage
 (	
@@ -221,9 +224,14 @@ fbLichtAussenHaustur
       <LineId Id="18" Count="0" />
       <LineId Id="21" Count="0" />
       <LineId Id="19" Count="0" />
-      <LineId Id="7" Count="6" />
+      <LineId Id="7" Count="3" />
+      <LineId Id="421" Count="0" />
+      <LineId Id="420" Count="0" />
+      <LineId Id="11" Count="2" />
       <LineId Id="71" Count="0" />
-      <LineId Id="14" Count="1" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="422" Count="0" />
+      <LineId Id="15" Count="0" />
       <LineId Id="5" Count="0" />
       <LineId Id="22" Count="0" />
       <LineId Id="38" Count="0" />

@@ -51,18 +51,18 @@ ELSE	//Normale Funktion
 		fbRtrigDoor[Idx](CLK:= bInputsDoors[Idx], Q=> );
 		
 		bTrigger := bTrigger OR fbRtrig[Idx].Q;
-		
-		IF bLightInv_NC THEN
-			bTrigger := bTrigger OR (fbRtrigDoor[Idx].Q AND bSunIsDown AND bOut);
-		ELSE
-			bTrigger := bTrigger OR (fbRtrigDoor[Idx].Q AND bSunIsDown AND NOT bOut);
-		END_IF
 	
 		IF bAllFlanks THEN //Wenn alle Flanken
 			fbFtrig[Idx](CLK:= bInputs[Idx], Q=> );
 			bTrigger := bTrigger OR fbFtrig[Idx].Q;
 		END_IF
 	
+		IF bSunIsDown THEN
+			IF (NOT bOut AND NOT bLightInv_NC) OR (bOut AND bLightInv_NC) THEN 
+				bTrigger := bTrigger OR fbRtrigDoor[Idx].Q;
+			END_IF
+		END_IF
+		
 	END_FOR
 	
 
@@ -108,11 +108,14 @@ END_IF
       <LineId Id="201" Count="0" />
       <LineId Id="203" Count="6" />
       <LineId Id="294" Count="1" />
-      <LineId Id="210" Count="0" />
-      <LineId Id="299" Count="1" />
-      <LineId Id="303" Count="1" />
-      <LineId Id="301" Count="1" />
-      <LineId Id="211" Count="6" />
+      <LineId Id="210" Count="6" />
+      <LineId Id="334" Count="0" />
+      <LineId Id="353" Count="0" />
+      <LineId Id="345" Count="0" />
+      <LineId Id="354" Count="0" />
+      <LineId Id="331" Count="0" />
+      <LineId Id="333" Count="0" />
+      <LineId Id="217" Count="0" />
       <LineId Id="277" Count="0" />
       <LineId Id="218" Count="25" />
       <LineId Id="202" Count="0" />

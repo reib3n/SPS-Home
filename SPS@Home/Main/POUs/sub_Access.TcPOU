@@ -10,6 +10,7 @@ VAR
 	fbTuerGarageHaus	:	FB_Door;
 	fbTuerGarageStrasse	:	FB_Door;
 	fbTuerWerkstatt		:	FB_Door;
+	fbTuerHaus			:	FB_Door;
 	
 END_VAR
 ]]></Declaration>
@@ -79,13 +80,15 @@ fbTuerGarageStrasse(
 );
 //-------------------------------------------------------------
 
-
-
-gvl_EA.bWOD01_12 := gvl_mb.Output_Coils[36];
-gvl_EA.bWOD01_13 := gvl_mb.Output_Coils[37];
-gvl_EA.bWOD01_14 := gvl_mb.Output_Coils[38];
-gvl_EA.bWOD01_15 := gvl_mb.Output_Coils[39];
-gvl_EA.bWOD01_16 := gvl_mb.Output_Coils[40];
+//--------------------Türöffner Haustür----------------------------------
+fbTuerHaus(
+	bInput			:= gvl_EA.bID24_01_2,
+	bInputHA		:= gvl_mb.Output_Coils[16],
+	bInputPerm		:= gvl_mb.Output_Coils[17],
+	tPulse			:= T#5S,
+	bOut			=> gvl_EA.bOD04_5
+);
+//-------------------------------------------------------------
 
 
 ]]></ST>
@@ -121,13 +124,10 @@ gvl_EA.bWOD01_16 := gvl_mb.Output_Coils[40];
       <LineId Id="163" Count="7" />
       <LineId Id="162" Count="0" />
       <LineId Id="112" Count="0" />
+      <LineId Id="194" Count="3" />
+      <LineId Id="201" Count="0" />
+      <LineId Id="198" Count="2" />
       <LineId Id="111" Count="0" />
-      <LineId Id="115" Count="0" />
-      <LineId Id="119" Count="0" />
-      <LineId Id="116" Count="0" />
-      <LineId Id="121" Count="0" />
-      <LineId Id="120" Count="0" />
-      <LineId Id="123" Count="0" />
       <LineId Id="117" Count="1" />
       <LineId Id="114" Count="0" />
     </LineIds>
