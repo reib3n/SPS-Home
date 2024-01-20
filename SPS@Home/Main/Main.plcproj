@@ -114,6 +114,7 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="!Files" />
     <Folder Include="POUs\Light" />
     <Folder Include="POUs\FB" />
     <Folder Include="VISUs" />
