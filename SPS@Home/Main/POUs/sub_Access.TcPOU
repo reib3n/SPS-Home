@@ -3,6 +3,10 @@
   <POU Name="sub_Access" Id="{cf2eef73-b407-45a6-8d6e-b5c80300240a}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM sub_Access
 VAR
+	
+	bGarageStellungLueften	    : BOOL;
+	bGarageStellungLueftenTemp	: BOOL;
+
 	fbTuerGong			:	FB_Impulse;
 	fbGaragentorToggle	:	FB_Impulse_LongPress;
 	fbGaragentorAuf		:	FB_Impulse;
@@ -22,6 +26,8 @@ END_VAR
       <ST><![CDATA[//###################################################################################
 //##-----------------------------------ACCESS--------------------------------------##
 //###################################################################################
+
+bGarageStellungLueften := FALSE;
 
 //--------------------TürGong----------------------------------
 fbTuerGong.bInputs[0]	:= gvl_EA.bID24_01_1;
@@ -67,8 +73,10 @@ fbGaragentorLueften(
 	bR_Trig			:= TRUE,
 	bInputHA		:= gvl_mb.Output_Coils[37],
 	tHigh			:= T#500MS,
-	bOut			=> gvl_EA.bWOD01_13
+	bOut			=> bGarageStellungLueftenTemp
 );
+
+bGarageStellungLueften := bGarageStellungLueften OR bGarageStellungLueftenTemp; 
 //-------------------------------------------------------------
 
 //--------------------Garagentor Stellung Toggle----------------------------------
@@ -78,8 +86,10 @@ fbGaragentorToggle(
 	tHigh			:= T#500MS,
 	tLongPress		:= T#1S,
 	bOut			=> gvl_EA.bWOD01_6,
-	bOutLong		=> gvl_EA.bWOD01_13
+	bOutLong		=> bGarageStellungLueftenTemp
 );
+
+bGarageStellungLueften := bGarageStellungLueften OR bGarageStellungLueftenTemp; 
 //-------------------------------------------------------------
 
 //--------------------Garagentor Status----------------------------------
@@ -131,10 +141,12 @@ fbTuerHaus(
 //-------------------------------------------------------------
 
 
-]]></ST>
+gvl_EA.bWOD01_13 := bGarageStellungLueften;]]></ST>
     </Implementation>
     <LineIds Name="sub_Access">
-      <LineId Id="83" Count="3" />
+      <LineId Id="83" Count="2" />
+      <LineId Id="273" Count="1" />
+      <LineId Id="86" Count="0" />
       <LineId Id="71" Count="0" />
       <LineId Id="63" Count="0" />
       <LineId Id="75" Count="0" />
@@ -153,8 +165,12 @@ fbTuerHaus(
       <LineId Id="238" Count="7" />
       <LineId Id="183" Count="0" />
       <LineId Id="248" Count="7" />
+      <LineId Id="277" Count="0" />
+      <LineId Id="276" Count="0" />
       <LineId Id="247" Count="0" />
       <LineId Id="260" Count="9" />
+      <LineId Id="280" Count="0" />
+      <LineId Id="279" Count="0" />
       <LineId Id="259" Count="0" />
       <LineId Id="246" Count="0" />
       <LineId Id="184" Count="0" />
