@@ -35,6 +35,8 @@ fbFanWerkstatt
 (
 	bInputControl	:=	gvl_EA.bWID01_14,
 	bInputHA		:=	gvl_mb.Output_Coils[26],
+//	iTempIn			:=	gvl_mb.Output_Registers[20],
+//	iTempOut		:= 
 	bOut			=>	gvl_EA.bWOD01_4
 );
 //-----------------------------------------------------------------------------]]></ST>
@@ -51,6 +53,7 @@ fbFanWerkstatt
       <LineId Id="32" Count="0" />
       <LineId Id="41" Count="2" />
       <LineId Id="48" Count="1" />
+      <LineId Id="57" Count="1" />
       <LineId Id="46" Count="1" />
       <LineId Id="40" Count="0" />
     </LineIds>

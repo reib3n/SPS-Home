@@ -3,7 +3,9 @@
   <POU Name="FB_Fan" Id="{682d3b5f-49e2-40c6-8dd2-030b9b586ca1}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Fan
 VAR_INPUT
-	bInputControl	:	BOOL;	
+	bInputControl	:	BOOL;
+	iTempIn			:	INT := 0;
+	iTempOut		:	INT := 0;
 END_VAR
 VAR_IN_OUT
 	bInputHA		:	BOOL;						//Input (HA)
@@ -14,22 +16,63 @@ END_VAR
 VAR CONSTANT
 END_VAR
 VAR
+	rTempIn			:	REAL;
+	rTempOut		:	REAL;
+	bTempLock		:	BOOL := FALSE;
 END_VAR
 
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-IF bInputHA THEN
+      <ST><![CDATA[IF bInputHA THEN
+
 	bOut := TRUE;
+
 ELSE
-	bOut := bInputControl;
+
+//	rTempIn		:= iTempIn 	/ 10;
+//	rTempOut	:= iTempOut / 10;
+	
+//	IF (rTempOut < rTempIn) AND (rTempIn < 2) THEN
+	
+//		bTempLock	:=	TRUE;
+	
+//	ELSE
+	
+//		bTempLock	:= 	FALSE;
+	
+//	END_IF
+
+	IF bTempLock THEN
+		bOut	:= FALSE;
+	ELSE
+		bOut := bInputControl;
+	END_IF
+
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="FB_Fan">
-      <LineId Id="345" Count="0" />
       <LineId Id="202" Count="0" />
+      <LineId Id="374" Count="0" />
       <LineId Id="346" Count="0" />
-      <LineId Id="348" Count="1" />
+      <LineId Id="375" Count="0" />
+      <LineId Id="348" Count="0" />
+      <LineId Id="376" Count="1" />
+      <LineId Id="383" Count="0" />
+      <LineId Id="394" Count="1" />
+      <LineId Id="402" Count="0" />
+      <LineId Id="398" Count="0" />
+      <LineId Id="400" Count="0" />
+      <LineId Id="403" Count="0" />
+      <LineId Id="401" Count="0" />
+      <LineId Id="404" Count="0" />
+      <LineId Id="399" Count="0" />
+      <LineId Id="405" Count="0" />
+      <LineId Id="384" Count="0" />
+      <LineId Id="379" Count="0" />
+      <LineId Id="385" Count="0" />
+      <LineId Id="387" Count="1" />
+      <LineId Id="386" Count="0" />
+      <LineId Id="349" Count="0" />
       <LineId Id="347" Count="0" />
     </LineIds>
   </POU>

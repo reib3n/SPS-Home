@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="FB_Impulse_LongPress" Id="{3f67f426-ae59-43bf-aa2c-054cccab7491}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Impulse_LongPress
+VAR_INPUT
+	bInput			:	BOOL;	//Input Schalter oder Taster
+	tHigh			:	TIME;						//Zeit (ms) für High
+	tLongPress		:	TIME;							
+END_VAR
+VAR_OUTPUT
+	bOut			:	BOOL;
+	bOutLong		:	BOOL;
+END_VAR
+VAR_IN_OUT
+	bInputHA		:	BOOL;
+END_VAR
+VAR CONSTANT
+END_VAR
+VAR
+	fbFtrig			:	F_TRIG;
+	bTrigger		:	BOOL;
+	bOutTrig		:	BOOL;
+	
+	tpPulse			:	TP;
+	tonLongPress	:	TON;
+	
+END_VAR
+VAR_TEMP
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+tpPulse		 (IN := bOutTrig, PT := tHigh);
+tonLongPress (IN := bInput, PT := tLongPress);
+
+bTrigger 	:= FALSE;
+		
+fbFtrig(CLK:= bInput, Q=> );
+
+//Normale Tastendruck
+bTrigger := bTrigger OR fbFtrig.Q;
+
+//Signal über HA
+bTrigger := bTrigger OR bInputHA;
+
+//Wenn normaler Tastendruck und Impuls noch nicht abgelaufen
+IF (tpPulse.Q AND NOT bInput) OR bTrigger THEN
+	bOut 		:= TRUE;
+	bInputHA	:= FALSE;
+//Wenn langer Tastendruck
+ELSIF tonLongPress.Q OR (tpPulse.Q AND bInput) THEN
+	bOutLong	:= TRUE;
+
+//Wenn nichts
+ELSE
+	bOut 		:= FALSE;
+	bOutLong	:= FALSE;
+	bInputHA	:= FALSE;
+	
+	bOutTrig	:= FALSE;
+END_IF
+	
+bOutTrig := bOut OR bOutLong;
+	]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Impulse_LongPress">
+      <LineId Id="332" Count="0" />
+      <LineId Id="521" Count="1" />
+      <LineId Id="524" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="270" Count="0" />
+      <LineId Id="263" Count="0" />
+      <LineId Id="529" Count="0" />
+      <LineId Id="528" Count="0" />
+      <LineId Id="265" Count="0" />
+      <LineId Id="531" Count="0" />
+      <LineId Id="530" Count="0" />
+      <LineId Id="266" Count="0" />
+      <LineId Id="545" Count="0" />
+      <LineId Id="274" Count="0" />
+      <LineId Id="269" Count="0" />
+      <LineId Id="275" Count="0" />
+      <LineId Id="548" Count="0" />
+      <LineId Id="547" Count="0" />
+      <LineId Id="285" Count="0" />
+      <LineId Id="543" Count="0" />
+      <LineId Id="550" Count="0" />
+      <LineId Id="549" Count="0" />
+      <LineId Id="544" Count="0" />
+      <LineId Id="333" Count="0" />
+      <LineId Id="551" Count="0" />
+      <LineId Id="454" Count="0" />
+      <LineId Id="553" Count="1" />
+      <LineId Id="302" Count="0" />
+      <LineId Id="532" Count="1" />
+      <LineId Id="276" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

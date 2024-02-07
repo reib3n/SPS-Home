@@ -4,7 +4,11 @@
     <Declaration><![CDATA[PROGRAM sub_Access
 VAR
 	fbTuerGong			:	FB_Impulse;
-	fbGaragentor		:	FB_Impulse;
+	fbGaragentorToggle	:	FB_Impulse_LongPress;
+	fbGaragentorAuf		:	FB_Impulse;
+	fbGaragentorAb		:	FB_Impulse;
+	fbGaragentorHalb	:	FB_Impulse;
+	fbGaragentorLueften	:	FB_Impulse;
 	fbgaragentorStatus	:	FB_GarageStatus;
 	
 	fbTuerGarageHaus	:	FB_Door;
@@ -31,14 +35,50 @@ fbTuerGong(
 );
 //-------------------------------------------------------------
 
-//--------------------Garagentor----------------------------------
-fbGaragentor.bInputs[0]	:= gvl_EA.bID05_1;
-
-fbGaragentor(
+//--------------------Garagentor Stellung Auf----------------------------------
+fbGaragentorAuf(
 	bR_Trig			:= TRUE,
+	bInputHA		:= gvl_mb.Output_Coils[38],
+	tHigh			:= T#500MS,
+	bOut			=> gvl_EA.bWOD01_14
+);
+//-------------------------------------------------------------
+
+//--------------------Garagentor Stellung Ab----------------------------------
+fbGaragentorAb(
+	bR_Trig			:= TRUE,
+	bInputHA		:= gvl_mb.Output_Coils[39],
+	tHigh			:= T#500MS,
+	bOut			=> gvl_EA.bWOD01_15
+);
+//-------------------------------------------------------------
+
+//--------------------Garagentor Stellung Halb----------------------------------
+fbGaragentorHalb(
+	bR_Trig			:= TRUE,
+	bInputHA		:= gvl_mb.Output_Coils[40],
+	tHigh			:= T#500MS,
+	bOut			=> gvl_EA.bWOD01_16
+);
+//-------------------------------------------------------------
+
+//--------------------Garagentor Stellung Lüften----------------------------------
+fbGaragentorLueften(
+	bR_Trig			:= TRUE,
+	bInputHA		:= gvl_mb.Output_Coils[37],
+	tHigh			:= T#500MS,
+	bOut			=> gvl_EA.bWOD01_13
+);
+//-------------------------------------------------------------
+
+//--------------------Garagentor Stellung Toggle----------------------------------
+fbGaragentorToggle(
+	bInput			:= gvl_EA.bID05_1,
 	bInputHA		:= gvl_mb.Output_Coils[13],
 	tHigh			:= T#500MS,
-	bOut			=> gvl_EA.bWOD01_6
+	tLongPress		:= T#1S,
+	bOut			=> gvl_EA.bWOD01_6,
+	bOutLong		=> gvl_EA.bWOD01_13
 );
 //-------------------------------------------------------------
 
@@ -56,7 +96,7 @@ fbTuerGarageHaus(
 	bInput			:= gvl_EA.bWID01_9,
 	bInputSwitch	:= gvl_EA.bID05_2,
 	bInputHA		:= gvl_mb.Output_Coils[35],
-	tPulse			:= T#5S,
+	tPulse			:= T#3S,
 	tPulseSwitch	:= T#10S,
 	bOut			=> gvl_EA.bWOD01_11
 );
@@ -66,7 +106,7 @@ fbTuerGarageHaus(
 fbTuerGarageStrasse(
 	bInput			:= gvl_EA.bWID01_8,
 	bInputHA		:= gvl_mb.Output_Coils[34],
-	tPulse			:= T#5S,
+	tPulse			:= T#3S,
 	bOut			=> gvl_EA.bWOD01_10
 );
 //-------------------------------------------------------------
@@ -75,7 +115,7 @@ fbTuerGarageStrasse(
 fbTuerGarageStrasse(
 	bInput			:= gvl_EA.bWID01_10,
 	bInputHA		:= gvl_mb.Output_Coils[41],
-	tPulse			:= T#5S,
+	tPulse			:= T#3S,
 	bOut			=> gvl_EA.bWOD02_1
 );
 //-------------------------------------------------------------
@@ -105,10 +145,19 @@ fbTuerHaus(
       <LineId Id="79" Count="0" />
       <LineId Id="81" Count="1" />
       <LineId Id="87" Count="0" />
-      <LineId Id="95" Count="5" />
-      <LineId Id="102" Count="3" />
-      <LineId Id="94" Count="0" />
-      <LineId Id="183" Count="1" />
+      <LineId Id="215" Count="1" />
+      <LineId Id="219" Count="5" />
+      <LineId Id="214" Count="0" />
+      <LineId Id="230" Count="7" />
+      <LineId Id="229" Count="0" />
+      <LineId Id="238" Count="7" />
+      <LineId Id="183" Count="0" />
+      <LineId Id="248" Count="7" />
+      <LineId Id="247" Count="0" />
+      <LineId Id="260" Count="9" />
+      <LineId Id="259" Count="0" />
+      <LineId Id="246" Count="0" />
+      <LineId Id="184" Count="0" />
       <LineId Id="187" Count="5" />
       <LineId Id="182" Count="0" />
       <LineId Id="132" Count="1" />

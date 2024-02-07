@@ -26,7 +26,7 @@ Output_Coils[9] 	- 1009 <- Licht Wohnzimmer
 Output_Coils[10] 	- 1010 <- Aussenbeleuchtung Balkon
 Output_Coils[11] 	- 1011 <- Wohnzimmer Steckdose Uhr
 Output_Coils[12] 	- 1012 <- Werkstatt Steckdose
-Output_Coils[13] 	- 1013 <- Garagentor Impuls
+Output_Coils[13] 	- 1013 <- Garagentor Stellung Toggle Impuls
 Output_Coils[14] 	- 1014 <- Türgong Impuls
 Output_Coils[15] 	- 1015 <- Vitramo Bad
 Output_Coils[16] 	- 1016 <- Haustüröffner Impuls
@@ -50,10 +50,10 @@ Output_Coils[33] 	- 1033 <- Ventilator Garage
 Output_Coils[34] 	- 1034 <- Türöffner  Garage Strasse
 Output_Coils[35] 	- 1035 <- Türöffner Garage Haus
 Output_Coils[36] 	- 1036 <- Garagentormotor Licht AN / AUS
-Output_Coils[37] 	- 1037 <- Garagentor Stellung Lüften
-Output_Coils[38] 	- 1038 <- Garagentor Stellung AUF
-Output_Coils[39] 	- 1039 <- Garagentor Stellung AB
-Output_Coils[40] 	- 1040 <- Garagentor Stellung 1/2
+Output_Coils[37] 	- 1037 <- Garagentor Stellung Lüften impuls
+Output_Coils[38] 	- 1038 <- Garagentor Stellung AUF impuls
+Output_Coils[39] 	- 1039 <- Garagentor Stellung AB impuls
+Output_Coils[40] 	- 1040 <- Garagentor Stellung 1/2 impuls
 Output_Coils[41] 	- 1041 <- Türöffner Werkstatt
 Output_Coils[42] 	- 1042 <-
 Output_Coils[43] 	- 1043 <- 

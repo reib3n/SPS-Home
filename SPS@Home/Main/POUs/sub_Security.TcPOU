@@ -50,11 +50,7 @@ gvl_mb.Output_coils[213] :=	gvl_EA.bWID01_15; 			// Garagentor offen
 gvl_mb.Output_coils[214] := gvl_EA.bWID01_16; 			// Garagentor geschlossen
 gvl_mb.Output_Coils[215] := gvl_EA.bWID01_14; 			// Garagentor Lüftung
 
-gvl_EA.bWOD01_12 := gvl_mb.Output_Coils[36];
-gvl_EA.bWOD01_13 := gvl_mb.Output_Coils[37];
-gvl_EA.bWOD01_14 := gvl_mb.Output_Coils[38];
-gvl_EA.bWOD01_15 := gvl_mb.Output_Coils[39];
-gvl_EA.bWOD01_16 := gvl_mb.Output_Coils[40];]]></ST>
+]]></ST>
     </Implementation>
     <LineIds Name="sub_Security">
       <LineId Id="71" Count="3" />
@@ -78,7 +74,7 @@ gvl_EA.bWOD01_16 := gvl_mb.Output_Coils[40];]]></ST>
       <LineId Id="117" Count="0" />
       <LineId Id="121" Count="2" />
       <LineId Id="120" Count="0" />
-      <LineId Id="129" Count="4" />
+      <LineId Id="129" Count="0" />
       <LineId Id="128" Count="0" />
     </LineIds>
   </POU>
