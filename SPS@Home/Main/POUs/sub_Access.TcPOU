@@ -122,7 +122,7 @@ fbTuerGarageStrasse(
 //-------------------------------------------------------------
 
 //--------------------Türöffner Werkstatt----------------------------------
-fbTuerGarageStrasse(
+fbTuerWerkstatt(
 	bInput			:= gvl_EA.bWID01_10,
 	bInputHA		:= gvl_mb.Output_Coils[41],
 	tPulse			:= T#3S,

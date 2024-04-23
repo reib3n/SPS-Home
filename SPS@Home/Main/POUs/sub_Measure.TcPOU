@@ -131,7 +131,7 @@ fbTempWohnzimmer
 fbZisterne
 (
 	iInput		:= gvl_EA.iIAA01_1,
-	tRefresh 	:= T#1M,
+	tRefresh 	:= T#15S,
 	wOutPerc	=> gvl_mb.Output_Registers[12],
 	wOutLiter	=> gvl_mb.Output_Registers[13]
 

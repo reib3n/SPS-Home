@@ -5,7 +5,6 @@
 VAR_INPUT
 	bInput			:	BOOL;	// Input über ein System
 	bInputSwitch	:	BOOL;	// Input über einen Taster
-	bInputHA		:	BOOL;	// Input über Home Assistant Taster
 	bInputPerm		:	BOOL;	// Input für dauerhaftes öffnen
 	
 	tPulse			:	TIME := T#5S;	//Zeit für High bei System oder HomeAssistant
@@ -15,6 +14,7 @@ VAR_OUTPUT
 	bOut			:	BOOL;
 END_VAR
 VAR_IN_OUT
+	bInputHA		:	BOOL;	// Input über Home Assistant Taster
 END_VAR
 VAR CONSTANT
 END_VAR
@@ -56,6 +56,7 @@ ELSE
 		bOut 		:= TRUE;
 	ELSE
 		bOut 		:= FALSE;
+		bInputHA	:= FALSE;
 	END_IF
 	
 END_IF]]></ST>
@@ -78,6 +79,7 @@ END_IF]]></ST>
       <LineId Id="275" Count="0" />
       <LineId Id="285" Count="0" />
       <LineId Id="333" Count="0" />
+      <LineId Id="608" Count="0" />
       <LineId Id="454" Count="0" />
       <LineId Id="575" Count="0" />
       <LineId Id="571" Count="0" />

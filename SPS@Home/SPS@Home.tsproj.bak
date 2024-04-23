@@ -649,7 +649,7 @@
 						</Var>
 						<Var>
 							<Name>gvl_EA.bWOD01_6</Name>
-							<Comment><![CDATA[ Garagentor]]></Comment>
+							<Comment><![CDATA[ Garagentor Stellung Toggle]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>

@@ -33,7 +33,7 @@ fbFanGarage
 //--------------------------------FAN Werkstatt----------------------------------
 fbFanWerkstatt
 (
-	bInputControl	:=	gvl_EA.bWID01_14,
+	bInputControl	:=	FALSE,
 	bInputHA		:=	gvl_mb.Output_Coils[26],
 //	iTempIn			:=	gvl_mb.Output_Registers[20],
 //	iTempOut		:= 

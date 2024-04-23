@@ -12,13 +12,13 @@ VAR_OUTPUT
 END_VAR
 VAR
 	iValueArith		: INT;
-	iPercent		: INT;
-	iLiter			: INT;
+	iPercent		: REAL;
+	iLiter			: REAL;
 	tonBlock		: TON;
 	fbArithMittel	: FB_ArithMittel10;
 	i_finalValue	: INT;
 	
-	iMaxValofSensor : INT := 20000;
+	iMaxValofSensor : REAL := 20000;
 	
 	
 END_VAR
@@ -46,8 +46,8 @@ IF tonBlock.Q THEN
 	
 	//------------------------------------------------
 	
-	wOutPerc	:= INT_TO_WORD(iPercent);
-	wOutLiter	:= INT_TO_WORD(iLiter);
+	wOutPerc	:= REAL_TO_WORD(iPercent);
+	wOutLiter	:= REAL_TO_WORD(iLiter);
 	
 END_IF
 ]]></ST>
