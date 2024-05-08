@@ -31,7 +31,7 @@
 	bOD02_2		AT	%Q*:BOOL;			// Aussenlampe L10 (Balkon Links)
 	bOD02_3		AT	%Q*:BOOL;			// Tür-Gong
 	bOD02_4		AT	%Q*:BOOL := TRUE;	// Steckdose S1 (Ecke Esszimmer SW)
-	bOD02_5		AT	%Q*:BOOL;			// Steckdose S2 (Balkontür Rechts Esszimmer)
+	bOD02_5		AT	%Q*:BOOL := TRUE;	// Steckdose S2 (Balkontür Rechts Esszimmer)
 	bOD02_6		AT	%Q*:BOOL;			// Steckdose S3 (Ecke Whonzimmer NW - Fernseher) ACHTUNG NC
 	bOD02_7		AT	%Q*:BOOL;			// Aussensteckdose S4 (Haustür Rechts) 
 	bOD02_8		AT	%Q*:BOOL;			// Aussensteckdose S5 (Balkon)
