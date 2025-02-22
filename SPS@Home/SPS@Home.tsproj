@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.10">
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.62">
 	<Project ProjectGUID="{0EDD3A4C-6AB2-46B1-AE8A-AD9CF647D44A}" TargetNetId="5.87.70.110.1.1" ShowHideConfigurations="#x106">
 		<System>
 			<Licenses>
@@ -16,7 +16,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{5A72BEF0-3465-4215-A567-A1251881B791}" Name="Main" PrjFilePath="Main\Main.plcproj" TmcFilePath="Main\Main.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Main\Main.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Main\Main.tmc" TmcHash="{BF702569-C6EE-75F2-5B4F-69110A5194C0}">
 					<Name>Main Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -328,7 +328,7 @@
 						</Var>
 						<Var>
 							<Name>gvl_EA.bWID02_2</Name>
-							<Comment><![CDATA[ ]]></Comment>
+							<Comment><![CDATA[ Regenmesser Garagendach Impuls = 0,3 mm Regen]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -421,8 +421,36 @@
 							<Comment><![CDATA[ Temperatur Garage (-30 - +70 °C)]]></Comment>
 							<Type>INT</Type>
 						</Var>
+						<Var>
+							<Name>gvl_EA.iWIAA01_1</Name>
+							<Comment><![CDATA[ AUSSEN relative Feuchte]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_EA.iWIAA01_2</Name>
+							<Comment><![CDATA[ AUSSEN Temperatur (-30 - +70 °C)]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_EA.iWIAA02_1</Name>
+							<Comment><![CDATA[ Windgeschwindigkeit max. 35m/s]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_EA.iWIAA02_2</Name>
+							<Comment><![CDATA[ Windrichtung]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_EA.iWIAA03_3</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_EA.iWIAA04_4</Name>
+							<Type>INT</Type>
+						</Var>
 					</Vars>
-					<Vars VarGrpType="2">
+					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PLC1_Main Outputs</Name>
 						<Var>
 							<Name>gvl_EA.bOD01_1</Name>
@@ -781,7 +809,7 @@
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
-					<Vars VarGrpType="8">
+					<Vars VarGrpType="8" AreaNo="4">
 						<Name>PLC1_Main Retains</Name>
 						<Var>
 							<Name>gvl_RETAIN.waterConsumption</Name>
@@ -794,10 +822,16 @@
 							<Type>WORD</Type>
 							<InOut>7</InOut>
 						</Var>
+						<Var>
+							<Name>gvl_RETAIN.waterRain</Name>
+							<Comment><![CDATA[Regenmenge in MM]]></Comment>
+							<Type>WORD</Type>
+							<InOut>7</InOut>
+						</Var>
 					</Vars>
 					<Contexts>
 						<Context>
-							<Id NeedCalleeCall="true">0</Id>
+							<Id>0</Id>
 							<Name>PLC1_Main</Name>
 							<ManualConfig>
 								<OTCID>#x02010030</OTCID>
@@ -2260,7 +2294,7 @@ Bit 15 = Acyc. Function atcive (e.g. K-Bus Reset)
 0x0002 = Configuration error
 ]]></Comment>
 							<Type>UINT</Type>
-							<BitOffs>224</BitOffs>
+							<BitOffs>352</BitOffs>
 						</Var>
 						<Var>
 							<Name>BoxState</Name>
@@ -2270,7 +2304,7 @@ Bit 15 = Acyc. Function atcive (e.g. K-Bus Reset)
 0xnn00 = WarnLevel (UDP only)
 ]]></Comment>
 							<Type>UINT</Type>
-							<BitOffs>240</BitOffs>
+							<BitOffs>368</BitOffs>
 						</Var>
 						<Var>
 							<Name>MissedCnt</Name>
@@ -2278,7 +2312,7 @@ Bit 15 = Acyc. Function atcive (e.g. K-Bus Reset)
 inputs missed
 ]]></Comment>
 							<Type>UINT</Type>
-							<BitOffs>256</BitOffs>
+							<BitOffs>384</BitOffs>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2">
@@ -2293,7 +2327,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>192</BitOffs>
+									<BitOffs>320</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2302,7 +2336,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>193</BitOffs>
+									<BitOffs>321</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2311,7 +2345,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>194</BitOffs>
+									<BitOffs>322</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2320,7 +2354,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>195</BitOffs>
+									<BitOffs>323</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2329,7 +2363,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>196</BitOffs>
+									<BitOffs>324</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2338,7 +2372,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>197</BitOffs>
+									<BitOffs>325</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2347,7 +2381,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>198</BitOffs>
+									<BitOffs>326</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2356,7 +2390,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>199</BitOffs>
+									<BitOffs>327</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2365,7 +2399,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>200</BitOffs>
+									<BitOffs>328</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2374,7 +2408,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>201</BitOffs>
+									<BitOffs>329</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2383,7 +2417,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>202</BitOffs>
+									<BitOffs>330</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2392,7 +2426,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>203</BitOffs>
+									<BitOffs>331</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2401,7 +2435,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>204</BitOffs>
+									<BitOffs>332</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2410,7 +2444,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>205</BitOffs>
+									<BitOffs>333</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2419,7 +2453,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>206</BitOffs>
+									<BitOffs>334</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2428,7 +2462,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>207</BitOffs>
+									<BitOffs>335</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2441,7 +2475,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>208</BitOffs>
+									<BitOffs>336</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2450,7 +2484,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>209</BitOffs>
+									<BitOffs>337</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2459,7 +2493,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>210</BitOffs>
+									<BitOffs>338</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2468,7 +2502,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>211</BitOffs>
+									<BitOffs>339</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2477,7 +2511,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>212</BitOffs>
+									<BitOffs>340</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2486,7 +2520,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>213</BitOffs>
+									<BitOffs>341</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2495,7 +2529,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>214</BitOffs>
+									<BitOffs>342</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2504,7 +2538,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>215</BitOffs>
+									<BitOffs>343</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2513,7 +2547,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>216</BitOffs>
+									<BitOffs>344</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2522,7 +2556,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>217</BitOffs>
+									<BitOffs>345</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2531,7 +2565,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>218</BitOffs>
+									<BitOffs>346</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2540,7 +2574,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>219</BitOffs>
+									<BitOffs>347</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2549,7 +2583,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>220</BitOffs>
+									<BitOffs>348</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2558,7 +2592,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>221</BitOffs>
+									<BitOffs>349</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2567,7 +2601,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>222</BitOffs>
+									<BitOffs>350</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2576,7 +2610,7 @@ inputs missed
 								<Var>
 									<Name>Eingang</Name>
 									<Type>BIT</Type>
-									<BitOffs>223</BitOffs>
+									<BitOffs>351</BitOffs>
 									<InOut>0</InOut>
 								</Var>
 							</Vars>
@@ -2589,7 +2623,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>192</BitOffs>
+									<BitOffs>320</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2598,7 +2632,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>193</BitOffs>
+									<BitOffs>321</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2607,7 +2641,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>194</BitOffs>
+									<BitOffs>322</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2616,7 +2650,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>195</BitOffs>
+									<BitOffs>323</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2625,7 +2659,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>196</BitOffs>
+									<BitOffs>324</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2634,7 +2668,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>197</BitOffs>
+									<BitOffs>325</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2643,7 +2677,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>198</BitOffs>
+									<BitOffs>326</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2652,7 +2686,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>199</BitOffs>
+									<BitOffs>327</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2661,7 +2695,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>200</BitOffs>
+									<BitOffs>328</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2670,7 +2704,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>201</BitOffs>
+									<BitOffs>329</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2679,7 +2713,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>202</BitOffs>
+									<BitOffs>330</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2688,7 +2722,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>203</BitOffs>
+									<BitOffs>331</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2697,7 +2731,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>204</BitOffs>
+									<BitOffs>332</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2706,7 +2740,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>205</BitOffs>
+									<BitOffs>333</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2715,7 +2749,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>206</BitOffs>
+									<BitOffs>334</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2724,7 +2758,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>207</BitOffs>
+									<BitOffs>335</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2737,7 +2771,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>208</BitOffs>
+									<BitOffs>336</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2746,7 +2780,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>209</BitOffs>
+									<BitOffs>337</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2755,7 +2789,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>210</BitOffs>
+									<BitOffs>338</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2764,7 +2798,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>211</BitOffs>
+									<BitOffs>339</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2773,7 +2807,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>212</BitOffs>
+									<BitOffs>340</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2782,7 +2816,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>213</BitOffs>
+									<BitOffs>341</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2791,7 +2825,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>214</BitOffs>
+									<BitOffs>342</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2800,7 +2834,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>215</BitOffs>
+									<BitOffs>343</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2809,7 +2843,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>216</BitOffs>
+									<BitOffs>344</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2818,7 +2852,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>217</BitOffs>
+									<BitOffs>345</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2827,7 +2861,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>218</BitOffs>
+									<BitOffs>346</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2836,7 +2870,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>219</BitOffs>
+									<BitOffs>347</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2845,7 +2879,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>220</BitOffs>
+									<BitOffs>348</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2854,7 +2888,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>221</BitOffs>
+									<BitOffs>349</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2863,7 +2897,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>222</BitOffs>
+									<BitOffs>350</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -2872,7 +2906,7 @@ inputs missed
 								<Var>
 									<Name>Ausgang</Name>
 									<Type>BIT</Type>
-									<BitOffs>223</BitOffs>
+									<BitOffs>351</BitOffs>
 									<InOut>1</InOut>
 								</Var>
 							</Vars>
@@ -3045,6 +3079,118 @@ inputs missed
 								</Var>
 							</Vars>
 						</Term>
+						<Term Id="3" TermType="#xbee" Fieldbus="7">
+							<Name>IWAA02 (KL3054)</Name>
+							<ImageId>33</ImageId>
+							<Vars VarGrpType="3">
+								<Name>Kanal 1</Name>
+								<Var>
+									<Name>Status</Name>
+									<Type>USINT</Type>
+									<BitOffs>192</BitOffs>
+									<InOut>0</InOut>
+								</Var>
+								<Var DisplayScale="#x4">
+									<Name>Daten Ein</Name>
+									<Type>INT</Type>
+									<BitOffs>208</BitOffs>
+									<InOut>0</InOut>
+								</Var>
+								<Var>
+									<Name>Kontrolle</Name>
+									<Type>USINT</Type>
+									<BitOffs>192</BitOffs>
+									<InOut>1</InOut>
+								</Var>
+								<Var DisplayScale="#x4">
+									<Name>Daten Aus</Name>
+									<Type>INT</Type>
+									<BitOffs>208</BitOffs>
+									<InOut>1</InOut>
+								</Var>
+							</Vars>
+							<Vars VarGrpType="3">
+								<Name>Kanal 2</Name>
+								<Var>
+									<Name>Status</Name>
+									<Type>USINT</Type>
+									<BitOffs>224</BitOffs>
+									<InOut>0</InOut>
+								</Var>
+								<Var DisplayScale="#x4">
+									<Name>Daten Ein</Name>
+									<Type>INT</Type>
+									<BitOffs>240</BitOffs>
+									<InOut>0</InOut>
+								</Var>
+								<Var>
+									<Name>Kontrolle</Name>
+									<Type>USINT</Type>
+									<BitOffs>224</BitOffs>
+									<InOut>1</InOut>
+								</Var>
+								<Var DisplayScale="#x4">
+									<Name>Daten Aus</Name>
+									<Type>INT</Type>
+									<BitOffs>240</BitOffs>
+									<InOut>1</InOut>
+								</Var>
+							</Vars>
+							<Vars VarGrpType="3">
+								<Name>Kanal 3</Name>
+								<Var>
+									<Name>Status</Name>
+									<Type>USINT</Type>
+									<BitOffs>256</BitOffs>
+									<InOut>0</InOut>
+								</Var>
+								<Var DisplayScale="#x4">
+									<Name>Daten Ein</Name>
+									<Type>INT</Type>
+									<BitOffs>272</BitOffs>
+									<InOut>0</InOut>
+								</Var>
+								<Var>
+									<Name>Kontrolle</Name>
+									<Type>USINT</Type>
+									<BitOffs>256</BitOffs>
+									<InOut>1</InOut>
+								</Var>
+								<Var DisplayScale="#x4">
+									<Name>Daten Aus</Name>
+									<Type>INT</Type>
+									<BitOffs>272</BitOffs>
+									<InOut>1</InOut>
+								</Var>
+							</Vars>
+							<Vars VarGrpType="3">
+								<Name>Kanal 4</Name>
+								<Var>
+									<Name>Status</Name>
+									<Type>USINT</Type>
+									<BitOffs>288</BitOffs>
+									<InOut>0</InOut>
+								</Var>
+								<Var DisplayScale="#x4">
+									<Name>Daten Ein</Name>
+									<Type>INT</Type>
+									<BitOffs>304</BitOffs>
+									<InOut>0</InOut>
+								</Var>
+								<Var>
+									<Name>Kontrolle</Name>
+									<Type>USINT</Type>
+									<BitOffs>288</BitOffs>
+									<InOut>1</InOut>
+								</Var>
+								<Var DisplayScale="#x4">
+									<Name>Daten Aus</Name>
+									<Type>INT</Type>
+									<BitOffs>304</BitOffs>
+									<InOut>1</InOut>
+								</Var>
+							</Vars>
+						</Term>
 						<Term Id="2" TermType="#x2332" Fieldbus="7">
 							<Name>End-Klemme (KL9010)</Name>
 							<ImageId>32</ImageId>
@@ -3179,6 +3325,12 @@ inputs missed
 				<Link VarA="PLC1_Main Inputs^gvl_EA.bWID02_7" VarB="bWID02 (KL1809)^Channel 7^Eingang"/>
 				<Link VarA="PLC1_Main Inputs^gvl_EA.bWID02_8" VarB="bWID02 (KL1809)^Channel 8^Eingang"/>
 				<Link VarA="PLC1_Main Inputs^gvl_EA.bWID02_9" VarB="bWID02 (KL1809)^Channel 9^Eingang"/>
+				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAA01_1" VarB="IWAA01 (KL3022)^Channel 1^Daten Ein"/>
+				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAA01_2" VarB="IWAA01 (KL3022)^Channel 2^Daten Ein"/>
+				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAA02_1" VarB="IWAA02 (KL3054)^Channel 1^Daten Ein"/>
+				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAA02_2" VarB="IWAA02 (KL3054)^Channel 2^Daten Ein"/>
+				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAA03_3" VarB="IWAA02 (KL3054)^Channel 3^Daten Ein"/>
+				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAA04_4" VarB="IWAA02 (KL3054)^Channel 4^Daten Ein"/>
 				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAV01_1" VarB="IWAV01 (KL3064)^Channel 1^Daten Ein"/>
 				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAV01_2" VarB="IWAV01 (KL3064)^Channel 2^Daten Ein"/>
 				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAV01_3" VarB="IWAV01 (KL3064)^Channel 3^Daten Ein"/>

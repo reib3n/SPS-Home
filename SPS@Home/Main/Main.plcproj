@@ -32,16 +32,22 @@
     <Compile Include="PLC1_Main.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB\FB_Convert_10V2relHum.TcPOU">
+    <Compile Include="POUs\FB\FB_Convert_2relHum.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB\FB_Convert_10V2co2.TcPOU">
+    <Compile Include="POUs\FB\FB_Convert_2co2.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB\FB_Convert_10V2temp.TcPOU">
+    <Compile Include="POUs\FB\FB_Convert_2Windspeed.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB\FB_Convert_mA2Zisterne.TcPOU">
+    <Compile Include="POUs\FB\FB_Convert_2temp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB\FB_Convert_2WindDir.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB\FB_Convert_2Zisterne.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB\FB_Count.TcPOU">

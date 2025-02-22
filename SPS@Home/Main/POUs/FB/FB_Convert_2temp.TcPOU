@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
-  <POU Name="FB_Convert_10V2temp" Id="{1aef795d-fbd2-4a71-be44-896f67cfdb69}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_Convert_10V2temp
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="FB_Convert_2temp" Id="{1aef795d-fbd2-4a71-be44-896f67cfdb69}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Convert_2temp
 VAR_INPUT
 	iInput			:	INT;
 	tRefresh		:	TIME;
@@ -46,7 +46,7 @@ IF tonBlock.Q THEN
 END_IF
 ]]></ST>
     </Implementation>
-    <LineIds Name="FB_Convert_10V2temp">
+    <LineIds Name="FB_Convert_2temp">
       <LineId Id="42" Count="0" />
       <LineId Id="51" Count="0" />
       <LineId Id="97" Count="0" />

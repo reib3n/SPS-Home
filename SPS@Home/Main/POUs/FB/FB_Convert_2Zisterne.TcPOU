@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
-  <POU Name="FB_Convert_mA2Zisterne" Id="{8f17dd3d-7194-4910-a364-d341dc4d3a5b}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_Convert_mA2Zisterne
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="FB_Convert_2Zisterne" Id="{8f17dd3d-7194-4910-a364-d341dc4d3a5b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Convert_2Zisterne
 VAR_INPUT
 	iInput			:	INT;
 	tRefresh		:	TIME;
@@ -52,7 +52,7 @@ IF tonBlock.Q THEN
 END_IF
 ]]></ST>
     </Implementation>
-    <LineIds Name="FB_Convert_mA2Zisterne">
+    <LineIds Name="FB_Convert_2Zisterne">
       <LineId Id="51" Count="0" />
       <LineId Id="54" Count="0" />
       <LineId Id="52" Count="0" />

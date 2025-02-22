@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <GVL Name="gvl_EA" Id="{df708986-1f90-40c2-afd5-75f2f80d616e}">
     <Declaration><![CDATA[VAR_GLOBAL
 	(* -------------------------------------------------------------------
@@ -199,7 +199,7 @@
 	
 	//---------bWID02-------------------------------------
 	bWID02_1		AT	%I*:BOOL;				// Licht Garagentor AN Rückmeldung
-	bWID02_2		AT	%I*:BOOL;				// 
+	bWID02_2		AT	%I*:BOOL;				// Regenmesser Garagendach Impuls = 0,3 mm Regen
 	bWID02_3		AT	%I*:BOOL;				// 
 	bWID02_4		AT	%I*:BOOL;				// 
 	bWID02_5		AT	%I*:BOOL;				// 
@@ -220,6 +220,16 @@
 	iWIAV01_2		AT	%I*:INT;	// Feuchtigkeit Werkstatt (%)
 	iWIAV01_3		AT	%I*:INT;	// Feuchtigkeit Garage (%)
 	iWIAV01_4		AT	%I*:INT;	// Temperatur Garage (-30 - +70 °C)
+	
+	//----------IWAV01-----------------------
+	iWIAA01_1		AT	%I*:INT;	// AUSSEN relative Feuchte
+	iWIAA01_2		AT	%I*:INT;	// AUSSEN Temperatur (-30 - +70 °C)
+	
+		//----------IWAV01-----------------------
+	iWIAA02_1		AT	%I*:INT;	// Windgeschwindigkeit max. 35m/s
+	iWIAA02_2		AT	%I*:INT;	// Windrichtung
+	iWIAA03_3		AT	%I*:INT;	//
+	iWIAA04_4		AT	%I*:INT;	//
 	
 END_VAR]]></Declaration>
   </GVL>

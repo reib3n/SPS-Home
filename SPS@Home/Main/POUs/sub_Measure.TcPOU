@@ -1,24 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="sub_Measure" Id="{c86e02d1-7a17-45fa-8e50-215beceed17d}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM sub_Measure
 VAR
 		fbWaterConsumption			:	FB_Count;
 		fbWaterConsumptionZisterne	:	FB_Count;
+		fbWaterRain					:	FB_Count;
 		
-		fbHumWohnzimmer		:	FB_Convert_10V2relHum;
-		fbHumTechnikraum	:	FB_Convert_10V2relHum;
-		fbHumWerkstatt		:	FB_Convert_10V2relHum;
-		fbHumGarage			:	FB_Convert_10V2relHum;
+		fbHumWohnzimmer		:	FB_Convert_2relHum;
+		fbHumTechnikraum	:	FB_Convert_2relHum;
+		fbHumWerkstatt		:	FB_Convert_2relHum;
+		fbHumGarage			:	FB_Convert_2relHum;
+		fbHumAussen			:	FB_Convert_2relHum;
 		
-		fbCO2Wohnzimmer		:	FB_Convert_10V2co2;
+		fbCO2Wohnzimmer		:	FB_Convert_2co2;
 		
-		fbZisterne			:	FB_Convert_mA2Zisterne;
+		fbZisterne			:	FB_Convert_2Zisterne;
 		
-		fbTempGarage		:	FB_Convert_10V2temp;
-		fbTempWerkstatt		:	FB_Convert_10V2temp;
-		fbTempTechnikraum	:	FB_Convert_10V2temp;
-		fbTempWohnzimmer	:	FB_Convert_10V2temp;
+		fbTempGarage		:	FB_Convert_2temp;
+		fbTempWerkstatt		:	FB_Convert_2temp;
+		fbTempTechnikraum	:	FB_Convert_2temp;
+		fbTempWohnzimmer	:	FB_Convert_2temp;
+		fbTempAussen		:	FB_Convert_2temp;
+		
+		fbWindspeedAussen	:	FB_Convert_2Windspeed;
+		fbWindDirAussen		:	FB_Convert_2WindDir;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -51,7 +57,7 @@ fbWaterConsumptionZisterne
 fbHumWohnzimmer
 (
 	iInput		:= gvl_EA.iIAV01_2,
-	tRefresh 	:= T#10S,
+	tRefresh 	:= T#120S,
 	wOut 		=> gvl_mb.Output_Registers[15]
 );
 //-----------------------------------------------------------------------
@@ -59,7 +65,7 @@ fbHumWohnzimmer
 fbHumTechnikraum
 (
 	iInput		:= gvl_EA.iIAV02_1,
-	tRefresh 	:= T#10S,
+	tRefresh 	:= T#120S,
 	wOut 		=> gvl_mb.Output_Registers[18]
 );
 //-----------------------------------------------------------------------
@@ -67,7 +73,7 @@ fbHumTechnikraum
 fbHumWerkstatt
 (
 	iInput		:= gvl_EA.iWIAV01_2,
-	tRefresh 	:= T#10S,
+	tRefresh 	:= T#120S,
 	wOut 		=> gvl_mb.Output_Registers[21]
 );
 //-----------------------------------------------------------------------
@@ -75,15 +81,23 @@ fbHumWerkstatt
 fbHumGarage
 (
 	iInput		:= gvl_EA.iWIAV01_3,
-	tRefresh 	:= T#10S,
+	tRefresh 	:= T#120S,
 	wOut 		=> gvl_mb.Output_Registers[24]
+);
+//-----------------------------------------------------------------------
+//--------------------HUMIDITY AUSSEN--------------------------------
+fbHumAussen
+(
+	iInput		:= gvl_EA.iWIAA01_1,
+	tRefresh 	:= T#120S,
+	wOut 		=> gvl_mb.Output_Registers[27]
 );
 //-----------------------------------------------------------------------
 //--------------------CO2 WOHNZIMMER-------------------------------------
 fbCO2Wohnzimmer
 (
 	iInput		:= gvl_EA.iIAV01_3,
-	tRefresh 	:= T#10S,
+	tRefresh 	:= T#120S,
 	wOut 		=> gvl_mb.Output_Registers[16]
 );
 //-----------------------------------------------------------------------
@@ -91,7 +105,7 @@ fbCO2Wohnzimmer
 fbTempGarage
 (
 	iInput		:= gvl_EA.iWIAV01_4,
-	tRefresh 	:= T#10S,
+	tRefresh 	:= T#120S,
 	itempMAX	:= 70,
 	itempMIN	:= -30,
 	wOut 		=> gvl_mb.Output_Registers[23]
@@ -101,7 +115,7 @@ fbTempGarage
 fbTempWerkstatt
 (
 	iInput		:= gvl_EA.iWIAV01_1,
-	tRefresh 	:= T#10S,
+	tRefresh 	:= T#120S,
 	itempMAX	:= 70,
 	itempMIN	:= -30,
 	wOut 		=> gvl_mb.Output_Registers[20]
@@ -111,7 +125,7 @@ fbTempWerkstatt
 fbTempTechnikraum
 (
 	iInput		:= gvl_EA.iIAV01_4,
-	tRefresh 	:= T#10S,
+	tRefresh 	:= T#120S,
 	itempMAX	:= 70,
 	itempMIN	:= -30,
 	wOut 		=> gvl_mb.Output_Registers[17]
@@ -121,20 +135,56 @@ fbTempTechnikraum
 fbTempWohnzimmer
 (
 	iInput		:= gvl_EA.iIAV01_1,
-	tRefresh 	:= T#10S,
+	tRefresh 	:= T#120S,
 	itempMAX	:= 50,
 	itempMIN	:= 0,
 	wOut 		=> gvl_mb.Output_Registers[14]
+);
+//-----------------------------------------------------------------------
+//--------------------TEMP AUSSEN-------------------------------------
+fbTempAussen
+(
+	iInput		:= gvl_EA.iWIAA01_2,
+	tRefresh 	:= T#120S,
+	itempMAX	:= 70,
+	itempMIN	:= -30,
+	wOut 		=> gvl_mb.Output_Registers[26]
 );
 //-----------------------------------------------------------------------
 //--------------------ZISTERNE-------------------------------------
 fbZisterne
 (
 	iInput		:= gvl_EA.iIAA01_1,
-	tRefresh 	:= T#15S,
+	tRefresh 	:= T#120S,
 	wOutPerc	=> gvl_mb.Output_Registers[12],
 	wOutLiter	=> gvl_mb.Output_Registers[13]
 
+);
+//-----------------------------------------------------------------------
+//--------------------AUSSEN WINDSPEED--------------------------------
+fbWindspeedAussen
+(
+	iInput		:= gvl_EA.iWIAA02_1,
+	tRefresh 	:= T#10S,
+	wOutMS	 	=> gvl_mb.Output_Registers[29],
+	wOutKMH	 	=> gvl_mb.Output_Registers[30]
+);
+//-----------------------------------------------------------------------
+//--------------------AUSSEN WIND DIRECTION--------------------------------
+fbWindDirAussen
+(
+	iInput		:= gvl_EA.iWIAA02_2,
+	tRefresh 	:= T#10S,
+	wOut	 	=> gvl_mb.Output_Registers[31]
+);
+//-----------------------------------------------------------------------
+//--------------------WATER Regenmenge (1 = 0.3mm)-------------------
+fbWaterConsumption
+(
+	bInput			:= gvl_EA.bWID02_2,
+	bAllFlanks 		:= FALSE,
+	wCountRetain	:= gvl_RETAIN.waterRain,
+	wOut			=> gvl_mb.Output_Registers[28]
 );
 //-----------------------------------------------------------------------]]></ST>
     </Implementation>
@@ -162,6 +212,8 @@ fbZisterne
       <LineId Id="48" Count="0" />
       <LineId Id="110" Count="6" />
       <LineId Id="109" Count="0" />
+      <LineId Id="261" Count="6" />
+      <LineId Id="260" Count="0" />
       <LineId Id="69" Count="6" />
       <LineId Id="67" Count="0" />
       <LineId Id="131" Count="4" />
@@ -174,10 +226,21 @@ fbZisterne
       <LineId Id="173" Count="0" />
       <LineId Id="189" Count="8" />
       <LineId Id="188" Count="0" />
+      <LineId Id="250" Count="8" />
+      <LineId Id="249" Count="0" />
       <LineId Id="218" Count="4" />
       <LineId Id="227" Count="1" />
       <LineId Id="225" Count="1" />
       <LineId Id="217" Count="0" />
+      <LineId Id="271" Count="5" />
+      <LineId Id="278" Count="0" />
+      <LineId Id="277" Count="0" />
+      <LineId Id="270" Count="0" />
+      <LineId Id="291" Count="4" />
+      <LineId Id="297" Count="1" />
+      <LineId Id="290" Count="0" />
+      <LineId Id="281" Count="7" />
+      <LineId Id="280" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

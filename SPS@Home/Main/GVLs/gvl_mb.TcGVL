@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <GVL Name="gvl_mb" Id="{3db55538-7040-430d-8b30-7a8f8b1e24d7}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
@@ -127,6 +127,13 @@ Output_Registers[22] 	- 2022 <- Zisternenwasserverbrauch gvl_RETAIN
 Output_Registers[23] 	- 2023 <- Garage Temperatur
 Output_Registers[24] 	- 2024 <- Garage Feuchtigkeit
 Output_Registers[25] 	- 2025 <- Status Garagentor
+Output_Registers[26] 	- 2026 <- AUSSEN Temperatur
+Output_Registers[27] 	- 2027 <- AUSSEN relative Feuchte (%)
+Output_Registers[28] 	- 2028 <- AUSSEN Regenmenge in mm (gvl_Retaun)
+Output_Registers[29] 	- 2029 <- AUSSEN Windgeschwindigkeit m/s
+Output_Registers[30] 	- 2030 <- AUSSEN Windgeschwindigkeit km/h
+Output_Registers[31] 	- 2031 <- AUSSEN Windrichtung Grad
+
 
 
 
