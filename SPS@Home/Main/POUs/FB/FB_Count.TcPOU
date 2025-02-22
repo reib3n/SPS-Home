@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="FB_Count" Id="{7eccf564-e373-4dac-ab77-0db3104eaba8}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Count
 VAR_INPUT
 	bInput				:	BOOL;	
 	bAllFlanks			:	BOOL := FALSE;				//Alle Flanken verwenden?
+	rMultiplier			:	REAL := 1;					//Wert wirt mit wOut multipliziert
+	iFactor				:	INT	:= 1;					//Factor to shift komma
 END_VAR
 VAR_OUTPUT
 	wOut				:	WORD;
@@ -34,8 +36,8 @@ IF bAllFlanks THEN
 		wCountRetain := TO_WORD((wCountRetain + 1) MOD iMaxValue);
 	END_IF	
 END_IF
-
-wOut	:= wCountRetain;]]></ST>
+	
+wOut	:= REAL_TO_WORD((wCountRetain * rMultiplier)*iFactor);]]></ST>
     </Implementation>
     <LineIds Name="FB_Count">
       <LineId Id="22" Count="0" />
@@ -50,7 +52,7 @@ wOut	:= wCountRetain;]]></ST>
       <LineId Id="26" Count="0" />
       <LineId Id="34" Count="1" />
       <LineId Id="21" Count="0" />
-      <LineId Id="24" Count="0" />
+      <LineId Id="57" Count="0" />
       <LineId Id="23" Count="0" />
     </LineIds>
   </POU>

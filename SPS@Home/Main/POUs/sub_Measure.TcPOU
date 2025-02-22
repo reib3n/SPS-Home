@@ -183,6 +183,8 @@ fbWaterConsumption
 (
 	bInput			:= gvl_EA.bWID02_2,
 	bAllFlanks 		:= FALSE,
+	rMultiplier		:= 0.3,
+	iFactor			:= 10,
 	wCountRetain	:= gvl_RETAIN.waterRain,
 	wOut			=> gvl_mb.Output_Registers[28]
 );
@@ -239,7 +241,9 @@ fbWaterConsumption
       <LineId Id="291" Count="4" />
       <LineId Id="297" Count="1" />
       <LineId Id="290" Count="0" />
-      <LineId Id="281" Count="7" />
+      <LineId Id="281" Count="4" />
+      <LineId Id="299" Count="1" />
+      <LineId Id="286" Count="2" />
       <LineId Id="280" Count="0" />
     </LineIds>
   </POU>
