@@ -26,14 +26,14 @@ END_VAR
 fbRTrig(CLK:= bInput, Q=> );
 
 IF fbRTrig.Q THEN
-	wCountRetain := TO_WORD((wCountRetain + 1) MOD iMaxValue);
+	wCountRetain := TO_WORD((wCountRetain + 1) MOD REAL_TO_UINT(iMaxValue / (rMultiplier * iFactor)));
 END_IF	
 
 IF bAllFlanks THEN
 	fbFTrig(CLK:= bInput, Q=> );
 
 	IF fbFTrig.Q THEN
-		wCountRetain := TO_WORD((wCountRetain + 1) MOD iMaxValue);
+		wCountRetain := TO_WORD((wCountRetain + 1) MOD REAL_TO_UINT(iMaxValue / (rMultiplier * iFactor)));
 	END_IF	
 END_IF
 	

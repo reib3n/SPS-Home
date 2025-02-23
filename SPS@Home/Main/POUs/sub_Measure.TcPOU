@@ -165,7 +165,7 @@ fbZisterne
 fbWindspeedAussen
 (
 	iInput		:= gvl_EA.iWIAA02_1,
-	tRefresh 	:= T#10S,
+	tRefresh 	:= T#1S,
 	wOutMS	 	=> gvl_mb.Output_Registers[29],
 	wOutKMH	 	=> gvl_mb.Output_Registers[30]
 );
@@ -174,7 +174,7 @@ fbWindspeedAussen
 fbWindDirAussen
 (
 	iInput		:= gvl_EA.iWIAA02_2,
-	tRefresh 	:= T#10S,
+	tRefresh 	:= T#1S,
 	wOut	 	=> gvl_mb.Output_Registers[31]
 );
 //-----------------------------------------------------------------------

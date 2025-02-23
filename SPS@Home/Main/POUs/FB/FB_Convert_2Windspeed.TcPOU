@@ -21,7 +21,12 @@ tonBlock(IN := NOT tonBlock.Q, PT := tRefresh);
 
 IF tonBlock.Q THEN
 
-	rX := iInput / 936.2; //Annahme 35m/s entspr. 32767
+	IF (iInput < 300) THEN
+		rX := 0;
+	ELSE
+		rX := iInput / 936.2; //Annahme 35m/s entspr. 32767
+	END_IF
+	
 	wOutMS := REAL_TO_WORD(rX * 10);
 	
 	wOutKMH := REAL_TO_WORD((rX * 3.6) * 10);
@@ -33,7 +38,10 @@ END_IF]]></ST>
       <LineId Id="51" Count="0" />
       <LineId Id="54" Count="0" />
       <LineId Id="52" Count="0" />
-      <LineId Id="43" Count="2" />
+      <LineId Id="113" Count="3" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="111" Count="1" />
+      <LineId Id="45" Count="0" />
       <LineId Id="57" Count="0" />
       <LineId Id="97" Count="0" />
       <LineId Id="96" Count="0" />
