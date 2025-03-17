@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <GVL Name="gvl_ha" Id="{f40cc198-1cbd-4620-99da-4d2f0c48df35}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	
+//---------------WETTERSTATION-----------------------
+	diWetterLUX			AT	%Q*:DINT;
+	bWetterRAIN			AT	%Q*:BOOL;
+	wWetterRAIN			AT	%Q*:WORD;
+	diWetterWINDdir		AT	%Q*:DINT;
+	diWetterWINDspeed	AT	%Q*:DINT;
+	diWetterHUM			AT	%Q*:DINT;
+	diWetterTEMP		AT	%Q*:DINT;	
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -17,6 +17,9 @@
     <LibraryReferences>{fd5a9bf8-d51f-4f91-a374-2fd98de80b06}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GVLs\gvl_ha.TcGVL">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="GVLs\gvl_mb.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
@@ -48,6 +51,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB\FB_Convert_2Zisterne.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB\FB_Con_2_Value.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB\FB_Count.TcPOU">
