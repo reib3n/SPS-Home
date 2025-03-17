@@ -16,19 +16,11 @@
 		</System>
 		<Plc>
 			<Project GUID="{5A72BEF0-3465-4215-A567-A1251881B791}" Name="Main" PrjFilePath="Main\Main.plcproj" TmcFilePath="Main\Main.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Main\Main.tmc" TmcHash="{22CD736D-E8B0-AA6F-820C-4B29556720B9}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Main\Main.tmc" TmcHash="{3B809BE2-1E3D-722B-3D1F-D8320E53A197}">
 					<Name>Main Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PLC1_Main Inputs</Name>
-						<Var>
-							<Name>gvl_EA.iWIAA03_3</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_EA.iWIAA04_4</Name>
-							<Type>INT</Type>
-						</Var>
 						<Var>
 							<Name>gvl_EA.bID01_1</Name>
 							<Comment><![CDATA[ 105 T1 (Esszimmer Indirekt)]]></Comment>
@@ -341,7 +333,7 @@
 						</Var>
 						<Var>
 							<Name>gvl_EA.bWID02_3</Name>
-							<Comment><![CDATA[ ]]></Comment>
+							<Comment><![CDATA[ Regenwächter]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -449,9 +441,22 @@
 							<Comment><![CDATA[ Windrichtung]]></Comment>
 							<Type>INT</Type>
 						</Var>
+						<Var>
+							<Name>gvl_EA.iWIAA02_3</Name>
+							<Comment><![CDATA[ LUX aussenbereich]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_EA.iWIAA02_4</Name>
+							<Type>INT</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PLC1_Main Outputs</Name>
+						<Var>
+							<Name>gvl_ha.bWetterRAIN</Name>
+							<Type>BOOL</Type>
+						</Var>
 						<Var>
 							<Name>gvl_EA.bOD01_1</Name>
 							<Comment><![CDATA[ -------------------------------------------------------------------
@@ -471,6 +476,15 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>gvl_ha.diWetterLUX</Name>
+							<Comment><![CDATA[---------------WETTERSTATION-----------------------]]></Comment>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_ha.wWetterRAIN</Name>
+							<Type>WORD</Type>
+						</Var>
+						<Var>
 							<Name>gvl_EA.bOD01_2</Name>
 							<Comment><![CDATA[ Lampe L2 Indirekt (Esszimmer) ACHTUNG NC]]></Comment>
 							<Type>BOOL</Type>
@@ -479,6 +493,22 @@
 							<Name>gvl_EA.bOD01_3</Name>
 							<Comment><![CDATA[ Lampe L3 Indirekt (Wohnzimmer)]]></Comment>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>gvl_ha.diWetterWINDdir</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_ha.diWetterWINDspeed</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_ha.diWetterHUM</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>gvl_ha.diWetterTEMP</Name>
+							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>gvl_EA.bOD01_4</Name>
@@ -641,6 +671,11 @@
 							<Type>INT</Type>
 						</Var>
 						<Var>
+							<Name>gvl_EA.bWOD01_1</Name>
+							<Comment><![CDATA[ Licht Werkstatt ACHTUNG NC]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>gvl_EA.iOADim01</Name>
 							<Comment><![CDATA[ Dimmer Esszimmerlampe]]></Comment>
 							<Type>INT</Type>
@@ -649,11 +684,6 @@
 							<Name>gvl_EA.iOADim02</Name>
 							<Comment><![CDATA[ Dimmer Balkon]]></Comment>
 							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>gvl_EA.bWOD01_1</Name>
-							<Comment><![CDATA[ Licht Werkstatt ACHTUNG NC]]></Comment>
-							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>gvl_EA.bWOD01_2</Name>
@@ -812,12 +842,6 @@
 					<Vars VarGrpType="8" AreaNo="4">
 						<Name>PLC1_Main Retains</Name>
 						<Var>
-							<Name>gvl_RETAIN.waterRain</Name>
-							<Comment><![CDATA[Regenmenge in MM]]></Comment>
-							<Type>WORD</Type>
-							<InOut>7</InOut>
-						</Var>
-						<Var>
 							<Name>gvl_RETAIN.waterConsumption</Name>
 							<Comment><![CDATA[Brauchwassermenge verbraucht in m3]]></Comment>
 							<Type>WORD</Type>
@@ -828,7 +852,21 @@
 							<Type>WORD</Type>
 							<InOut>7</InOut>
 						</Var>
+						<Var>
+							<Name>gvl_RETAIN.waterRain</Name>
+							<Comment><![CDATA[Regenmenge in MM]]></Comment>
+							<Type>WORD</Type>
+							<InOut>7</InOut>
+						</Var>
 					</Vars>
+					<UnrestoredVarLinks ImportTime="2025-03-17T13:56:48">
+						<OwnerA Name="InputDst" Prefix="TIPC^Main^Main Instance" Type="1">
+							<OwnerB Name="TIID^Virtual-Ethernet^Werkstatt (BK9000)">
+								<Link VarA="gvl_EA.iWIAA03_3" TypeA="INT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000006}" VarB="IWAA02 (KL3054)^Channel 3^Daten Ein" RestoreInfo="ANotFound"/>
+								<Link VarA="gvl_EA.iWIAA04_4" TypeA="INT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000006}" VarB="IWAA02 (KL3054)^Channel 4^Daten Ein" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
 					<Contexts>
 						<Context>
 							<Id>0</Id>
@@ -3329,8 +3367,8 @@ inputs missed
 				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAA01_2" VarB="IWAA01 (KL3022)^Channel 2^Daten Ein"/>
 				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAA02_1" VarB="IWAA02 (KL3054)^Channel 1^Daten Ein"/>
 				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAA02_2" VarB="IWAA02 (KL3054)^Channel 2^Daten Ein"/>
-				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAA03_3" VarB="IWAA02 (KL3054)^Channel 3^Daten Ein"/>
-				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAA04_4" VarB="IWAA02 (KL3054)^Channel 4^Daten Ein"/>
+				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAA02_3" VarB="IWAA02 (KL3054)^Channel 3^Daten Ein"/>
+				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAA02_4" VarB="IWAA02 (KL3054)^Channel 4^Daten Ein"/>
 				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAV01_1" VarB="IWAV01 (KL3064)^Channel 1^Daten Ein"/>
 				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAV01_2" VarB="IWAV01 (KL3064)^Channel 2^Daten Ein"/>
 				<Link VarA="PLC1_Main Inputs^gvl_EA.iWIAV01_3" VarB="IWAV01 (KL3064)^Channel 3^Daten Ein"/>

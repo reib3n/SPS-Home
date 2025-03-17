@@ -200,7 +200,7 @@
 	//---------bWID02-------------------------------------
 	bWID02_1		AT	%I*:BOOL;				// Licht Garagentor AN Rückmeldung
 	bWID02_2		AT	%I*:BOOL;				// Regenmesser Garagendach Impuls = 0,3 mm Regen
-	bWID02_3		AT	%I*:BOOL;				// 
+	bWID02_3		AT	%I*:BOOL;				// Regenwächter
 	bWID02_4		AT	%I*:BOOL;				// 
 	bWID02_5		AT	%I*:BOOL;				// 
 	bWID02_6		AT	%I*:BOOL;				// 
@@ -228,8 +228,8 @@
 		//----------IWAV01-----------------------
 	iWIAA02_1		AT	%I*:INT;	// Windgeschwindigkeit max. 35m/s
 	iWIAA02_2		AT	%I*:INT;	// Windrichtung
-	iWIAA03_3		AT	%I*:INT;	//
-	iWIAA04_4		AT	%I*:INT;	//
+	iWIAA02_3		AT	%I*:INT;	// LUX aussenbereich
+	iWIAA02_4		AT	%I*:INT;	//
 	
 END_VAR]]></Declaration>
   </GVL>

@@ -11,7 +11,6 @@ VAR
 		fbHumTechnikraum	:	FB_Convert_2relHum;
 		fbHumWerkstatt		:	FB_Convert_2relHum;
 		fbHumGarage			:	FB_Convert_2relHum;
-		fbHumAussen			:	FB_Convert_2relHum;
 		
 		fbCO2Wohnzimmer		:	FB_Convert_2co2;
 		
@@ -21,10 +20,15 @@ VAR
 		fbTempWerkstatt		:	FB_Convert_2temp;
 		fbTempTechnikraum	:	FB_Convert_2temp;
 		fbTempWohnzimmer	:	FB_Convert_2temp;
-		fbTempAussen		:	FB_Convert_2temp;
 		
-		fbWindspeedAussen	:	FB_Convert_2Windspeed;
-		fbWindDirAussen		:	FB_Convert_2WindDir;
+		
+		//-----------AUSSEN------------------------
+		fbWetterWindspeed	:	FB_Con_2_Value;
+		fbWetterWindDir		:	FB_Con_2_Value;
+		fbWetterLUX			:	FB_Con_2_Value;
+		fbWetterTemp		:	FB_Con_2_Value;
+		fbWetterHum			:	FB_Con_2_Value;
+
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -85,12 +89,14 @@ fbHumGarage
 	wOut 		=> gvl_mb.Output_Registers[24]
 );
 //-----------------------------------------------------------------------
-//--------------------HUMIDITY AUSSEN--------------------------------
-fbHumAussen
+//--------------------WETTER HUMIDITY--------------------------------
+fbWetterHum
 (
-	iInput		:= gvl_EA.iWIAA01_1,
-	tRefresh 	:= T#120S,
-	wOut 		=> gvl_mb.Output_Registers[27]
+	iInput			:= gvl_EA.iWIAA01_1,
+	tRefresh 		:= T#120S,
+	diUppMeasureVal	:= 100,
+	diLowMeasureVal	:= 0,
+	diOut	 		=> gvl_ha.diWetterHUM
 );
 //-----------------------------------------------------------------------
 //--------------------CO2 WOHNZIMMER-------------------------------------
@@ -141,14 +147,15 @@ fbTempWohnzimmer
 	wOut 		=> gvl_mb.Output_Registers[14]
 );
 //-----------------------------------------------------------------------
-//--------------------TEMP AUSSEN-------------------------------------
-fbTempAussen
+//--------------------WETTER TEMP-------------------------------------
+fbWetterTemp
 (
-	iInput		:= gvl_EA.iWIAA01_2,
-	tRefresh 	:= T#120S,
-	itempMAX	:= 70,
-	itempMIN	:= -30,
-	wOut 		=> gvl_mb.Output_Registers[26]
+	iInput			:= gvl_EA.iWIAA01_2,
+	tRefresh 		:= T#120S,
+	diUppMeasureVal	:= 70,
+	diLowMeasureVal	:= -30,
+	iResultMulti	:= 10,
+	diOut	 		=> gvl_ha.diWetterTEMP
 );
 //-----------------------------------------------------------------------
 //--------------------ZISTERNE-------------------------------------
@@ -161,32 +168,48 @@ fbZisterne
 
 );
 //-----------------------------------------------------------------------
-//--------------------AUSSEN WINDSPEED--------------------------------
-fbWindspeedAussen
+//--------------------WETTER WINDSPEED--------------------------------
+fbWetterWindspeed
 (
-	iInput		:= gvl_EA.iWIAA02_1,
-	tRefresh 	:= T#1S,
-	wOutMS	 	=> gvl_mb.Output_Registers[29],
-	wOutKMH	 	=> gvl_mb.Output_Registers[30]
+	iInput			:= gvl_EA.iWIAA02_1,
+	tRefresh 		:= T#1S,
+	diUppMeasureVal	:= 35,
+	diLowMeasureVal	:= 0,
+	iResultMulti	:= 36,	//*3,6 (kmh) *10 komma Shift
+	diOut	 		=> gvl_ha.diWetterWINDspeed
 );
 //-----------------------------------------------------------------------
-//--------------------AUSSEN WIND DIRECTION--------------------------------
-fbWindDirAussen
+//--------------------WETTER WIND DIRECTION--------------------------------
+fbWetterWindDir
 (
-	iInput		:= gvl_EA.iWIAA02_2,
-	tRefresh 	:= T#1S,
-	wOut	 	=> gvl_mb.Output_Registers[31]
+	iInput			:= gvl_EA.iWIAA02_2,
+	tRefresh 		:= T#1S,
+	diUppMeasureVal	:= 360,
+	diLowMeasureVal	:= 0,
+	diOut	 		=> gvl_ha.diWetterWINDdir
 );
 //-----------------------------------------------------------------------
 //--------------------WATER Regenmenge (1 = 0.3mm)-------------------
-fbWaterConsumption
+fbWaterRain
 (
 	bInput			:= gvl_EA.bWID02_2,
 	bAllFlanks 		:= FALSE,
 	rMultiplier		:= 0.3,
 	iFactor			:= 10,
 	wCountRetain	:= gvl_RETAIN.waterRain,
-	wOut			=> gvl_mb.Output_Registers[28]
+	wOut			=> gvl_ha.wWetterRAIN
+);
+
+gvl_ha.bWetterRAIN := gvl_ea.bWID02_3;
+//-----------------------------------------------------------------------
+//--------------------WETTER LUX--------------------------------
+fbWetterLUX
+(
+	iInput			:= gvl_EA.iWIAA02_3,
+	tRefresh 		:= T#10S,
+	diUppMeasureVal	:= 100000,
+	diLowMeasureVal	:= 0,
+	diOut	 		=> gvl_ha.diWetterLUX
 );
 //-----------------------------------------------------------------------]]></ST>
     </Implementation>
@@ -214,7 +237,9 @@ fbWaterConsumption
       <LineId Id="48" Count="0" />
       <LineId Id="110" Count="6" />
       <LineId Id="109" Count="0" />
-      <LineId Id="261" Count="6" />
+      <LineId Id="261" Count="4" />
+      <LineId Id="351" Count="1" />
+      <LineId Id="266" Count="1" />
       <LineId Id="260" Count="0" />
       <LineId Id="69" Count="6" />
       <LineId Id="67" Count="0" />
@@ -228,23 +253,32 @@ fbWaterConsumption
       <LineId Id="173" Count="0" />
       <LineId Id="189" Count="8" />
       <LineId Id="188" Count="0" />
-      <LineId Id="250" Count="8" />
+      <LineId Id="250" Count="4" />
+      <LineId Id="347" Count="1" />
+      <LineId Id="354" Count="0" />
+      <LineId Id="257" Count="1" />
       <LineId Id="249" Count="0" />
       <LineId Id="218" Count="4" />
       <LineId Id="227" Count="1" />
       <LineId Id="225" Count="1" />
       <LineId Id="217" Count="0" />
-      <LineId Id="271" Count="5" />
+      <LineId Id="271" Count="4" />
+      <LineId Id="328" Count="2" />
       <LineId Id="278" Count="0" />
       <LineId Id="277" Count="0" />
       <LineId Id="270" Count="0" />
       <LineId Id="291" Count="4" />
+      <LineId Id="326" Count="1" />
       <LineId Id="297" Count="1" />
       <LineId Id="290" Count="0" />
       <LineId Id="281" Count="4" />
       <LineId Id="299" Count="1" />
       <LineId Id="286" Count="2" />
+      <LineId Id="332" Count="0" />
+      <LineId Id="331" Count="0" />
       <LineId Id="280" Count="0" />
+      <LineId Id="334" Count="8" />
+      <LineId Id="333" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

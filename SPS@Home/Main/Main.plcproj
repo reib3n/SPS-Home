@@ -41,13 +41,7 @@
     <Compile Include="POUs\FB\FB_Convert_2co2.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB\FB_Convert_2Windspeed.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\FB\FB_Convert_2temp.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB\FB_Convert_2WindDir.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB\FB_Convert_2Zisterne.TcPOU">
