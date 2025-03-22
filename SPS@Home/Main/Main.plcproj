@@ -35,9 +35,6 @@
     <Compile Include="PLC1_Main.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB\FB_Convert_2relHum.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\FB\FB_Convert_2co2.TcPOU">
       <SubType>Code</SubType>
     </Compile>

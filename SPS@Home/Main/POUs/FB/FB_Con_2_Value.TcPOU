@@ -16,6 +16,7 @@ VAR_INPUT
 END_VAR
 VAR_OUTPUT
 	diOut			:	DINT;
+	wOut			:	WORD;
 END_VAR
 VAR
 	rX				:	REAL;
@@ -68,7 +69,8 @@ IF tonBlock.Q THEN
 		
 	END_IF
 	
-	diOut := REAL_TO_DINT(rX * iResultMulti);
+	diOut 	:= REAL_TO_DINT(rX * iResultMulti);
+	wOut	:= REAL_TO_WORD(rX * iResultMulti);
 	
 
 	
@@ -107,6 +109,7 @@ END_IF]]></ST>
       <LineId Id="175" Count="0" />
       <LineId Id="112" Count="0" />
       <LineId Id="45" Count="0" />
+      <LineId Id="241" Count="0" />
       <LineId Id="57" Count="0" />
       <LineId Id="97" Count="0" />
       <LineId Id="96" Count="0" />
