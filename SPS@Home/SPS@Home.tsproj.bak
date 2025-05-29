@@ -16,7 +16,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{5A72BEF0-3465-4215-A567-A1251881B791}" Name="Main" PrjFilePath="Main\Main.plcproj" TmcFilePath="Main\Main.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Main\Main.tmc" TmcHash="{B1945286-54A7-DEAB-1762-B6DEB1910C34}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Main\Main.tmc" TmcHash="{C73E4F43-2AA4-8806-3758-21DBBCECBFE5}">
 					<Name>Main Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -692,7 +692,7 @@
 						</Var>
 						<Var>
 							<Name>gvl_EA.bWOD01_3</Name>
-							<Comment><![CDATA[ Heizung Wärmeschrank]]></Comment>
+							<Comment><![CDATA[ Entfeuchter Werkstatt]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -702,7 +702,7 @@
 						</Var>
 						<Var>
 							<Name>gvl_EA.bWOD01_5</Name>
-							<Comment><![CDATA[ Heizer Werkstatt]]></Comment>
+							<Comment><![CDATA[ Ladegeräte Werkstatt]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -767,7 +767,7 @@
 						</Var>
 						<Var>
 							<Name>gvl_EA.bWOD02_2</Name>
-							<Comment><![CDATA[ ]]></Comment>
+							<Comment><![CDATA[ Ladegeräte Garage]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>

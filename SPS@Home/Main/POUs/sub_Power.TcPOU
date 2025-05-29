@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="sub_Power" Id="{b9be3092-8a4e-4bbc-8f3f-2431869a4bad}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM sub_Power
 VAR
@@ -12,6 +12,10 @@ VAR
 		fbPowerZisterne			:	FB_PowerSocket;
 		fbPowerSmartMirror		:	FB_PowerSocket;
 		fbPowerLEDBandWohn		:	FB_PowerSocket;
+		fbPowerLadeWerkstatt	:	FB_PowerSocket;
+		fbPowerLadeGarage		:	FB_PowerSocket;
+		fbPowerGaragenDach		:	FB_PowerSocket;
+		
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -93,6 +97,30 @@ fbPowerLEDBandWohn
 	bInputHA		:=	gvl_mb.Output_Coils[25],
 	bOut			=>	gvl_EA.bOD04_3,
 );
+//-------------------------------------------------------------------------
+
+//--------------------LADEGERÄTE WERKSTATT----------------------------------
+fbPowerLadeWerkstatt
+(
+	bInputHA		:=	gvl_mb.Output_Coils[27],
+	bOut			=>	gvl_EA.bWOD01_5,
+);
+//-------------------------------------------------------------------------
+
+//--------------------LADEGERÄTE GARAGE----------------------------------
+fbPowerLadeGarage
+(
+	bInputHA		:=	gvl_mb.Output_Coils[43],
+	bOut			=>	gvl_EA.bWOD02_2,
+);
+//-------------------------------------------------------------------------
+
+//--------------------STECKDOSE GARAGENDACH----------------------------------
+fbPowerGaragenDach
+(
+	bInputHA		:=	gvl_mb.Output_Coils[44],
+	bOut			=>	gvl_EA.bWOD02_3,
+);
 //-------------------------------------------------------------------------]]></ST>
     </Implementation>
     <LineIds Name="sub_Power">
@@ -124,6 +152,12 @@ fbPowerLEDBandWohn
       <LineId Id="194" Count="0" />
       <LineId Id="203" Count="6" />
       <LineId Id="202" Count="0" />
+      <LineId Id="226" Count="6" />
+      <LineId Id="225" Count="0" />
+      <LineId Id="234" Count="6" />
+      <LineId Id="233" Count="0" />
+      <LineId Id="242" Count="6" />
+      <LineId Id="241" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -146,9 +146,9 @@
 	//----------bWOD01-----------------------------------
 	bWOD01_1		AT	%Q*:BOOL;				// Licht Werkstatt ACHTUNG NC
 	bWOD01_2		AT	%Q*:BOOL;				// Strom Werkstatt
-	bWOD01_3		AT	%Q*:BOOL;				// Heizung Wärmeschrank
+	bWOD01_3		AT	%Q*:BOOL;				// Entfeuchter Werkstatt
 	bWOD01_4		AT	%Q*:BOOL;				// Lüfter UG
-	bWOD01_5		AT	%Q*:BOOL;				// Heizer Werkstatt
+	bWOD01_5		AT	%Q*:BOOL;				// Ladegeräte Werkstatt
 	bWOD01_6		AT	%Q*:BOOL;				// Garagentor Stellung Toggle
 	bWOD01_7		AT	%Q*:BOOL;				// Licht Garage
 	bWOD01_8		AT	%Q*:BOOL;				// Licht Überdachung
@@ -163,8 +163,8 @@
 	
 	//----------bWOD02-----------------------------------
 	bWOD02_1		AT	%Q*:BOOL;				// Türöffner Werkstatt-Tür
-	bWOD02_2		AT	%Q*:BOOL;				// 
-	bWOD02_3		AT	%Q*:BOOL;				// 
+	bWOD02_2		AT	%Q*:BOOL;				// Ladegeräte Garage
+	bWOD02_3		AT	%Q*:BOOL;				// Steckdose Garagendach
 	bWOD02_4		AT	%Q*:BOOL;				// 
 	bWOD02_5		AT	%Q*:BOOL;				// 
 	bWOD02_6		AT	%Q*:BOOL;				// 

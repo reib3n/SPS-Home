@@ -40,7 +40,7 @@ Output_Coils[23] 	- 1023 <- Strom Zisternenpumpe
 Output_Coils[24] 	- 1024 <- Strom SmartMirror
 Output_Coils[25] 	- 1025 <- Wohnzimmer Steckdose LED-Band
 Output_Coils[26] 	- 1026 <- Lüfter Werkstatt
-Output_Coils[27] 	- 1027 <- Strom Heizung Werkstatt
+Output_Coils[27] 	- 1027 <- Strom Ladegeräte Werkstatt
 Output_Coils[28] 	- 1028 <- Aussenbeleuchtung Treppe Süd
 Output_Coils[29] 	- 1029 <- Eingang Bewegungsmelder Treppe Süd
 Output_Coils[30] 	- 1030 <- Licht Garage
@@ -55,9 +55,9 @@ Output_Coils[38] 	- 1038 <- Garagentor Stellung AUF impuls
 Output_Coils[39] 	- 1039 <- Garagentor Stellung AB impuls
 Output_Coils[40] 	- 1040 <- Garagentor Stellung 1/2 impuls
 Output_Coils[41] 	- 1041 <- Türöffner Werkstatt
-Output_Coils[42] 	- 1042 <-
-Output_Coils[43] 	- 1043 <- 
-Output_Coils[44] 	- 1044 <- 
+Output_Coils[42] 	- 1042 <- Entfeuchter Werkstatt
+Output_Coils[43] 	- 1043 <- Strom Ladegeräte Garage
+Output_Coils[44] 	- 1044 <- Steckdose Garagendach
 
 ########################----FENSTER / TÜRKONTAKTE----################
 Output_coils[200]	- 1200 <- Fenster 	EG 	BAD
